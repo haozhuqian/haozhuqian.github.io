@@ -4,13 +4,56 @@
   
   
   <entry>
+    <title>打卡day2</title>
+    <link href="/2023/01/11/%E6%89%93%E5%8D%A1day2/"/>
+    <url>/2023/01/11/%E6%89%93%E5%8D%A1day2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="反思摸鱼的一天"><a href="#反思摸鱼的一天" class="headerlink" title="反思摸鱼的一天"></a>反思摸鱼的一天</h1><h2 id="干了什么"><a href="#干了什么" class="headerlink" title="干了什么"></a>干了什么</h2><p>今天没有实际性产出，上午在微信QQ群之间八卦，下午洗澡收拾家里，晚上被朋友约出去剃头。</p><h2 id="感觉如何"><a href="#感觉如何" class="headerlink" title="感觉如何"></a>感觉如何</h2><p>就这样碌碌无为地度过了一天，感觉更焦虑了一点，但其实也不是很意外。</p><h2 id="为什么会这样"><a href="#为什么会这样" class="headerlink" title="为什么会这样"></a>为什么会这样</h2><p>自从放假以来，睡眠一向不规律，晚上经常一两点睡觉，甚至四五点，睡到接近中午才起床，经常这样子，感觉这不太好。那么从今晚就改了吧（试试十二点睡）。</p><p>自从自己感染新冠之后，只有前两天症状很重，第二周时大概只有咳嗽了，但一周半都没有好，前些日子才好起来。而我在这几乎三周里都没有洗澡没有出门，很折磨，所以今天迫不及待地洗澡换衣服收拾房间，大晚上还出去朋友家坐了一会，虽然感觉不学习的一天有些焦虑，但真的很想和朋友见面，出门呼吸清凉的风，痛痛快快洗个澡。偶尔这样似乎也不坏，毕竟劳逸结合嘛。</p><h2 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h2><p>需要调整作息，从早睡早起开始，不至于一整天没有时间干正事。</p><p>可以适当地放松，如果焦虑的话，明天就加把劲干。</p><h2 id="明天要做的"><a href="#明天要做的" class="headerlink" title="明天要做的"></a>明天要做的</h2><p>回顾《 JavaScript 高级程序设计》第2章和第3章，做好笔记，看字节青训营的开营直播，适当记录。看之前那个网易云网页项目，尝试完善，回顾vue。</p><p>就是这样~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>摸鱼</tag>
+      
+      <tag>反思</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>打卡day1</title>
     <link href="/2023/01/10/%E6%89%93%E5%8D%A1day1/"/>
     <url>/2023/01/10/%E6%89%93%E5%8D%A1day1/</url>
     
-    <content type="html"><![CDATA[<h2 id="项目运行报错总结"><a href="#项目运行报错总结" class="headerlink" title="项目运行报错总结"></a>项目运行报错总结</h2><p>试图运行从gitee上扒下来的源码（网址<a href="https://gitee.com/PengGeee/vue_cloud_music?_from=gitee_search">vue_cloud_music: 【vue全家桶练习项目】仿网易云音乐客户端，(gitee.com)</a>）出现过以下问题</p><h3 id="下载依赖报错"><a href="#下载依赖报错" class="headerlink" title="下载依赖报错"></a>下载依赖报错</h3><ol><li>error:0308010C:digital envelope routines::unsupported</li></ol><p>原因是nodejs17版本的部分破坏性更新，参考链接：<a href="https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported">node.js - Error message “error:0308010C:digital envelope routines::unsupported” - Stack Overflow</a></p><p>解决方案：利用nvm切换node版本为16.+</p><ol start="2"><li>npm ERR! code ERESOLVE npm ERR! ERESOLVE could not resolve</li></ol><p>原因是npm版本与nodejs不对应</p><p>解决方案：<strong>npm 配置集旧版-对等-对等值设置为 true</strong></p><p>即运行命令行：npm config set legacy-peer-deps true</p><h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><p>登录时账号密码错误无反馈，明天改</p><h2 id="第五届字节跳动青训营"><a href="#第五届字节跳动青训营" class="headerlink" title="第五届字节跳动青训营"></a>第五届字节跳动青训营</h2><p>1月7日 的时候经历了一场笔试，选择都不难，问答题问vue与react的区别特点有点不妙，之前没了解过react；两道算法题一道是判断回文，一道是最长无重复项字符串，前一道题用例有百分之二十多没过，怎么改都没过，没想明白，本来感觉完了，今天下午发邮件通知过了，很开心。</p><p>下午花了些时间找队友，简单聊了聊，在掘金遇到了有缘人加了微信。</p><p>12日 就要正式开营了，有点紧张。</p><h2 id="JavaScript高级程序设计"><a href="#JavaScript高级程序设计" class="headerlink" title="JavaScript高级程序设计"></a>JavaScript高级程序设计</h2><p>今天看的不多，中途去搞青训营的事了，简单了解了一下 JS 的发展，没有看到太多干货，明天从第二章重新开始看吧，一边看一边做笔记吧。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="今天的一丁点学习"><a href="#今天的一丁点学习" class="headerlink" title="今天的一丁点学习"></a>今天的一丁点学习</h1><h2 id="项目运行报错总结"><a href="#项目运行报错总结" class="headerlink" title="项目运行报错总结"></a>项目运行报错总结</h2><p>试图运行从gitee上扒下来的源码（网址<a href="https://gitee.com/PengGeee/vue_cloud_music?_from=gitee_search">vue_cloud_music: 【vue全家桶练习项目】仿网易云音乐客户端，(gitee.com)</a>）出现过以下问题</p><h3 id="下载依赖报错"><a href="#下载依赖报错" class="headerlink" title="下载依赖报错"></a>下载依赖报错</h3><ol><li>error:0308010C:digital envelope routines::unsupported</li></ol><p>原因是nodejs17版本的部分破坏性更新，参考链接：<a href="https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported">node.js - Error message “error:0308010C:digital envelope routines::unsupported” - Stack Overflow</a></p><p>解决方案：利用nvm切换node版本为16.+</p><ol start="2"><li>npm ERR! code ERESOLVE npm ERR! ERESOLVE could not resolve</li></ol><p>原因是npm版本与nodejs不对应</p><p>解决方案：<strong>npm 配置集旧版-对等-对等值设置为 true</strong></p><p>即运行命令行：npm config set legacy-peer-deps true</p><h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><p>登录时账号密码错误无反馈，明天改</p><h2 id="第五届字节跳动青训营"><a href="#第五届字节跳动青训营" class="headerlink" title="第五届字节跳动青训营"></a>第五届字节跳动青训营</h2><p>1月7日 的时候经历了一场笔试，选择都不难，问答题问vue与react的区别特点有点不妙，之前没了解过react；两道算法题一道是判断回文，一道是最长无重复项字符串，前一道题用例有百分之二十多没过，怎么改都没过，没想明白，本来感觉完了，今天下午发邮件通知过了，很开心。</p><p>下午花了些时间找队友，简单聊了聊，在掘金遇到了有缘人加了微信。</p><p>12日 就要正式开营了，有点紧张。</p><h2 id="JavaScript高级程序设计"><a href="#JavaScript高级程序设计" class="headerlink" title="JavaScript高级程序设计"></a>JavaScript高级程序设计</h2><p>今天看的不多，中途去搞青训营的事了，简单了解了一下 JS 的发展，没有看到太多干货，明天从第二章重新开始看吧，一边看一边做笔记吧。</p><p>就是这样~</p>]]></content>
     
     
+    <categories>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>第一个百日计划</tag>
+      
+      <tag>字节青训营</tag>
+      
+      <tag>JavaScript高级程序设计</tag>
+      
+    </tags>
     
   </entry>
   
@@ -18,12 +61,26 @@
   
   <entry>
     <title>第一篇个人博客</title>
-    <link href="/2023/01/10/hello-world/"/>
-    <url>/2023/01/10/hello-world/</url>
+    <link href="/2023/01/10/%E6%89%93%E5%8D%A1day0/"/>
+    <url>/2023/01/10/%E6%89%93%E5%8D%A1day0/</url>
     
-    <content type="html"><![CDATA[<p>现在是个人博客网站搭建好第145天，说来惭愧，自从大一暑假心血来潮用hexo在github上搭好以后就没有再关注过这里，直到这学期寒假才想起这回事。</p><p>很久都没有写文档了，Markdown也有点手生了，正好是还算一月初，浅浅回顾一下去年的学习。</p><p>首先就是感觉自己学的不是很扎实，大一下半学期没有好好学，vue全家桶只是堪堪会用，后来也没有真正手写过一整个项目，就很生疏，时间就匆匆忙忙随随便便过去了。</p><p>下半年就是书院招新，带新生，以及抽时间补了一点暑假没有好好学的后端基础（所谓全栈~），下半年似乎过得很快（事实上也很短），猝不及防地回到家，心惊胆战地考完了期末考试，就到了现在。</p><p>前段时间还染了新冠，难受了好一段时间，现在也好的差不多啦，现在要做的就是明确方向地跑起来！</p><p>按理来说，现在已经是准备面试的阶段了，一年半的大学最近半年才算是有点方向，最近做一个仿网易云项目练手，顺便巩固基础，学习新知，准备下个学期面一些日常实习，现在我的问题很多，计网，算法都不熟，有人这个年级已经在造轮子啦，我还是个切图仔~，现在就是要力扣刷起来，计网学起来，看红宝书巩固巩固我那点js，项目做完会继续完善下去，部署到服务器，整个流程至少走一遍。</p><p>博客会逐渐完善起来的，现在就是要踏实下来，不能得过且过，（堕落的日子一定要结束的！），大胆地定下第一个百日计划，在从今天起的百日内开始面试。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="努力不再碌碌无为"><a href="#努力不再碌碌无为" class="headerlink" title="努力不再碌碌无为"></a>努力不再碌碌无为</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在是个人博客网站搭建好第145天，说来惭愧，自从大一暑假心血来潮用hexo在github上搭好以后就没有再关注过这里，直到这学期寒假才想起这回事。同时也很久都没有写文档了，Markdown也有点手生了，正好是还算一月初，浅浅回顾一下去年的学习。</p><h2 id="上半年"><a href="#上半年" class="headerlink" title="上半年"></a>上半年</h2><p>首先就是感觉自己学的不是很扎实，大一下半学期没有好好学，vue全家桶只是堪堪会用，后来也没有真正手写过一整个项目，就很生疏，时间就匆匆忙忙随随便便过去了。暑假时忙着自己出去玩，没有好好看nodejs相关。</p><h2 id="下半年"><a href="#下半年" class="headerlink" title="下半年"></a>下半年</h2><p>下半年就是书院招新，带新生，以及抽时间补了一点暑假没有好好学的后端基础（所谓全栈~），下半年似乎过得很快（事实上也很短），猝不及防地回到家，心惊胆战地考完了期末考试，就到了现在。前段时间还染了新冠，难受了好一段时间，现在也好的差不多啦，现在要做的就是明确方向地跑起来！</p><h2 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h2><p>按理来说，现在已经是准备面试的阶段了，一年半的大学最近半年才算是有点方向，最近做一个仿网易云项目练手，顺便巩固基础，学习新知，准备下个学期面一些日常实习，现在我的问题很多，计网，算法都不熟，有人这个年级已经在造轮子啦，我还是个切图仔~。</p><h2 id="未来"><a href="#未来" class="headerlink" title="未来"></a>未来</h2><p>现在就是要力扣刷起来，计网学起来，看红宝书巩固巩固我那点js，项目做完会继续完善下去，部署到服务器，整个流程至少走一遍。博客会逐渐完善起来的，现在就是要踏实下来，不能得过且过，（堕落的日子一定要结束的！），大胆地定下第一个百日计划，在从今天起的百日内开始面试。</p><p>就是这样~</p>]]></content>
     
     
+    <categories>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>第一个百日计划</tag>
+      
+      <tag>总结</tag>
+      
+    </tags>
     
   </entry>
   
