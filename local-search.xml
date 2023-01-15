@@ -4,6 +4,56 @@
   
   
   <entry>
+    <title>打卡day6</title>
+    <link href="/2023/01/15/%E6%89%93%E5%8D%A1day6/"/>
+    <url>/2023/01/15/%E6%89%93%E5%8D%A1day6/</url>
+    
+    <content type="html"><![CDATA[<h1 id="青训营的第一天"><a href="#青训营的第一天" class="headerlink" title="青训营的第一天"></a>青训营的第一天</h1><h2 id="课程"><a href="#课程" class="headerlink" title="课程"></a>课程</h2><p>今天的课程只是了解CSS与HTML，学到的新东西不多，但还是做了一点点笔记，希望可以养成习惯吧。</p><p>还有一个重要原因就是参与活动有小奖品，而且青训营的结营证书似乎也需要参加这个活动才行。</p><h2 id="思考生活"><a href="#思考生活" class="headerlink" title="思考生活"></a>思考生活</h2><p>最近几天的学习效率一直不高，经常学着什么就打岔去看别的东西了，这种状态不佳，同时临近过年，家里也多多少少要帮忙干点活的，时间可能确实不多。</p><p>同时放假在家也只是一个人，没有一起的人总是很容易自己放纵自己，“等一等再做吧？反正也没什么”这种想法很容易产生，很容易看看视频，玩一会游戏而度过大半个下午，剩下的零碎时间又被各种小时分散，真正学习的时间很可能就只有大半夜，但这终究是恶性循环，颠倒时差。</p><p>组队群里最近并没有什么讨论，大项目依然一筹莫展，这就是注定会落下的达摩克利斯之剑，而开学后还有新学期的课程，蓝桥杯，以及书院学员的项目审评等等工作要做。有点头疼。</p><p>最近打字愈发熟练了，但还是经常卡壳。前两天朋友送了个小加湿器和玩偶作为我的生日礼物，放在我的床头和案边，时常激励我。</p><p>近两天才发现掘金活动的奖品并不累计，所以可能我应该不会再进行阅读打卡了。</p><p>踏实的学习才能让人安心，我现在越发地体会到自己学识的浅薄，很多事情我知道自己可以做，但很不熟练，还有一些已经记不清了。</p><h2 id="报错解决"><a href="#报错解决" class="headerlink" title="报错解决"></a>报错解决</h2><p>今天有个朋友问了我一个报错：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">unable to access ‘https://github.com/***.git‘: OpenSSL SSL_read: Connection was reset, errno 10054<br></code></pre></td></tr></table></figure><p>最后解决了，原因不过是网络不佳。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>字节青训营</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>前端入门 - 基础语言篇</title>
+    <link href="/2023/01/15/%E5%89%8D%E7%AB%AF%E5%85%A5%E9%97%A8-%E5%9F%BA%E7%A1%80%E8%AF%AD%E8%A8%80%E7%AF%87/"/>
+    <url>/2023/01/15/%E5%89%8D%E7%AB%AF%E5%85%A5%E9%97%A8-%E5%9F%BA%E7%A1%80%E8%AF%AD%E8%A8%80%E7%AF%87/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前端与HTML"><a href="#前端与HTML" class="headerlink" title="前端与HTML"></a>前端与HTML</h2><h3 id="什么是前端工程师"><a href="#什么是前端工程师" class="headerlink" title="什么是前端工程师"></a>什么是前端工程师</h3><p>使用web技术栈解决多端图形用户界面交互的人。</p><h4 id="基本技术栈"><a href="#基本技术栈" class="headerlink" title="基本技术栈"></a>基本技术栈</h4><p>HTML（内容），CSS（样式），JavaScript（行为）</p><h4 id="关注什么"><a href="#关注什么" class="headerlink" title="关注什么"></a>关注什么</h4><ul><li>功能，满足基本的需求。</li><li>美观，没有人不爱美的事物。</li><li>无障碍，考虑到所有人的体验。</li><li>安全，保护信息，隐私等。</li><li>性能，加载速度快，运行流畅。</li><li>兼容，不同浏览器，不同设备都有良好的体验。</li></ul><h4 id="技术发展"><a href="#技术发展" class="headerlink" title="技术发展"></a>技术发展</h4><p>开发服务端引用，开发前端应用，游戏等等，需要我们持续地学习。</p><h4 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h4><p>只需要基本的浏览器和编辑器，入门简单。</p><h3 id="HTML介绍"><a href="#HTML介绍" class="headerlink" title="HTML介绍"></a>HTML介绍</h3><p>HyperText Markup Language（超文本标记语言），在此不多赘述。</p><p>代码第一行为：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!doctype <span class="hljs-keyword">html</span>&gt;</span><br></code></pre></td></tr></table></figure><p>标记了当前使用的HTML文件的HTML版本，如果不写，浏览器将会以一种老旧的“怪异模式”去渲染页面，影响页面展示效果。</p><p>浏览器解析HTML时，会先将文件解析为DOM树，包含文档中的所有节点与对于父子关系。</p><h4 id="语法建议"><a href="#语法建议" class="headerlink" title="语法建议"></a>语法建议</h4><ul><li>虽然标签与属性并不区分大小写，但推荐书写原生标签时使用小写，而在使用自定义组件时使用大写，便于项目维护与多人开发。</li><li>属性值推荐使用双引号包裹</li><li>某些值仅为 true 或 false 的属性，在为true时可以不写属性值。</li></ul><h4 id="一些不熟的标签"><a href="#一些不熟的标签" class="headerlink" title="一些不熟的标签"></a>一些不熟的标签</h4><h5 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h5><p>除常见的有序列表（ol）与无序列表（ul）外还有一种列表定义列表（dl）可以表示一些属性名（dt）与属性值（dd）可以一对多或者多对一。</p><h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><ul><li>&lt;blockquote&gt;标签，块级引用（长引用），cite属性可以表示文字来源。</li><li>&lt;cite&gt;标签，短引用，多用于表示作品名，章节等的引用。</li><li>&lt;q&gt;标签，引用前文，多用于表示引用的具体文字。</li><li>&lt;code&gt;标签，引用短代码。</li><li>&lt;pre&gt;标签内加&lt;code&gt;标签，引用多行代码。</li></ul><h5 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h5><p>常用的有header标签，nav标签，aside标签，main标签，article标签，footer标签等等。</p><p>开发当中应当尽可能遵循语义书写，优点如下</p><ul><li>便于其他开发者维护，修改。</li><li>便于搜索引擎提取关键字与排序等。</li><li>便于用户使用。</li><li>便于盲人的屏幕阅读器识别等等。</li></ul><p>HTML的意义在于传递内容，而非样式，不可以为了某个特定样式而使用不合适的语义标签。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>青训营笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>HTML</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>打卡day5</title>
     <link href="/2023/01/14/%E6%89%93%E5%8D%A1day5/"/>
     <url>/2023/01/14/%E6%89%93%E5%8D%A1day5/</url>
