@@ -24,7 +24,7 @@
 <meta property="og:description" content="跟着月影学JS">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-16T14:13:44.000Z">
-<meta property="article:modified_time" content="2023-01-16T15:59:57.818Z">
+<meta property="article:modified_time" content="2023-01-17T07:56:31.631Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary_large_image">
@@ -318,7 +318,7 @@
 <p>月影老师举了一个简单的例子，一个昼夜模式切换的按钮的实现：</p>
 <p>首先最简单的就是按钮绑定点击事件，修改背景颜色与文字颜色属性与按钮图标，但这与我们的设计原则有了冲突，几应当尽量实现样式与行为分离。</p>
 <p>这时我们尝试进行优化，我们添加一个 night 类表示夜间模式的样式，点击事件仅修改body元素的样式类，这样的方式，将类作为一种状态，通过 JS 修改页面状态，是一个不错的思路。</p>
-<p>而更好更彻底的做法呢，则是利 CSS 本身的伪类checked与兄弟选择器去修改CSS属性，将样式与行为彻底分离，实现了零JS实现。这种思维方式值得学习。</p>
+<p>而更好更彻底的做法呢，则是利 CSS 本身的伪类  checked 与兄弟选择器去修改CSS属性，将样式与行为彻底分离，实现了零JS实现。这种思维方式值得学习。</p>
 <h2 id="组件封装"><a href="#组件封装" class="headerlink" title="组件封装"></a>组件封装</h2><p>组件时指从 web 页面上抽离出的一个个包含模板，样式，行为的单元。</p>
 <p>好的组件应当具有封装性，正确性，扩展性，复用性。</p>
 <h3 id="基本设计方法"><a href="#基本设计方法" class="headerlink" title="基本设计方法"></a>基本设计方法</h3><ul>
