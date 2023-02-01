@@ -4,6 +4,56 @@
   
   
   <entry>
+    <title>打卡day12</title>
+    <link href="/2023/02/01/%E6%89%93%E5%8D%A1day12/"/>
+    <url>/2023/02/01/%E6%89%93%E5%8D%A1day12/</url>
+    
+    <content type="html"><![CDATA[<h1 id="新的一年开始啦"><a href="#新的一年开始啦" class="headerlink" title="新的一年开始啦"></a>新的一年开始啦</h1><p>今天是正月十一，过了十天的年假，要继续开始学习啦。</p><p>随着一月的结束，字节校园的每一日题打卡活动也结束啦，接下来的重点就在于在时间截止前完成项目。</p><p>今天简单的雨欣了项目主分支的文档页和测试页，花一些时间解决了几个报错（至少能跑起来了）。同组的伙伴以及实现了很多个组件，我也该开始干活啦。</p><p>其实我本来前两就不再串门走亲访友了，但确实懒得干活，出去逛了两天，很开心。但项目迫在眉睫，我也确实该收心了。</p><p>青训营送了一个月的掘金会员，我也要乘机用起来，看看掘金小册什么的，笔记活动也要继续更新起来了。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>生活</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>青训营答疑直播记录</title>
+    <link href="/2023/01/31/%E9%9D%92%E8%AE%AD%E8%90%A5%E7%AD%94%E7%96%91%E7%9B%B4%E6%92%AD%E8%AE%B0%E5%BD%95/"/>
+    <url>/2023/01/31/%E9%9D%92%E8%AE%AD%E8%90%A5%E7%AD%94%E7%96%91%E7%9B%B4%E6%92%AD%E8%AE%B0%E5%BD%95/</url>
+    
+    <content type="html"><![CDATA[<h1 id="青训营答疑直播记录"><a href="#青训营答疑直播记录" class="headerlink" title="青训营答疑直播记录"></a>青训营答疑直播记录</h1><h2 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h2><h3 id="刷力扣"><a href="#刷力扣" class="headerlink" title="刷力扣"></a>刷力扣</h3><p>对面试有一定帮助，应当有目的的刷。</p><p>大概刷到什么程度？</p><p>面前端需要的数据结构算法等熟悉即可，本科教材中除了图之外的数据结构，排序，等等熟悉，不需要过度钻研太难的题。</p><h3 id="掘金课程"><a href="#掘金课程" class="headerlink" title="掘金课程"></a>掘金课程</h3><p>建议多看一看，多了解自己比较适合什么。</p><h3 id="八股文"><a href="#八股文" class="headerlink" title="八股文"></a>八股文</h3><p>最基础的部分必须要会，有必要背，比较偏门底层的东西可以凭自己的兴趣了解，对面试会很有帮助。</p><h3 id="框架与原生"><a href="#框架与原生" class="headerlink" title="框架与原生"></a>框架与原生</h3><p>都很主要，面对业务开发必须了解框架，更深入定制话的需求则需要了解框架构成，或者自己造轮子，都会用到原生JS。</p><p>框架原理可以在有一定的使用经验时去了解。</p><h3 id="冷门html标签"><a href="#冷门html标签" class="headerlink" title="冷门html标签"></a>冷门html标签</h3><p>大多简单了解即可，不必专门深入。</p><h3 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h3><p>很重要，不仅仅给人看，还在给搜索引擎，爬虫看，对搜索的优化比较重要。</p><h3 id="HTML5规范"><a href="#HTML5规范" class="headerlink" title="HTML5规范"></a>HTML5规范</h3><p>不需要专门去记，因为它的规范比较简单，同时浏览器兼容了许多不规范的写法，所以不必专门记。</p><h3 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h3><p>改变外部环境的函数就是有副作用的函数。尽量不要出现这种写法。</p><h3 id="看源码"><a href="#看源码" class="headerlink" title="看源码"></a>看源码</h3><p>很多框架，库之类的源码会有一定的复杂度，最好一步一步从某个功能开始看，循序渐进。同时需要一定前置知识。</p><h3 id="webpack掌握"><a href="#webpack掌握" class="headerlink" title="webpack掌握"></a>webpack掌握</h3><p>没有一个确定的标准，是一个比较偏向八股文的东西，但不太需要详细了解核心原理，手写复刻什么的。</p><h3 id="推荐学习"><a href="#推荐学习" class="headerlink" title="推荐学习"></a>推荐学习</h3><p>js，算法，操作系统，计算机底层原理，编译原理。</p><h3 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h3><p>写起来很爽，读起来很痛。</p><h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><p>不应当简单地看教程</p><p>应当在看源码，或者自己实现时应用或者理解。</p><h3 id="css动画"><a href="#css动画" class="headerlink" title="css动画"></a>css动画</h3><p>基本掌握即可，不必掌握太多。</p><h3 id="额外学习"><a href="#额外学习" class="headerlink" title="额外学习"></a>额外学习</h3><p>有必要学习JS，TS以外的语言</p><p>例如Java，go，rust等等。</p><h2 id="专题分享"><a href="#专题分享" class="headerlink" title="专题分享"></a>专题分享</h2><p>作为IT从业人员，经常会看到数据结构与算法的字眼，甚至有专门刷题的教程等等。但这次分享更关注于通过案例说明数据结构与算法的意义。</p><p>通常在项目开发中，我们经常可以发现，自己的代码在整个项目中占比很小，更多的部分实际上是第三方库的代码，这可以让原本复杂的逻辑得到简化、</p><p>而那些复杂的逻辑，就必然会涉及到数据结构与算法的知识，同时也有很多已经有很多封装好的第三方库，只需要进行简单的调用。</p><p>虽然如此，这并不意味着不再需要数据结构与算法的学习，因为总会有找不到合适的解决方案的，此时就需要自己造轮子等等。</p><h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h4 id="遍历文件"><a href="#遍历文件" class="headerlink" title="遍历文件"></a>遍历文件</h4><p>递归是很多算法实现的基础，也是新手进阶的门槛。实现了深度优先算法。常见的应用有</p><ul><li>页面侧边栏</li><li>文件树</li></ul><p>等等。</p><h4 id="AST解析器"><a href="#AST解析器" class="headerlink" title="AST解析器"></a>AST解析器</h4><p>词法分析与语法分析</p><p>先将代码拆分为词法单元，本质上是对字符串的扫描并根据词法规则分组。</p><p>语法解析，遍历词法单元，构造出一个完整的对象树结构。本质</p><p>上是在构造一个栈，不断入栈并检查栈内元素。</p><p>参考链接：</p><ul><li><a href="https://github.com/sanyuan0704/juejin-book-vite/tree/main/ast-parser">简易Babel Parser实现</a></li><li><a href="https://zhuanlan.zhihu.com/p/338772106">一百来行 JS 写个玩具 HTML Parser - 知乎 </a></li></ul><h4 id="模块打包器"><a href="#模块打包器" class="headerlink" title="模块打包器"></a>模块打包器</h4><p>Bundler是前端工程化的核心，本身复杂度就很高，在这里简单介绍一下背后的原理。</p><ul><li>依赖图建立</li><li>循环依赖分析</li></ul><p>首先通过AST解析器从入口开始分析模块的依赖，然后构造出完整的模块依赖。构建出一个图，检查其中是否存在循环依赖，涉及到拓扑排序，也会用在Monorepo工具命令的调度。</p><p>扩展：</p><ul><li><a href="https://github.com/sanyuan0704/juejin-book-vite/tree/main/bundler">简易bundler实现</a></li><li><a href="https://zhuanlan.zhihu.com/p/491391823">tree shaking原理</a></li><li><a href="https://zhuanlan.zhihu.com/p/491391823">tree shaking问题排查指南 - 知乎 (zhihu.com)</a></li></ul><h4 id="缓存淘汰"><a href="#缓存淘汰" class="headerlink" title="缓存淘汰"></a>缓存淘汰</h4><ul><li>SSR缓存</li><li>vue的keepAlive组件</li><li>webpack中对loader的结构进行缓存</li></ul><p>缓存过多会导致服务稳定性问题，一般会设置一个阈值，常用的LRU算法（最近最少使用原则），把最近使用频率最低的节点删除。</p><p>扩展资料：</p><p>- </p><h4 id="相似命令提示"><a href="#相似命令提示" class="headerlink" title="相似命令提示"></a>相似命令提示</h4><p>命令行输错命令时，给出提示，告诉他最接近是命令是什么</p><p>这个功能基于最小编辑距离算法实现</p><p>扩展</p><p>- </p><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>以上的场景都用到了算法解决实际的问题，前端也需要一定的数据结构算法只是，同时也有工具链，可视化，跨端等等细分领域。</p><p>课件，数据结构与算法是一门长期学习的学科，需要长期的积累与思考。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>青训营笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>字节青训营</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>打卡day11</title>
     <link href="/2023/01/20/%E6%89%93%E5%8D%A1day11/"/>
     <url>/2023/01/20/%E6%89%93%E5%8D%A1day11/</url>
@@ -101,9 +151,9 @@
       
       <tag>字节青训营</tag>
       
-      <tag>报错</tag>
-      
       <tag>生活</tag>
+      
+      <tag>报错</tag>
       
     </tags>
     
