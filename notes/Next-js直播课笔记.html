@@ -16,22 +16,24 @@
   <meta name="author" content="Mr.Good">
   <meta name="keywords" content="郝祝乾的博客">
   
-    <meta name="description" content="个人学习生活记录">
+    <meta name="description" content="简单讲解了Next.js的用法。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://haozhuqian.github.io/tags/index.html">
+<meta property="og:title" content="Next.js直播课笔记">
+<meta property="og:url" content="http://haozhuqian.github.io/notes/Next-js%E7%9B%B4%E6%92%AD%E8%AF%BE%E7%AC%94%E8%AE%B0">
 <meta property="og:site_name" content="GoodMoney的小窝">
-<meta property="og:description" content="个人学习生活记录">
+<meta property="og:description" content="简单讲解了Next.js的用法。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-02T10:30:43.000Z">
+<meta property="article:modified_time" content="2023-02-21T10:12:19.121Z">
 <meta property="article:author" content="Mr.Good">
-<meta property="article:tag" content="郝祝乾的博客">
+<meta property="article:tag" content="字节青训营">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>标签 - GoodMoney的小窝</title>
+  <title>Next.js直播课笔记 - GoodMoney的小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -217,7 +219,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="标签"></span>
+            <span id="subtitle" data-typed-text="Next.js直播课笔记"></span>
           
         </div>
 
@@ -248,9 +250,89 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="text-center tagcloud">
-  <a href="/tags/%E4%BA%91%E9%A1%B6%E4%B9%A6%E9%99%A2/" style="font-size: 15px; color: #bbe">云顶书院</a> <a href="/tags/%E6%96%87%E6%A1%A3%E8%A7%84%E8%8C%83/" style="font-size: 15px; color: #bbe">文档规范</a>
-</div>
+<article class="page-content">
+  <h1 id="Next-js直播课笔记"><a href="#Next-js直播课笔记" class="headerlink" title="Next.js直播课笔记"></a>Next.js直播课笔记</h1><h2 id="网页应用"><a href="#网页应用" class="headerlink" title="网页应用"></a>网页应用</h2><h3 id="B端应用"><a href="#B端应用" class="headerlink" title="B端应用"></a>B端应用</h3><p>供内部用户使用。不会连接外网。</p>
+<p>一般挂在内网，或者仅供内部用户使用。不会连接外网。</p>
+<h3 id="C端应用"><a href="#C端应用" class="headerlink" title="C端应用"></a>C端应用</h3><p>连接外网，联网即可用。</p>
+<h2 id="渲染方式"><a href="#渲染方式" class="headerlink" title="渲染方式"></a>渲染方式</h2><h3 id="CSR"><a href="#CSR" class="headerlink" title="CSR"></a>CSR</h3><p>客户端渲染。常见B端web应用开发，前后端分离，服务器压力轻，渲染工作在客户端进行。服务器仅仅返回不加工的HTML供后续访问。这个HTML中几乎不会有任何元素，仅仅包含所需的引用，在客户端进行渲染。</p>
+<h3 id="SSR"><a href="#SSR" class="headerlink" title="SSR"></a>SSR</h3><p>服务器端渲染。代码耦合度高，多种语言混杂在模板中，维护比较困难。</p>
+<h4 id="同构SSR"><a href="#同构SSR" class="headerlink" title="同构SSR"></a>同构SSR</h4><p>BFF 服务于前端应用的后端。是一个服务，通常不会直接操作数据，一般是前后端的中介，可以提高大型项目的可维护性与可复用性。</p>
+<p>前后端一体化，一套代码在服务器上运行一遍，到达浏览器端也会渲染一遍，前后端都会参与渲染，而且首次渲染出的HTML要一样。</p>
+<h3 id="SSG"><a href="#SSG" class="headerlink" title="SSG"></a>SSG</h3><p>静态站点生成。构建时直接把结果页面HTML输出并保存，每次访问直接返回HTML，相当于一个静态资源，无法实现与用户相关数据交互，每个人看到的页面都一样。（这个博客就是这样产生的）。可以减轻服务器压力，只要直接访问CDN上的静态资源。</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><h4 id="SSR-SSG更利于SEO"><a href="#SSR-SSG更利于SEO" class="headerlink" title="SSR,SSG更利于SEO"></a>SSR,SSG更利于SEO</h4><p>SEO（搜索引擎优化），搜索引擎爬虫可以了解网页内信息，曝光需要的内容，影响搜索结果排序。CSR由于网页内容需要在客户端才能渲染，就无法被爬虫找到内容。</p>
+<h4 id="SSR-SSG首屏时间更短，"><a href="#SSR-SSG首屏时间更短，" class="headerlink" title="SSR,SSG首屏时间更短，"></a>SSR,SSG首屏时间更短，</h4><p>因为只需要请求一个HTML文件而非大量JS文件，由于服务器间访问远快于客户端访问，所以通常CSR要慢一些。</p>
+<h2 id="next-js"><a href="#next-js" class="headerlink" title="next.js"></a>next.js</h2><p>更好更快地开发SSR，SSG项目。是基于Node.js的开源Web开发框架，支持基于React的Web应用程序功能，例如服务端渲染与生成静态网页。</p>
+<p>解决了许多原本服务端渲染的痛点。</p>
+<h3 id="SSR的实现，"><a href="#SSR的实现，" class="headerlink" title="SSR的实现，"></a>SSR的实现，</h3><p>核心在于 ”同构“ ，也就是说客户端与服务端都会做一样的事情，保证二者渲染预期相同。</p>
+<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><p>仓库网址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/czm1290433700/ssr-server">https://github.com/czm1290433700/ssr-server</a></p>
+<p>为什么客户端与服务端要保持一致，否则没有办法保证一些事件的触发。</p>
+<h5 id="脱水与注水"><a href="#脱水与注水" class="headerlink" title="脱水与注水"></a>脱水与注水</h5><p>在服务器端返回模板页面中会将初始化数据抽离，而客户端渲染时会再次注入，以达到页面与服务器端保持一致。</p>
+<h5 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npx create-next-app@latest --typescript<br></code></pre></td></tr></table></figure>
+
+<p>next-env.d.ts确保ts编译器选择Next.js类型，可以放入gitignore中，不需要变更。</p>
+<p>next.config.js文件，是nextjs的配置，可以补充webpack的一些配置。比如补充一些别名。</p>
+<h4 id="客户端开发"><a href="#客户端开发" class="headerlink" title="客户端开发"></a>客户端开发</h4><h5 id="demo仓库"><a href="#demo仓库" class="headerlink" title="demo仓库"></a>demo仓库</h5><ul>
+<li>CMS仓库地址：<a target="_blank" rel="noopener" href="https://github.com/czm1290433700/nextjs-cms">https://github.com/czm1290433700/nextjs-cms</a></li>
+<li>Demo仓库地址：<a target="_blank" rel="noopener" href="https://github.com/czm1290433700/nextjs-demo">https://github.com/czm1290433700/nextjs-demo</a></li>
+</ul>
+<p>node.js16+运行</p>
+<h5 id="数据注入"><a href="#数据注入" class="headerlink" title="数据注入"></a>数据注入</h5><p>getInintialProps</p>
+<p>ssr,运行于服务端，但如果有内部跳转的操作走的仍然是客户端路由，而直接访问时仍然走服务端路由。</p>
+<p>getServerSideProps</p>
+<p>ssr,全都在服务端走。</p>
+<p>getStaticProps</p>
+<p>ssg，会遍历所有资源全部注入存入vpn</p>
+<h5 id="CSS模块"><a href="#CSS模块" class="headerlink" title="CSS模块"></a>CSS模块</h5><p>Next.js支持使用文件命名约定的CSS模块。[name].module.css</p>
+<h5 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h5><p>通过在入口文件导入layout，可以实现每一个页面公共的页眉页脚。</p>
+<h5 id="文件式路由"><a href="#文件式路由" class="headerlink" title="文件式路由"></a>文件式路由</h5><p>Next.js有一个基于页面概念的基于文件系统的路由器。当一个文件被添加到pages目录中时，它会自动作为一个可用路径。</p>
+<p>预定义路由优先级更高，它能匹配就不会分发给下面的动态路由。原生方法跳转性能不如它。</p>
+<h5 id="大图优化"><a href="#大图优化" class="headerlink" title="大图优化"></a>大图优化</h5><p>webp格式体积小一些但渲染时间长一点点，同时要检查当前浏览器是否支持。</p>
+<h5 id="CSS适配"><a href="#CSS适配" class="headerlink" title="CSS适配"></a>CSS适配</h5><p>在不同设备尺寸下，修改使用的css样式。</p>
+<h5 id="JS适配"><a href="#JS适配" class="headerlink" title="JS适配"></a>JS适配</h5><p>在不同的设备下组件结构有很大的改变，使用JS进行操作。</p>
+<h4 id="服务端开发"><a href="#服务端开发" class="headerlink" title="服务端开发"></a>服务端开发</h4><h5 id="BFF层开发"><a href="#BFF层开发" class="headerlink" title="BFF层开发"></a>BFF层开发</h5><p>类似于Express，区别在于并没有参数可以直接区别请求类型。</p>
+<h5 id="Strapi-headless-CMS"><a href="#Strapi-headless-CMS" class="headerlink" title="Strapi - headless CMS"></a>Strapi - headless CMS</h5><p>仓库：<a target="_blank" rel="noopener" href="https://github.com/strapi/strapi">https://github.com/strapi/strapi</a></p>
+<p>初始化：npx create-strapi-app my-project –quickstart</p>
+<p>一个接口的生成有以下几个过程：</p>
+<ol>
+<li>content-type builder 编辑结构体。</li>
+<li>content manager 配置数据源，并且发布。</li>
+<li>settings roles 里选择对应角色并勾选要发布的接口类型。</li>
+<li>如果涉及嵌套，在接口后加上 populate&#x3D;deep 参数（npm install strapi-plugin-populate-deep –save），没安装加参数 populate&#x3D;*，但只能嵌套一层。</li>
+</ol>
+<h4 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h4><p>首页功能</p>
+<ol>
+<li>页面&amp;动画&amp;多媒体适配</li>
+<li>BFF</li>
+<li>Strapi</li>
+</ol>
+<p>文章页实现</p>
+<ol>
+<li>页面&amp;动画&amp;多媒体适配</li>
+<li>BFF</li>
+<li>Strapi分页（&#x2F;api&#x2F;articles?pagination[page]&#x3D;1&amp;pagination[pageSize]&#x3D;10 &#x2F;&#x2F; 按十个一页返回第一页数据）</li>
+<li>多媒体格式的转换</li>
+</ol>
+<ul>
+<li>Markdown 转 html：npm install showdown –save</li>
+<li>html 转 dom：dangerouslySetlnnerHTML</li>
+<li>公共样式的定义</li>
+</ul>
+<h5 id="主体化功能实现"><a href="#主体化功能实现" class="headerlink" title="主体化功能实现"></a>主体化功能实现</h5><ol>
+<li>基础样式和背景的抽离</li>
+<li>主题haulcontext全局注入</li>
+<li>从注入数据中取出theme和setTheme</li>
+<li>多进程间主题同步</li>
+</ol>
+<p>小知识：<a href="http://localhost:300与http://127.0.0.1:3000不可以共享主题，因为这是跨域操作。">http://localhost:300与http://127.0.0.1:3000不可以共享主题，因为这是跨域操作。</a></p>
+<p>就是这样 ~</p>
+
+
+  
+
+</article>
+
+
 
               </div>
             </div>

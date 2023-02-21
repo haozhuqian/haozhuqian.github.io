@@ -16,22 +16,24 @@
   <meta name="author" content="Mr.Good">
   <meta name="keywords" content="郝祝乾的博客">
   
-    <meta name="description" content="个人学习生活记录">
+    <meta name="description" content="简述了什么是作用域，简单了解编译过程，了解了 RHS 与 LHS 的概念。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://haozhuqian.github.io/tags/index.html">
+<meta property="og:title" content="作用域是什么">
+<meta property="og:url" content="http://haozhuqian.github.io/notes/%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%98%AF%E4%BB%80%E4%B9%88">
 <meta property="og:site_name" content="GoodMoney的小窝">
-<meta property="og:description" content="个人学习生活记录">
+<meta property="og:description" content="简述了什么是作用域，简单了解编译过程，了解了 RHS 与 LHS 的概念。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-21T08:11:07.000Z">
+<meta property="article:modified_time" content="2023-02-21T10:16:47.200Z">
 <meta property="article:author" content="Mr.Good">
-<meta property="article:tag" content="郝祝乾的博客">
+<meta property="article:tag" content="你不知道的JavaScript">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>标签 - GoodMoney的小窝</title>
+  <title>作用域是什么 - GoodMoney的小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -217,7 +219,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="标签"></span>
+            <span id="subtitle" data-typed-text="作用域是什么"></span>
           
         </div>
 
@@ -248,9 +250,51 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="text-center tagcloud">
-  <a href="/tags/%E4%BA%91%E9%A1%B6%E4%B9%A6%E9%99%A2/" style="font-size: 15px; color: #bbe">云顶书院</a> <a href="/tags/%E6%96%87%E6%A1%A3%E8%A7%84%E8%8C%83/" style="font-size: 15px; color: #bbe">文档规范</a>
-</div>
+<article class="page-content">
+  <h1 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h1><h2 id="1-1编译原理"><a href="#1-1编译原理" class="headerlink" title="1.1编译原理"></a>1.1编译原理</h2><p>传统的编译语言流程中，源代码执行前会经历三个步骤，统称为编译。</p>
+<h3 id="1-词法分析"><a href="#1-词法分析" class="headerlink" title="1.词法分析"></a>1.词法分析</h3><p>将源代码根据解析规则分解为被称为词法单元的代码块，</p>
+<h3 id="2-语法分析"><a href="#2-语法分析" class="headerlink" title="2.语法分析"></a>2.语法分析</h3><p>将词法单元流（数组）转换成一个由元素逐级嵌套组成的代表了程序语法结构的树，被称为抽象语法树（AST）。</p>
+<h3 id="3-代码生成"><a href="#3-代码生成" class="headerlink" title="3.代码生成"></a>3.代码生成</h3><p>将AST转换为机器指令，这个过程与语言平台息息相关。</p>
+<p>相比之下，JS引擎会更复杂，由于JS的编译往往发生在执行前几微秒。因此不会有太多时间进行优化，所以JS编译过程并不是发生在构建之前的。JS引擎用了很多办法保证性能最佳。</p>
+<h2 id="1-2理解作用域"><a href="#1-2理解作用域" class="headerlink" title="1.2理解作用域"></a>1.2理解作用域</h2><p>对于变量的赋值操作，有两个步骤</p>
+<ol>
+<li>遇到变量声明，编译器会在作用域中查询，是否存在这一变量名，如果存在，编译器就会忽略这条声明，否则将在当前作用域集合中声明这个变量名。</li>
+<li>接着编译器会生成引擎运行所需的代码，以处理赋值操作。引擎运行时会先查询作用域，当前作用域中是否有这个变量名，如果有，就使用这个变量名，否则继续查询。</li>
+</ol>
+<p>在第二步中，引擎执行编译器生成的代码时，查询变量是否已经声明，这个过程涉及到了作用域，但查询方式有两种。</p>
+<h3 id="LHS"><a href="#LHS" class="headerlink" title="LHS"></a>LHS</h3><p>左值查询，寻找这个变量名，找到这个容器。</p>
+<h3 id="RLS"><a href="#RLS" class="headerlink" title="RLS"></a>RLS</h3><p>右值查询或者说非左值查询，寻找这个变量值，找到这个内容。</p>
+<p>对于函数的调用也会对函数名进行 RHS 查询，同时函数参数传递也是隐性的赋值操作，会进行 LHS 查询。</p>
+<p>内置对象的引用也需要进行 RHS 查询。</p>
+<p>例如以下案例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">a</span>) &#123; <br> <span class="hljs-keyword">var</span> b = a; <br> <span class="hljs-keyword">return</span> a + b; <br>&#125; <br><span class="hljs-keyword">var</span> c = <span class="hljs-title function_">foo</span>( <span class="hljs-number">2</span> );<br></code></pre></td></tr></table></figure>
+
+<p>这里有 3 处 LHS 查询。</p>
+<ul>
+<li>c &#x3D; ..</li>
+<li>a &#x3D; 2（隐式变量分配）</li>
+<li>b &#x3D; ..</li>
+</ul>
+<p>有 4 处 RHS 查询。</p>
+<ul>
+<li>foo( 2..</li>
+<li>&#x3D; a</li>
+<li>a ..</li>
+<li>.. b</li>
+</ul>
+<h2 id="1-3作用域嵌套"><a href="#1-3作用域嵌套" class="headerlink" title="1.3作用域嵌套"></a>1.3作用域嵌套</h2><p>LHS 与 RLS 查询在当前作用域没有找到时，都会逐级向上查询，直到查询到顶层作用域（全局作用域），此时无论有没有找到，查询都会停止。</p>
+<h2 id="1-4异常"><a href="#1-4异常" class="headerlink" title="1.4异常"></a>1.4异常</h2><p>一般情况下 RHS 查询无果，会抛出 ReferenceError 异常，LHS 查询无果，则会在全局作用域下创建这个变量名并返回。</p>
+<p>在严格模式下，LHS 查询无果也会抛出 ReferenceError 异常。</p>
+<p>接下来，如果在 RHS 查询时，对这个值进行不合理的操作，则会抛出 TypeErrow 异常。</p>
+<p>ReferenceError 异常与作用域判别失败有关，TypeErrow 则代表作用域判别成功，但对结果操作不合法。</p>
+<p>就是这样 ~</p>
+
+
+  
+
+</article>
+
+
 
               </div>
             </div>
