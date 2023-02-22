@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>不知JS - 上卷 - 第1部分 - 附录C - this词法</title>
+    <link href="/2023/02/22/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E9%99%84%E5%BD%95C%20-%20this%E8%AF%8D%E6%B3%95/"/>
+    <url>/2023/02/22/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E9%99%84%E5%BD%95C%20-%20this%E8%AF%8D%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<h1 id="this词法"><a href="#this词法" class="headerlink" title="this词法"></a>this词法</h1><p>ES6 添加了一个特殊的语法形式用于函数声明，叫作箭头函数。它看起来是下面这样的：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title function_">foo</span> = a =&gt; &#123; <br> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <br>&#125;; <br><span class="hljs-title function_">foo</span>( <span class="hljs-number">2</span> ); <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure><p>经常被当做 function 关键字的简写。但它还大有用处。例如：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123; <br> <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;awesome&quot;</span>, <br> <span class="hljs-attr">cool</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">coolFn</span>(<span class="hljs-params"></span>) &#123; <br> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> ); <br> &#125; <br>&#125;; <br>obj.<span class="hljs-title function_">cool</span>(); <span class="hljs-comment">// awesome </span><br><span class="hljs-built_in">setTimeout</span>( obj.<span class="hljs-property">cool</span>, <span class="hljs-number">100</span> ); <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure><p>这个问题在于 cool() 函数丢失了同 this 之间的绑定。解决这个问题有好几种办法，但最常用的就是 var self &#x3D; this;</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123; <br> <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <br> <span class="hljs-attr">cool</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">coolFn</span>(<span class="hljs-params"></span>) &#123; <br> <span class="hljs-keyword">var</span> self = <span class="hljs-variable language_">this</span>; <br> <span class="hljs-keyword">if</span> (self.<span class="hljs-property">count</span> &lt; <span class="hljs-number">1</span>) &#123; <br> <span class="hljs-built_in">setTimeout</span>( <span class="hljs-keyword">function</span> <span class="hljs-title function_">timer</span>(<span class="hljs-params"></span>)&#123; <br> self.<span class="hljs-property">count</span>++; <br> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&quot;awesome?&quot;</span> ); <br> &#125;, <span class="hljs-number">100</span> ); <br> &#125; <br> &#125; <br>&#125;; <br>obj.<span class="hljs-title function_">cool</span>(); <span class="hljs-comment">// awesome?</span><br></code></pre></td></tr></table></figure><p>var self &#x3D; this 这种解决方案圆满解决了理解和正确使用 this 绑定的问题，并且没有把问题过于复杂化，它使用的是我们非常熟悉的工具：词法作用域。self 只是一个可以通过词法作用域和闭包进行引用的标识符，不关心 this 绑定的过程中发生了什么。</p><p>ES6 中的箭头函数引入了一个叫作 this 词法的行为：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123; <br> <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <br> <span class="hljs-attr">cool</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">coolFn</span>(<span class="hljs-params"></span>) &#123; <br> <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> &lt; <span class="hljs-number">1</span>) &#123; <br> <span class="hljs-built_in">setTimeout</span>( <span class="hljs-function">() =&gt;</span> &#123; <span class="hljs-comment">// 箭头函数是什么鬼东西？</span><br> <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span>++; <br> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&quot;awesome?&quot;</span> ); <br> &#125;, <span class="hljs-number">100</span> ); <br> &#125; <br> &#125; <br>&#125;; <br>obj.<span class="hljs-title function_">cool</span>(); <span class="hljs-comment">// awesome?</span><br></code></pre></td></tr></table></figure><p>简单来说，箭头函数在涉及 this 绑定时的行为和普通函数的行为完全不一致。它放弃了所有普通 this 绑定的规则，取而代之的是用当前的词法作用域覆盖了 this 本来的值。</p><p>因此，这个代码片段中的箭头函数并非是以某种不可预测的方式同所属的 this 进行了解绑定，而只是“继承”了 cool() 函数的 this 绑定（因此调用它并不会出错）。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>你不知道的JavaScript</tag>
+      
+      <tag>作用域和闭包</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>不知JS - 上卷 - 第1部分 - 附录A - 动态作用域</title>
+    <link href="/2023/02/22/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E9%99%84%E5%BD%95A%20-%20%E5%8A%A8%E6%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F/"/>
+    <url>/2023/02/22/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E9%99%84%E5%BD%95A%20-%20%E5%8A%A8%E6%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    
+    <content type="html"><![CDATA[<h1 id="动态作用域"><a href="#动态作用域" class="headerlink" title="动态作用域"></a>动态作用域</h1><p>JavaScript 中的作用域就是词法作用域（事实上大部分语言都是基于词法作用域的）。词法作用域是一套关于引擎如何寻找变量以及会在何处找到变量的规则。词法作用域最重要的特征是它的定义过程发生在代码的书写阶段</p><p>动态作用域似乎暗示有很好的理由让作用域作为一个在运行时就被动态确定的形式，而不是在写代码时进行静态确定的形式，事实上也是这样的。我们通过示例代码来说明：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 2 </span><br>&#125; <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params"></span>) &#123; <br> <span class="hljs-keyword">var</span> a = <span class="hljs-number">3</span>; <br> <span class="hljs-title function_">foo</span>(); <br>&#125; <br><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>; <br><span class="hljs-title function_">bar</span>();<br></code></pre></td></tr></table></figure><p>词法作用域让 foo() 中的 a 通过 RHS 引用到了全局作用域中的 a，因此会输出 2。而动态作用域并不关心函数和作用域是如何声明以及在何处声明的，只关心它们从何处调用。换句话说，作用域链是基于调用栈的，而不是代码中的作用域嵌套。</p><p>因此，如果 JavaScript 具有动态作用域，理论上，下面代码中的 foo() 在执行时将会输出 3。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 3（不是 2 ！）</span><br>&#125; <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params"></span>) &#123; <br> <span class="hljs-keyword">var</span> a = <span class="hljs-number">3</span>; <br> <span class="hljs-title function_">foo</span>(); <br>&#125; <br><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>; <br><span class="hljs-title function_">bar</span>();<br></code></pre></td></tr></table></figure><p>为什么会这样？因为当 foo() 无法找到 a 的变量引用时，会顺着调用栈在调用 foo() 的地方查找 a，而不是在嵌套的词法作用域链中向上查找。由于 foo() 是在 bar() 中调用的，引擎会检查 bar() 的作用域，并在其中找到值为 3 的变量 a。</p><p>事实上 JavaScript 并不具有动态作用域。它只有词法作用域，简单明了。但是 this 机制某种程度上很像动态作用域。</p><p>主要区别：词法作用域是在写代码或者说定义时确定的，而动态作用域是在运行时确定的。（this 也是！）词法作用域关注函数在何处声明，而动态作用域关注函数从何处调用。最后，this 关注函数如何调用，这就表明了 this 机制和动态作用域之间的关系多么紧密。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>你不知道的JavaScript</tag>
+      
+      <tag>作用域和闭包</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>打卡day17</title>
     <link href="/2023/02/22/%E6%89%93%E5%8D%A1day17/"/>
     <url>/2023/02/22/%E6%89%93%E5%8D%A1day17/</url>
@@ -616,9 +670,9 @@
     
     <tags>
       
-      <tag>文档规范</tag>
-      
       <tag>云顶书院</tag>
+      
+      <tag>文档规范</tag>
       
     </tags>
     
