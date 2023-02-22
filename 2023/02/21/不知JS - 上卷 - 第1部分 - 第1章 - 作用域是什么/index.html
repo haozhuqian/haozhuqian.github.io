@@ -16,27 +16,25 @@
   <meta name="author" content="Mr.Good">
   <meta name="keywords" content="郝祝乾的博客">
   
-    <meta name="description" content="简述了什么是词法作用域，以及欺骗词法作用域的两种机制（不要使用）">
+    <meta name="description" content="简述了什么是作用域，简单了解编译过程，了解了 RHS 与 LHS 的概念。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="词法作用域">
-<meta property="og:url" content="http://haozhuqian.github.io/2023/02/21/%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F/index.html">
+<meta property="og:title" content="不知JS - 上卷 - 第1部分 - 第1章 - 作用域是什么">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/02/21/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E7%AC%AC1%E7%AB%A0%20-%20%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%98%AF%E4%BB%80%E4%B9%88/index.html">
 <meta property="og:site_name" content="GoodMoney的小窝">
-<meta property="og:description" content="简述了什么是词法作用域，以及欺骗词法作用域的两种机制（不要使用）">
+<meta property="og:description" content="简述了什么是作用域，简单了解编译过程，了解了 RHS 与 LHS 的概念。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302211905408.png">
-<meta property="article:published_time" content="2023-02-21T10:02:54.000Z">
-<meta property="article:modified_time" content="2023-02-21T13:33:01.011Z">
+<meta property="article:published_time" content="2023-02-21T08:11:07.000Z">
+<meta property="article:modified_time" content="2023-02-22T12:13:05.517Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="你不知道的JavaScript">
 <meta property="article:tag" content="作用域和闭包">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302211905408.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>词法作用域 - GoodMoney的小窝</title>
+  <title>不知JS - 上卷 - 第1部分 - 第1章 - 作用域是什么 - GoodMoney的小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -228,7 +226,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="词法作用域"></span>
+            <span id="subtitle" data-typed-text="不知JS - 上卷 - 第1部分 - 第1章 - 作用域是什么"></span>
           
         </div>
 
@@ -239,8 +237,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-21 18:02" pubdate>
-          2023年2月21日 晚上
+        <time datetime="2023-02-21 16:11" pubdate>
+          2023年2月21日 下午
         </time>
       </span>
     
@@ -251,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          1k 字
         
       </span>
     
@@ -262,7 +260,7 @@
         
         
         
-          21 分钟
+          9 分钟
         
       </span>
     
@@ -310,52 +308,47 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">词法作用域</h1>
+            <h1 style="display: none">不知JS - 上卷 - 第1部分 - 第1章 - 作用域是什么</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h1><p>作用域有有两种工作模型，词法作用域与动态作用域，后者不太常用，这里主要了解前者。</p>
-<h2 id="2-1词法阶段"><a href="#2-1词法阶段" class="headerlink" title="2.1词法阶段"></a>2.1词法阶段</h2><p>大部分的标准语言编译器第一个工作阶段叫做词法化。这个过程中会对源代码中的字符经常检查，如果是有状态的解析过程，还会赋予单词语义。</p>
-<p><strong>词法作用域</strong>就是定义在词法阶段的作用域，或者说就是在你写代码时将变量和块作用域写在哪里来决定，因此词法分析器处理代码时作用域也不会变（大部分情况）。</p>
-<p>举个例子</p>
-<p><img src="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302211905408.png" srcset="/img/loading.gif" lazyload alt="image-20230221190458315"></p>
-<p>在这个例子中可以看做有三层逐级嵌套的作用域。</p>
-<p>1 包含着整个全局作用域，其中只有一个标识符：foo。</p>
-<p>2 包含着 foo 所创建的作用域，其中有三个标识符：a、bar 和 b。</p>
-<p>3 包含着 bar 所创建的作用域，其中只有一个标识符：c。</p>
-<p>作用域气泡由其对应的作用域块代码写在哪里决定，它们是逐级包含的。不存在一个函数的作用域气泡同时出现在两个外部作用域气泡中。</p>
-<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>作用域查找会在找到第一个匹配的标识符时停止。在多层嵌套作用域中内部与外部标识符同名时，外部标识符无法被访问。</p>
-<p>作用域查找始终从最内部作用域开始，逐层向外查询，直到找到匹配的标识符。</p>
-<p>全局变量会自动成为全局对象的属性，因此可以用对全局对象的属性引用来访问被屏蔽的全局变量，但非全局的被屏蔽变量无论如何都无法被内部访问。</p>
-<p>无论函数在哪里被调用，也无论它如何被调用，它的词法作用域都只由函数被声明时所处</p>
-<p>的位置决定。</p>
-<p>词法作用域查找只会查找一级标识符，比如 a、b 和 c。如果代码中引用了 foo.bar.baz，词法作用域查找只会试图查找 foo 标识符，找到这个变量后，对象属性访问规则会分别接管对 bar 和 baz 属性的访问。</p>
-<h2 id="2-2欺骗词法"><a href="#2-2欺骗词法" class="headerlink" title="2.2欺骗词法"></a>2.2欺骗词法</h2><p>JS中有两种机制实现欺骗词法作用域，这并不被推荐，同时这也会导致性能下降。</p>
-<h3 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h3><p>JS中的 eval(..) 函数可以结合搜一个字符串作为参数，并且将其中的内容视为好像在书写时就存在于程序中这个位置的代码。或者说，可以在你的代码中用程序生成代码并运行，就好像是之前写好的一样。这个函数一般被用来执行动态创建代码。</p>
-<p>例如</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">str, a</span>) &#123; <br> 	<span class="hljs-built_in">eval</span>( str ); <span class="hljs-comment">// 欺骗！</span><br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a, b ); <br>&#125; <br><span class="hljs-keyword">var</span> b = <span class="hljs-number">2</span>; <br><span class="hljs-title function_">foo</span>( <span class="hljs-string">&quot;var b = 3;&quot;</span>, <span class="hljs-number">1</span> ); <span class="hljs-comment">// 1, 3</span><br></code></pre></td></tr></table></figure>
+                <h1 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h1><h2 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h2><p>传统的编译语言流程中，源代码执行前会经历三个步骤，统称为编译。</p>
+<h3 id="1-词法分析"><a href="#1-词法分析" class="headerlink" title="1.词法分析"></a>1.词法分析</h3><p>将源代码根据解析规则分解为被称为词法单元的代码块，</p>
+<h3 id="2-语法分析"><a href="#2-语法分析" class="headerlink" title="2.语法分析"></a>2.语法分析</h3><p>将词法单元流（数组）转换成一个由元素逐级嵌套组成的代表了程序语法结构的树，被称为抽象语法树（AST）。</p>
+<h3 id="3-代码生成"><a href="#3-代码生成" class="headerlink" title="3.代码生成"></a>3.代码生成</h3><p>将AST转换为机器指令，这个过程与语言平台息息相关。</p>
+<p>相比之下，JS引擎会更复杂，由于JS的编译往往发生在执行前几微秒。因此不会有太多时间进行优化，所以JS编译过程并不是发生在构建之前的。JS引擎用了很多办法保证性能最佳。</p>
+<h2 id="1-2理解作用域"><a href="#1-2理解作用域" class="headerlink" title="1.2理解作用域"></a>1.2理解作用域</h2><p>对于变量的赋值操作，有两个步骤</p>
+<ol>
+<li>遇到变量声明，编译器会在作用域中查询，是否存在这一变量名，如果存在，编译器就会忽略这条声明，否则将在当前作用域集合中声明这个变量名。</li>
+<li>接着编译器会生成引擎运行所需的代码，以处理赋值操作。引擎运行时会先查询作用域，当前作用域中是否有这个变量名，如果有，就使用这个变量名，否则继续查询。</li>
+</ol>
+<p>在第二步中，引擎执行编译器生成的代码时，查询变量是否已经声明，这个过程涉及到了作用域，但查询方式有两种。</p>
+<h3 id="LHS"><a href="#LHS" class="headerlink" title="LHS"></a>LHS</h3><p>左值查询，寻找这个变量名，找到这个容器。</p>
+<h3 id="RLS"><a href="#RLS" class="headerlink" title="RLS"></a>RLS</h3><p>右值查询或者说非左值查询，寻找这个变量值，找到这个内容。</p>
+<p>对于函数的调用也会对函数名进行 RHS 查询，同时函数参数传递也是隐性的赋值操作，会进行 LHS 查询。</p>
+<p>内置对象的引用也需要进行 RHS 查询。</p>
+<p>例如以下案例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">a</span>) &#123; <br> 	<span class="hljs-keyword">var</span> b = a; <br> 	<span class="hljs-keyword">return</span> a + b; <br>&#125; <br><span class="hljs-keyword">var</span> c = <span class="hljs-title function_">foo</span>( <span class="hljs-number">2</span> );<br></code></pre></td></tr></table></figure>
 
-<p>这段代码中，由于传入的字符串创建了一个内部变量 b 屏蔽了外层作用域中的 b，实际上修改了 foo(..)的词法作用域。</p>
-<p>默认情况下，如果 eval(..) 中所执行的代码包含有一个或多个声明（无论是变量还是函数），就会对 eval(..) 所处的词法作用域进行修改。</p>
-<p>在严格模式的程序中，eval(..) 在运行时有其自己的词法作用域，意味着其中的声明无法修改所在的作用域。</p>
-<p>例如</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">str</span>) &#123; <br> 	<span class="hljs-string">&quot;use strict&quot;</span>; <br> 	<span class="hljs-built_in">eval</span>( str ); <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// ReferenceError: a is not defined</span><br> &#125; <br> <span class="hljs-title function_">foo</span>( <span class="hljs-string">&quot;var a = 2&quot;</span> );<br></code></pre></td></tr></table></figure>
-
-<p>JavaScript 中 还 有 其 他 一 些 功 能 效 果 和 eval(..) 很 相 似。setTimeout(..) 和setInterval(..) 的第一个参数可以是字符串，字符串的内容可以被解释为一段动态生成的函数代码。这些功能已经过时且并不被提倡。不要使用它们！</p>
-<p>new Function(..) 函数的行为也很类似，最后一个参数可以接受代码字符串，并将其转化为动态生成的函数（前面的参数是这个新生成的函数的形参）。这种构建函数的语法比eval(..) 略微安全一些，但也要尽量避免使用。</p>
-<p>在程序中动态生成代码的使用场景非常罕见，因为它所带来的好处无法抵消性能上的损失。</p>
-<h3 id="with"><a href="#with" class="headerlink" title="with"></a>with</h3><p>with关键字可以将一个对象处理为一个完全隔离的词法作用域，这个对象的属性将会被处理为定义在这个定义域中的词法标识符。</p>
-<p>举例</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">obj</span>) &#123; <br> 	<span class="hljs-keyword">with</span> (obj) &#123; <br> 		a = <span class="hljs-number">2</span>; <br> 	&#125; <br>&#125; <br><span class="hljs-keyword">var</span> o1 = &#123; <br> 	<span class="hljs-attr">a</span>: <span class="hljs-number">3</span> <br>&#125;; <br><span class="hljs-keyword">var</span> o2 = &#123; <br> 	<span class="hljs-attr">b</span>: <span class="hljs-number">3</span> <br>&#125;; <br><span class="hljs-title function_">foo</span>( o1 ); <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( o1.<span class="hljs-property">a</span> ); <span class="hljs-comment">// 2 </span><br><span class="hljs-title function_">foo</span>( o2 ); <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( o2.<span class="hljs-property">a</span> ); <span class="hljs-comment">// undefined </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 2——不好，a 被泄漏到全局作用域上了！</span><br></code></pre></td></tr></table></figure>
-
-<p>可见，with 声明实际上是根据你传递给它的对象凭空创建了一个全新的词法作用域。</p>
-<p>当我们传递 o1 给 with 时，with 所声明的作用域是 o1，而这个作用域中含有一个同 o1.a 属性相符的标识符。</p>
-<p>但当我们将 o2 作为作用域时，其中并没有 a 标识符，因此进行了正常的 LHS 标识符查找。查到全局都没有找到这个标识符，因此创建了一个全局变量。</p>
-<p>在严格模式中，with 被完全禁止，而在保留核心功能的前提下，间接或非安全地使用eval(..) 也被禁止了。因此不推荐使用这两种机制。</p>
-<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>JavaScript 引擎会在编译阶段进行数项的性能优化。其中有些优化依赖于能够根据代码的词法进行静态分析，并预先确定所有变量和函数的定义位置，才能在执行过程中快速找到标识符。但如果引擎在代码中发现了 eval(..) 或 with，它只能简单地假设关于标识符位置的判断都是无效的，因为无法在词法分析阶段明确知道 eval(..) 会接收到什么代码，这些代码会如何对作用域进行修改，也无法知道传递给 with 用来创建新词法作用域的对象的内容到底是什么。</p>
-<p>最悲观的情况是如果出现了 eval(..) 或 with，所有的优化可能都是无意义的，因此最简单的做法就是完全不做任何优化。</p>
-<p>如果代码中大量使用 eval(..) 或 with，那么运行起来一定会变得非常慢。无论引擎多聪明，试图将这些悲观情况的副作用限制在最小范围内，也无法避免如果没有这些优化，代码会运行得更慢这个事实。</p>
+<p>这里有 3 处 LHS 查询。</p>
+<ul>
+<li>c &#x3D; ..</li>
+<li>a &#x3D; 2（隐式变量分配）</li>
+<li>b &#x3D; ..</li>
+</ul>
+<p>有 4 处 RHS 查询。</p>
+<ul>
+<li>foo( 2..</li>
+<li>&#x3D; a</li>
+<li>a ..</li>
+<li>.. b</li>
+</ul>
+<h2 id="1-3作用域嵌套"><a href="#1-3作用域嵌套" class="headerlink" title="1.3作用域嵌套"></a>1.3作用域嵌套</h2><p>LHS 与 RLS 查询在当前作用域没有找到时，都会逐级向上查询，直到查询到顶层作用域（全局作用域），此时无论有没有找到，查询都会停止。</p>
+<h2 id="1-4异常"><a href="#1-4异常" class="headerlink" title="1.4异常"></a>1.4异常</h2><p>一般情况下 RHS 查询无果，会抛出 ReferenceError 异常，LHS 查询无果，则会在全局作用域下创建这个变量名并返回。</p>
+<p>在严格模式下，LHS 查询无果也会抛出 ReferenceError 异常。</p>
+<p>接下来，如果在 RHS 查询时，对这个值进行不合理的操作，则会抛出 TypeErrow 异常。</p>
+<p>ReferenceError 异常与作用域判别失败有关，TypeErrow 则代表作用域判别成功，但对结果操作不合法。</p>
 <p>就是这样 ~</p>
 
                 
@@ -404,8 +397,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>词法作用域</div>
-      <div>http://haozhuqian.github.io/2023/02/21/词法作用域/</div>
+      <div>不知JS - 上卷 - 第1部分 - 第1章 - 作用域是什么</div>
+      <div>http://haozhuqian.github.io/2023/02/21/不知JS - 上卷 - 第1部分 - 第1章 - 作用域是什么/</div>
     </div>
     <div class="license-meta">
       
@@ -447,9 +440,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/02/21/%E6%89%93%E5%8D%A1day16/" title="打卡day16">
+                      <a href="/2023/02/21/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E7%AC%AC2%E7%AB%A0%20-%20%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F/" title="不知JS - 上卷 - 第1部分 - 第2章 - 词法作用域">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">打卡day16</span>
+                        <span class="hidden-mobile">不知JS - 上卷 - 第1部分 - 第2章 - 词法作用域</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -457,8 +450,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/02/21/%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%98%AF%E4%BB%80%E4%B9%88/" title="作用域是什么">
-                        <span class="hidden-mobile">作用域是什么</span>
+                      <a href="/2023/02/20/%E6%89%93%E5%8D%A1day15/" title="打卡day15">
+                        <span class="hidden-mobile">打卡day15</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

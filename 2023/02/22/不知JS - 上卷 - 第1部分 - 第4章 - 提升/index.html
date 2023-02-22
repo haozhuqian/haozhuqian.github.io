@@ -16,15 +16,15 @@
   <meta name="author" content="Mr.Good">
   <meta name="keywords" content="郝祝乾的博客">
   
-    <meta name="description" content="简述了什么是作用域，简单了解编译过程，了解了 RHS 与 LHS 的概念。">
+    <meta name="description" content="理解声明的提升">
 <meta property="og:type" content="article">
-<meta property="og:title" content="作用域是什么">
-<meta property="og:url" content="http://haozhuqian.github.io/2023/02/21/%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%98%AF%E4%BB%80%E4%B9%88/index.html">
+<meta property="og:title" content="不知JS - 上卷 - 第1部分 - 第4章 - 提升">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/02/22/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E7%AC%AC4%E7%AB%A0%20-%20%E6%8F%90%E5%8D%87/index.html">
 <meta property="og:site_name" content="GoodMoney的小窝">
-<meta property="og:description" content="简述了什么是作用域，简单了解编译过程，了解了 RHS 与 LHS 的概念。">
+<meta property="og:description" content="理解声明的提升">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-21T08:11:07.000Z">
-<meta property="article:modified_time" content="2023-02-21T12:22:08.095Z">
+<meta property="article:published_time" content="2023-02-22T05:23:57.000Z">
+<meta property="article:modified_time" content="2023-02-22T12:13:52.405Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="你不知道的JavaScript">
 <meta property="article:tag" content="作用域和闭包">
@@ -34,7 +34,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>作用域是什么 - GoodMoney的小窝</title>
+  <title>不知JS - 上卷 - 第1部分 - 第4章 - 提升 - GoodMoney的小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -226,7 +226,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="作用域是什么"></span>
+            <span id="subtitle" data-typed-text="不知JS - 上卷 - 第1部分 - 第4章 - 提升"></span>
           
         </div>
 
@@ -237,8 +237,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-21 16:11" pubdate>
-          2023年2月21日 下午
+        <time datetime="2023-02-22 13:23" pubdate>
+          2023年2月22日 下午
         </time>
       </span>
     
@@ -249,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          2.1k 字
         
       </span>
     
@@ -260,7 +260,7 @@
         
         
         
-          9 分钟
+          18 分钟
         
       </span>
     
@@ -308,47 +308,63 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">作用域是什么</h1>
+            <h1 style="display: none">不知JS - 上卷 - 第1部分 - 第4章 - 提升</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h1><h2 id="1-1编译原理"><a href="#1-1编译原理" class="headerlink" title="1.1编译原理"></a>1.1编译原理</h2><p>传统的编译语言流程中，源代码执行前会经历三个步骤，统称为编译。</p>
-<h3 id="1-词法分析"><a href="#1-词法分析" class="headerlink" title="1.词法分析"></a>1.词法分析</h3><p>将源代码根据解析规则分解为被称为词法单元的代码块，</p>
-<h3 id="2-语法分析"><a href="#2-语法分析" class="headerlink" title="2.语法分析"></a>2.语法分析</h3><p>将词法单元流（数组）转换成一个由元素逐级嵌套组成的代表了程序语法结构的树，被称为抽象语法树（AST）。</p>
-<h3 id="3-代码生成"><a href="#3-代码生成" class="headerlink" title="3.代码生成"></a>3.代码生成</h3><p>将AST转换为机器指令，这个过程与语言平台息息相关。</p>
-<p>相比之下，JS引擎会更复杂，由于JS的编译往往发生在执行前几微秒。因此不会有太多时间进行优化，所以JS编译过程并不是发生在构建之前的。JS引擎用了很多办法保证性能最佳。</p>
-<h2 id="1-2理解作用域"><a href="#1-2理解作用域" class="headerlink" title="1.2理解作用域"></a>1.2理解作用域</h2><p>对于变量的赋值操作，有两个步骤</p>
-<ol>
-<li>遇到变量声明，编译器会在作用域中查询，是否存在这一变量名，如果存在，编译器就会忽略这条声明，否则将在当前作用域集合中声明这个变量名。</li>
-<li>接着编译器会生成引擎运行所需的代码，以处理赋值操作。引擎运行时会先查询作用域，当前作用域中是否有这个变量名，如果有，就使用这个变量名，否则继续查询。</li>
-</ol>
-<p>在第二步中，引擎执行编译器生成的代码时，查询变量是否已经声明，这个过程涉及到了作用域，但查询方式有两种。</p>
-<h3 id="LHS"><a href="#LHS" class="headerlink" title="LHS"></a>LHS</h3><p>左值查询，寻找这个变量名，找到这个容器。</p>
-<h3 id="RLS"><a href="#RLS" class="headerlink" title="RLS"></a>RLS</h3><p>右值查询或者说非左值查询，寻找这个变量值，找到这个内容。</p>
-<p>对于函数的调用也会对函数名进行 RHS 查询，同时函数参数传递也是隐性的赋值操作，会进行 LHS 查询。</p>
-<p>内置对象的引用也需要进行 RHS 查询。</p>
-<p>例如以下案例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">a</span>) &#123; <br> <span class="hljs-keyword">var</span> b = a; <br> <span class="hljs-keyword">return</span> a + b; <br>&#125; <br><span class="hljs-keyword">var</span> c = <span class="hljs-title function_">foo</span>( <span class="hljs-number">2</span> );<br></code></pre></td></tr></table></figure>
+                <h1 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h1><h2 id="奇怪的例子"><a href="#奇怪的例子" class="headerlink" title="奇怪的例子"></a>奇怪的例子</h2><p>前面的学习已经说明，任何声明在某个作用域内的变量，都将附属于这个作用域。</p>
+<p>但作用域与变量声明的位置有一定的联系。</p>
+<p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">a = <span class="hljs-number">2</span>; <br><span class="hljs-keyword">var</span> a; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
 
-<p>这里有 3 处 LHS 查询。</p>
-<ul>
-<li>c &#x3D; ..</li>
-<li>a &#x3D; 2（隐式变量分配）</li>
-<li>b &#x3D; ..</li>
-</ul>
-<p>有 4 处 RHS 查询。</p>
-<ul>
-<li>foo( 2..</li>
-<li>&#x3D; a</li>
-<li>a ..</li>
-<li>.. b</li>
-</ul>
-<h2 id="1-3作用域嵌套"><a href="#1-3作用域嵌套" class="headerlink" title="1.3作用域嵌套"></a>1.3作用域嵌套</h2><p>LHS 与 RLS 查询在当前作用域没有找到时，都会逐级向上查询，直到查询到顶层作用域（全局作用域），此时无论有没有找到，查询都会停止。</p>
-<h2 id="1-4异常"><a href="#1-4异常" class="headerlink" title="1.4异常"></a>1.4异常</h2><p>一般情况下 RHS 查询无果，会抛出 ReferenceError 异常，LHS 查询无果，则会在全局作用域下创建这个变量名并返回。</p>
-<p>在严格模式下，LHS 查询无果也会抛出 ReferenceError 异常。</p>
-<p>接下来，如果在 RHS 查询时，对这个值进行不合理的操作，则会抛出 TypeErrow 异常。</p>
-<p>ReferenceError 异常与作用域判别失败有关，TypeErrow 则代表作用域判别成功，但对结果操作不合法。</p>
+<p>在这里，刚开始学习时很容易觉得 var a 声明会覆盖掉原有的 a &#x3D; 2 ，应该输出 undefined，但并非如此。</p>
+<p>再看接下来的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// undefined</span><br><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+
+<p>考虑到上一个例子中的反直觉的现象，也许会觉得这里会输出 2 ，或者抛出一个 ReferenceError 异常。但实际上会输出 undefined 。</p>
+<p>好怪啊，不是吗。那究竟怎么回事呢。</p>
+<h2 id="发生了什么"><a href="#发生了什么" class="headerlink" title="发生了什么"></a>发生了什么</h2><p>事实上，JS引擎在解释代码前会首先进行编译，编译阶段中的一部分工作就是找到所有的声明，并把它们包含在合适的作用域里，这也是词法作用域的内容，那么，问题就在于，包括变量和函数字啊内的声明都会在任何代码执行前处理。</p>
+<p>比如，var a &#x3D; 2; 这一行代码，事实上包含了两个执行步骤：var a; 和 a &#x3D; 2; 。前者在编译阶段已经执行，而后者则在执行阶段才会被处理。</p>
+<p>在第一个例子中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">a = <span class="hljs-number">2</span>; <br><span class="hljs-keyword">var</span> a; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
+
+<p>这个代码片段实际1的执行顺序为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a; <br>a = <span class="hljs-number">2</span>; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
+
+<p>在第二个例子中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// undefined</span><br><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>; <br></code></pre></td></tr></table></figure>
+
+<p>实际的执行顺序为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// undefined</span><br>a = <span class="hljs-number">2</span>; <br></code></pre></td></tr></table></figure>
+
+<p>可见，变量和函数的声明被移动到了作用域中的最上方，这个过程就叫提升。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">foo</span>(); <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// undefined </span><br>	<span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>; <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>另外值得注意的是，每个作用域都会进行提升操作。尽管前面大部分的代码片段已经简化了（因为它们只包含全局作用域），而我们正在讨论的 foo(..) 函数自身也会在内部对 var a 进行提升（显然并不是提升到了整个程序的最上方）。因此这段代码实际上会被理解为下面的形式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">var</span> a; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// undefined </span><br> 	a = <span class="hljs-number">2</span>; <br>&#125; <br><span class="hljs-title function_">foo</span>();<br></code></pre></td></tr></table></figure>
+
+<p>同时，函数声明会被提升，但是函数表达式却不会被提升。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">foo</span>(); <span class="hljs-comment">// 不是 ReferenceError, 而是 TypeError! </span><br><span class="hljs-keyword">var</span> foo = <span class="hljs-keyword">function</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-comment">// ... </span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>这段程序中的变量标识符 foo() 被提升并分配给所在作用域（在这里是全局作用域），因此 foo() 不会导致 ReferenceError。但是 foo 此时并没有赋值（如果它是一个函数声明而不是函数表达式，那么就会赋值）。foo() 由于对 undefined 值进行函数调用而导致非法操作，因此抛出 TypeError 异常。</p>
+<p>同时也要记住，即使是具名的函数表达式，名称标识符在赋值之前也无法在所在作用域中使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">foo</span>(); <span class="hljs-comment">// TypeError </span><br><span class="hljs-title function_">bar</span>(); <span class="hljs-comment">// ReferenceError </span><br><span class="hljs-keyword">var</span> foo = <span class="hljs-keyword">function</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-comment">// ... </span><br>&#125;;<br><span class="hljs-title function_">bar</span>(); <span class="hljs-comment">// ReferenceError</span><br></code></pre></td></tr></table></figure>
+
+<p>这个代码片段经过提升后，实际上会被理解为以下形式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> foo; <br><span class="hljs-title function_">foo</span>(); <span class="hljs-comment">// TypeError </span><br><span class="hljs-title function_">bar</span>(); <span class="hljs-comment">// ReferenceError </span><br>foo = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">var</span> bar = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;  <br> 	<span class="hljs-comment">// ... </span><br>    &#125;<br>    <span class="hljs-title function_">bar</span>();<br>&#125;<br><span class="hljs-title function_">bar</span>(); <span class="hljs-comment">// ReferenceError</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="函数优先"><a href="#函数优先" class="headerlink" title="函数优先"></a>函数优先</h2><p>函数声明和变量声明都会被提升。但是一个值得注意的细节（这个细节可以出现在有多个“重复”声明的代码中）是函数会首先被提升，然后才是变量。</p>
+<p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">foo</span>(); <span class="hljs-comment">// 1 </span><br><span class="hljs-keyword">var</span> foo; <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-number">1</span> ); <br>&#125; <br>foo = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-number">2</span> ); <br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>这个代码片段会被引擎理解为如下形式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-number">1</span> ); <br>&#125; <br><span class="hljs-keyword">var</span> foo; <br><span class="hljs-title function_">foo</span>(); <span class="hljs-comment">// 1 </span><br>foo = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-number">2</span> ); <br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>注意，var foo 尽管出现在 function foo()… 的声明之前，但它是重复的声明（因此被忽略了），因为函数声明会被提升到普通变量之前。</p>
+<p>尽管重复的 var 声明会被忽略掉，但出现在后面的函数声明还是可以覆盖前面的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">foo</span>(); <span class="hljs-comment">// 3 </span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-number">1</span> ); <br>&#125; <br><span class="hljs-keyword">var</span> foo = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-number">2</span> ); <br>&#125;; <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-number">3</span> ); <br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>就是这样 ~</p>
 
                 
@@ -397,8 +413,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>作用域是什么</div>
-      <div>http://haozhuqian.github.io/2023/02/21/作用域是什么/</div>
+      <div>不知JS - 上卷 - 第1部分 - 第4章 - 提升</div>
+      <div>http://haozhuqian.github.io/2023/02/22/不知JS - 上卷 - 第1部分 - 第4章 - 提升/</div>
     </div>
     <div class="license-meta">
       
@@ -410,7 +426,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月21日</div>
+          <div>2023年2月22日</div>
         </div>
       
       
@@ -440,9 +456,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/02/21/%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F/" title="词法作用域">
+                      <a href="/2023/02/22/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E7%AC%AC5%E7%AB%A0%20-%20%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AD%E5%8C%85/" title="不知JS - 上卷 - 第1部分 - 第5章 - 作用域闭包">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">词法作用域</span>
+                        <span class="hidden-mobile">不知JS - 上卷 - 第1部分 - 第5章 - 作用域闭包</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -450,8 +466,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/02/20/%E6%89%93%E5%8D%A1day15/" title="打卡day15">
-                        <span class="hidden-mobile">打卡day15</span>
+                      <a href="/2023/02/21/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E7%AC%AC3%E7%AB%A0%20-%20%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%9D%97%E4%BD%9C%E7%94%A8%E5%9F%9F/" title="不知JS - 上卷 - 第1部分 - 第3章 - 函数作用域和块作用域">
+                        <span class="hidden-mobile">不知JS - 上卷 - 第1部分 - 第3章 - 函数作用域和块作用域</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
