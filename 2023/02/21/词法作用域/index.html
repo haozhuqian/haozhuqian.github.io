@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302211905408.png">
 <meta property="article:published_time" content="2023-02-21T10:02:54.000Z">
-<meta property="article:modified_time" content="2023-02-21T12:21:08.517Z">
+<meta property="article:modified_time" content="2023-02-21T13:33:01.011Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="你不知道的JavaScript">
 <meta property="article:tag" content="作用域和闭包">
@@ -356,6 +356,7 @@
 <h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>JavaScript 引擎会在编译阶段进行数项的性能优化。其中有些优化依赖于能够根据代码的词法进行静态分析，并预先确定所有变量和函数的定义位置，才能在执行过程中快速找到标识符。但如果引擎在代码中发现了 eval(..) 或 with，它只能简单地假设关于标识符位置的判断都是无效的，因为无法在词法分析阶段明确知道 eval(..) 会接收到什么代码，这些代码会如何对作用域进行修改，也无法知道传递给 with 用来创建新词法作用域的对象的内容到底是什么。</p>
 <p>最悲观的情况是如果出现了 eval(..) 或 with，所有的优化可能都是无意义的，因此最简单的做法就是完全不做任何优化。</p>
 <p>如果代码中大量使用 eval(..) 或 with，那么运行起来一定会变得非常慢。无论引擎多聪明，试图将这些悲观情况的副作用限制在最小范围内，也无法避免如果没有这些优化，代码会运行得更慢这个事实。</p>
+<p>就是这样 ~</p>
 
                 
               </div>
@@ -445,6 +446,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/02/21/%E6%89%93%E5%8D%A1day16/" title="打卡day16">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">打卡day16</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
