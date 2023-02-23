@@ -24,7 +24,7 @@
 <meta property="og:description" content="简述了什么是作用域，简单了解编译过程，了解了 RHS 与 LHS 的概念。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-21T08:11:07.000Z">
-<meta property="article:modified_time" content="2023-02-22T12:13:05.517Z">
+<meta property="article:modified_time" content="2023-02-23T13:09:06.190Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="你不知道的JavaScript">
 <meta property="article:tag" content="作用域和闭包">
@@ -316,8 +316,8 @@
                 <h1 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h1><h2 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h2><p>传统的编译语言流程中，源代码执行前会经历三个步骤，统称为编译。</p>
 <h3 id="1-词法分析"><a href="#1-词法分析" class="headerlink" title="1.词法分析"></a>1.词法分析</h3><p>将源代码根据解析规则分解为被称为词法单元的代码块，</p>
 <h3 id="2-语法分析"><a href="#2-语法分析" class="headerlink" title="2.语法分析"></a>2.语法分析</h3><p>将词法单元流（数组）转换成一个由元素逐级嵌套组成的代表了程序语法结构的树，被称为抽象语法树（AST）。</p>
-<h3 id="3-代码生成"><a href="#3-代码生成" class="headerlink" title="3.代码生成"></a>3.代码生成</h3><p>将AST转换为机器指令，这个过程与语言平台息息相关。</p>
-<p>相比之下，JS引擎会更复杂，由于JS的编译往往发生在执行前几微秒。因此不会有太多时间进行优化，所以JS编译过程并不是发生在构建之前的。JS引擎用了很多办法保证性能最佳。</p>
+<h3 id="3-代码生成"><a href="#3-代码生成" class="headerlink" title="3.代码生成"></a>3.代码生成</h3><p>将 AST 转换为机器指令，这个过程与语言平台息息相关。</p>
+<p>相比之下，JS引擎会更复杂，由于 JS 的编译往往发生在执行前几微秒。因此不会有太多时间进行优化，所以 JS 编译过程并不是发生在构建之前的。JS引擎用了很多办法保证性能最佳。</p>
 <h2 id="1-2理解作用域"><a href="#1-2理解作用域" class="headerlink" title="1.2理解作用域"></a>1.2理解作用域</h2><p>对于变量的赋值操作，有两个步骤</p>
 <ol>
 <li>遇到变量声明，编译器会在作用域中查询，是否存在这一变量名，如果存在，编译器就会忽略这条声明，否则将在当前作用域集合中声明这个变量名。</li>
@@ -370,6 +370,13 @@
         
   <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JavaScript/" class="category-chain-item">你不知道的JavaScript</a>
+  
+  
+
   
 
       </span>

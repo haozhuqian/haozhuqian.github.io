@@ -24,7 +24,7 @@
 <meta property="og:description" content="尝试搭建了组件脚手架，有朋友来家里做客。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-17T07:52:35.000Z">
-<meta property="article:modified_time" content="2023-02-21T12:09:55.449Z">
+<meta property="article:modified_time" content="2023-02-23T13:09:06.184Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="字节青训营">
 <meta property="article:tag" content="第一个百日计划">
@@ -318,13 +318,13 @@
                 <h1 id="今天没有认真学习"><a href="#今天没有认真学习" class="headerlink" title="今天没有认真学习"></a>今天没有认真学习</h1><h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>pnpm升级时</p>
 <p>ERR_PNPM_NO_GLOBAL_BIN_DIR Unable to find the global bin directory</p>
 <p>配置文件路径问题</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">//pnpm全局仓库路径<br>pnpm config <span class="hljs-built_in">set</span> store-<span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;F:.pnpm-store&quot;</span><br>//pnpm全局安装路径<br>pnpm config <span class="hljs-built_in">set</span> <span class="hljs-keyword">global</span>-<span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;F:\pnpm\pnpm-global&quot;</span><br>// pnpm 全局<span class="hljs-built_in">bin</span>路径 ，这个路径还要配置到环境变量里面去<br>pnpm config <span class="hljs-built_in">set</span> <span class="hljs-keyword">global</span>-<span class="hljs-built_in">bin</span>-<span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;F:\pnpm&quot;</span><br>//pnpm创建pnpm-satate.json文件的目录<br>pnpm config <span class="hljs-built_in">set</span> state-di<span class="hljs-string">r&quot;F:\pnpm\state&quot;</span><br>//pnpm全局缓存路径<br>pnpm config <span class="hljs-built_in">set</span> cache-<span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;F:\pnpm\cache&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">//pnpm全局仓库路径<br>pnpm config <span class="hljs-built_in">set</span> store-<span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;F:.pnpm-store&quot;</span><br>//pnpm全局安装路径<br>pnpm config <span class="hljs-built_in">set</span> <span class="hljs-keyword">global</span>-<span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;F:\pnpm\pnpm-global&quot;</span><br>// pnpm 全局 <span class="hljs-built_in">bin</span> 路径 ，这个路径还要配置到环境变量里面去<br>pnpm config <span class="hljs-built_in">set</span> <span class="hljs-keyword">global</span>-<span class="hljs-built_in">bin</span>-<span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;F:\pnpm&quot;</span><br>//pnpm创建pnpm-satate.json文件的目录<br>pnpm config <span class="hljs-built_in">set</span> state-di<span class="hljs-string">r&quot;F:\pnpm\state&quot;</span><br>//pnpm全局缓存路径<br>pnpm config <span class="hljs-built_in">set</span> cache-<span class="hljs-built_in">dir</span> <span class="hljs-string">&quot;F:\pnpm\cache&quot;</span><br></code></pre></td></tr></table></figure>
 
 <p>配置后出现警告</p>
 <p>The location of the currently running pnpm differs from the location where pnpm will be installed</p>
-<p>修改方式，将环境变量中的pnpm指向当前pnpm的运行位置。</p>
+<p>修改方式，将环境变量中的 pnpm 指向当前pnpm的运行位置。</p>
 <p>环境变量修改后需要重启终端后生效。</p>
-<h2 id="字节青训营"><a href="#字节青训营" class="headerlink" title="字节青训营"></a>字节青训营</h2><p>看了看掘金小册，基于vite搭建组件库。初步尝试了一下构建，但没有多看，因为时间的问题，也没有做笔记。</p>
+<h2 id="字节青训营"><a href="#字节青训营" class="headerlink" title="字节青训营"></a>字节青训营</h2><p>看了看掘金小册，基于 vite 搭建组件库。初步尝试了一下构建，但没有多看，因为时间的问题，也没有做笔记。</p>
 <h2 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h2><p>有个朋友来家里做客，他今天刚刚考过科三，很开心，就来找我啦。正好我也借此暂时逃过了继续干活的命运。一下午一边聊天一边简单看看掘金小测，时间很快过去。没有什么值得记录的东西。</p>
 <p>就是这样 ~</p>
 

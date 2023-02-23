@@ -24,7 +24,7 @@
 <meta property="og:description" content="讲述了关于一些前端算法的应用实例，回答了部分问题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-31T15:35:10.000Z">
-<meta property="article:modified_time" content="2023-02-21T10:12:33.864Z">
+<meta property="article:modified_time" content="2023-02-23T13:09:06.184Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="字节青训营">
 <meta name="twitter:card" content="summary_large_image">
@@ -319,7 +319,7 @@
 <h3 id="八股文"><a href="#八股文" class="headerlink" title="八股文"></a>八股文</h3><p>最基础的部分必须要会，有必要背，比较偏门底层的东西可以凭自己的兴趣了解，对面试会很有帮助。</p>
 <h3 id="框架与原生"><a href="#框架与原生" class="headerlink" title="框架与原生"></a>框架与原生</h3><p>都很主要，面对业务开发必须了解框架，更深入定制话的需求则需要了解框架构成，或者自己造轮子，都会用到原生JS。</p>
 <p>框架原理可以在有一定的使用经验时去了解。</p>
-<h3 id="冷门html标签"><a href="#冷门html标签" class="headerlink" title="冷门html标签"></a>冷门html标签</h3><p>大多简单了解即可，不必专门深入。</p>
+<h3 id="冷门-html-标签"><a href="#冷门-html-标签" class="headerlink" title="冷门 html 标签"></a>冷门 html 标签</h3><p>大多简单了解即可，不必专门深入。</p>
 <h3 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h3><p>很重要，不仅仅给人看，还在给搜索引擎，爬虫看，对搜索的优化比较重要。</p>
 <h3 id="HTML5规范"><a href="#HTML5规范" class="headerlink" title="HTML5规范"></a>HTML5规范</h3><p>不需要专门去记，因为它的规范比较简单，同时浏览器兼容了许多不规范的写法，所以不必专门记。</p>
 <h3 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h3><p>改变外部环境的函数就是有副作用的函数。尽量不要出现这种写法。</p>
@@ -332,7 +332,7 @@
 <h3 id="css动画"><a href="#css动画" class="headerlink" title="css动画"></a>css动画</h3><p>基本掌握即可，不必掌握太多。</p>
 <h3 id="额外学习"><a href="#额外学习" class="headerlink" title="额外学习"></a>额外学习</h3><p>有必要学习JS，TS以外的语言</p>
 <p>例如Java，go，rust等等。</p>
-<h2 id="专题分享"><a href="#专题分享" class="headerlink" title="专题分享"></a>专题分享</h2><p>作为IT从业人员，经常会看到数据结构与算法的字眼，甚至有专门刷题的教程等等。但这次分享更关注于通过案例说明数据结构与算法的意义。</p>
+<h2 id="专题分享"><a href="#专题分享" class="headerlink" title="专题分享"></a>专题分享</h2><p>作为 IT 从业人员，经常会看到数据结构与算法的字眼，甚至有专门刷题的教程等等。但这次分享更关注于通过案例说明数据结构与算法的意义。</p>
 <p>通常在项目开发中，我们经常可以发现，自己的代码在整个项目中占比很小，更多的部分实际上是第三方库的代码，这可以让原本复杂的逻辑得到简化、</p>
 <p>而那些复杂的逻辑，就必然会涉及到数据结构与算法的知识，同时也有很多已经有很多封装好的第三方库，只需要进行简单的调用。</p>
 <p>虽然如此，这并不意味着不再需要数据结构与算法的学习，因为总会有找不到合适的解决方案的，此时就需要自己造轮子等等。</p>
@@ -356,19 +356,19 @@
 <li>依赖图建立</li>
 <li>循环依赖分析</li>
 </ul>
-<p>首先通过AST解析器从入口开始分析模块的依赖，然后构造出完整的模块依赖。构建出一个图，检查其中是否存在循环依赖，涉及到拓扑排序，也会用在Monorepo工具命令的调度。</p>
+<p>首先通过 AST 解析器从入口开始分析模块的依赖，然后构造出完整的模块依赖。构建出一个图，检查其中是否存在循环依赖，涉及到拓扑排序，也会用在 Monorepo 工具命令的调度。</p>
 <p>扩展：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/sanyuan0704/juejin-book-vite/tree/main/bundler">简易bundler实现</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sanyuan0704/juejin-book-vite/tree/main/bundler">简易 bundler 实现</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/491391823">tree shaking原理</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/491391823">tree shaking问题排查指南 - 知乎 (zhihu.com)</a></li>
 </ul>
 <h4 id="缓存淘汰"><a href="#缓存淘汰" class="headerlink" title="缓存淘汰"></a>缓存淘汰</h4><ul>
 <li>SSR缓存</li>
-<li>vue的keepAlive组件</li>
-<li>webpack中对loader的结构进行缓存</li>
+<li>vue的 keepAlive 组件</li>
+<li>webpack中对 loader 的结构进行缓存</li>
 </ul>
-<p>缓存过多会导致服务稳定性问题，一般会设置一个阈值，常用的LRU算法（最近最少使用原则），把最近使用频率最低的节点删除。</p>
+<p>缓存过多会导致服务稳定性问题，一般会设置一个阈值，常用的 LRU 算法（最近最少使用原则），把最近使用频率最低的节点删除。</p>
 <p>扩展资料：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/lru-cache">lru-cache - npm (npmjs.com)</a></li>

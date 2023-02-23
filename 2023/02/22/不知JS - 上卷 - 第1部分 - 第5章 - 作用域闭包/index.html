@@ -24,7 +24,7 @@
 <meta property="og:description" content="神奇的闭包">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-22T06:45:38.000Z">
-<meta property="article:modified_time" content="2023-02-22T12:18:21.385Z">
+<meta property="article:modified_time" content="2023-02-23T13:09:06.190Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="你不知道的JavaScript">
 <meta property="article:tag" content="作用域和闭包">
@@ -336,7 +336,7 @@
 
 <p>这个函数表面上看起来它运行时会分别输出数字 1~5，每秒一次，每次一个数字。</p>
 <p>但事实上它运行时会以每秒一次的频率输出五个数字 6。</p>
-<p>这里要说明一下，setTimeout可以看做一个异步的过程，在JavaScript的事件循环中，先执行同步代码，再执行异步代码，当异步代码执行时，for循环已经循环完毕，当 i &#x3D; 6 时满足循环结束条件，又因为在for循环中，由于用var定义了变量，在循环体中执行的是<strong>同一个i</strong>，所以会输出5个6。</p>
+<p>这里要说明一下，setTimeout可以看做一个异步的过程，在 JavaScript 的事件循环中，先执行同步代码，再执行异步代码，当异步代码执行时，for循环已经循环完毕，当 i &#x3D; 6 时满足循环结束条件，又因为在 for 循环中，由于用 var 定义了变量，在循环体中执行的是<strong>同一个i</strong>，所以会输出5个6。</p>
 <p>这里为什么会和预期不同，原因应该是，我们预想中，每一轮循环中定义的五个函数各自的 i 处在不同的作用域中，与循环过程中的 i 是独立的，但实际上它们都被封闭在一个共享作用域中，可以说，实际上只有一个 i。</p>
 <p>循环给人这样的误会，但实际上它的效果和在一个作用域内将延时函数重复定义五次是一样的。</p>
 <p>我们可以利用闭包作用域解决它。利用 IIFE 创建一个独立作用域试试。</p>
@@ -424,6 +424,13 @@
         
   <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JavaScript/" class="category-chain-item">你不知道的JavaScript</a>
+  
+  
+
   
 
       </span>
