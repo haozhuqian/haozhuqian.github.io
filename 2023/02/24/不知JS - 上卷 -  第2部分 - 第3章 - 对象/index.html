@@ -24,7 +24,7 @@
 <meta property="og:description" content="了解了JS对象">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-24T08:11:29.000Z">
-<meta property="article:modified_time" content="2023-02-25T08:34:39.783Z">
+<meta property="article:modified_time" content="2023-02-25T08:40:32.624Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="你不知道的JavaScript">
 <meta property="article:tag" content="this和对象原型">
@@ -407,7 +407,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">anotherFunction</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-comment">/*..*/</span> &#125; <br><span class="hljs-keyword">var</span> anotherObject = &#123; <br> 	<span class="hljs-attr">c</span>: <span class="hljs-literal">true</span><br>&#125;; <br><span class="hljs-keyword">var</span> anotherArray = []; <br><span class="hljs-keyword">var</span> myObject = &#123; <br> 	<span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <br> 	<span class="hljs-attr">b</span>: anotherObject, <span class="hljs-comment">// 引用，不是复本！</span><br> 	<span class="hljs-attr">c</span>: anotherArray, <span class="hljs-comment">// 另一个引用！</span><br> 	<span class="hljs-attr">d</span>: anotherFunction <br>&#125;;<br>anotherArray.<span class="hljs-title function_">push</span>( anotherObject, myObject );<br></code></pre></td></tr></table></figure>
 
 <p>如何准确地表示 myObject 的复制呢？</p>
-<p>首先，我们应该判断它是浅复制还是深复制。对于浅拷贝来说，复制出的新对象中 a 的值会复制旧对象中 a 的值，也就是 2，但是新对象中 b、c、d 三个属性其实只是三个引用，它们和旧对象中 b、c、d 引用的对象是一样的。对于深复制来说，除了复制 myObject 以外还会复制 anotherObject 和 anotherArray。这时问题就来了，anotherArray 引用了 anotherObject 和myObject，所以又需要复制 myObject，这样就会由于循环引用导致死循环。我们是应该检测循环引用并终止循环（不复制深层元素）？还是应当直接报错或者是选择其他方法？</p>
+<p>首先，我们应该判断它是浅复制还是深复制。对于浅拷贝来说，复制出的新对象中 a 的值会复制旧对象中 a 的值，也就是 2，但是新对象中 b、c、d 三个属性其实只是三个引用，它们和旧对象中 b、c、d 引用的对象是一样的。对于深复制来说，除了复制 myObject 以外还会复制 anotherObject 和 anotherArray。这时问题就来了，anotherArray 引用了 anotherObject 和 myObject，所以又需要复制 myObject，这样就会由于循环引用导致死循环。我们是应该检测循环引用并终止循环（不复制深层元素）？还是应当直接报错或者是选择其他方法？</p>
 <p>除此之外，我们还不确定“复制”一个函数意味着什么。有些人会通过 toString() 来序列化一个函数的源代码（但是结果取决于 JavaScript 的具体实现，而且不同的引擎对于不同类型的函数处理方式并不完全相同）。</p>
 <p>那么如何解决这些棘手问题呢？许多 JavaScript 框架都提出了自己的解决办法，但是JavaScript 应当采用哪种方法作为标准呢？在很长一段时间里，这个问题都没有明确的答案。</p>
 <p>对于 JSON 安全（也就是说可以被序列化为一个 JSON 字符串并且可以根据这个字符串解析出一个结构和值完全一样的对象）的对象来说，有一种巧妙的复制方法：</p>
