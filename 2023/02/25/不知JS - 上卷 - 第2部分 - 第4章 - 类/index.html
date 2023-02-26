@@ -1,0 +1,804 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/wenti.png">
+  <link rel="icon" href="/img/wenti.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Mr.Good">
+  <meta name="keywords" content="郝祝乾的博客">
+  
+    <meta name="description" content="了解了JS中用于模拟类的混入模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不知JS - 上卷 - 第2部分 - 第4章 - 类">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/02/25/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC2%E9%83%A8%E5%88%86%20-%20%E7%AC%AC4%E7%AB%A0%20-%20%E7%B1%BB/index.html">
+<meta property="og:site_name" content="GoodMoney的小窝">
+<meta property="og:description" content="了解了JS中用于模拟类的混入模式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302251705594.png">
+<meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302251705594.png">
+<meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302251746009.png">
+<meta property="article:published_time" content="2023-02-25T08:45:01.000Z">
+<meta property="article:modified_time" content="2023-02-25T12:05:09.286Z">
+<meta property="article:author" content="Mr.Good">
+<meta property="article:tag" content="你不知道的JavaScript">
+<meta property="article:tag" content="this和对象原型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302251705594.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>不知JS - 上卷 - 第2部分 - 第4章 - 类 - GoodMoney的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"haozhuqian.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":100,"cursorChar":"~","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":10},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>GoodMoney的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/definde.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="不知JS - 上卷 - 第2部分 - 第4章 - 类"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-25 16:45" pubdate>
+          2023年2月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          92 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">不知JS - 上卷 - 第2部分 - 第4章 - 类</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><h2 id="类理论"><a href="#类理论" class="headerlink" title="类理论"></a>类理论</h2><p>类 &#x2F; 继承描述了一种代码的组织结构形式——一种在软件中对真实世界中问题领域的建模方法。</p>
+<p>面向对象编程强调的是数据和操作数据的行为本质上是互相关联的（当然，不同的数据有不同的行为），因此好的设计就是把数据以及和它相关的行为打包（或者说封装）起来。这在正式的计算机科学中有时被称为数据结构。</p>
+<p>举例来说，用来表示一个单词或者短语的一串字符通常被称为字符串。字符就是数据。但是你关心的往往不是数据是什么，而是可以对数据做什么，所以可以应用在这种数据上的行为（计算长度、添加数据、搜索，等等）都被设计成 String 类的方法。</p>
+<p>所有字符串都是 String 类的一个实例，也就是说它是一个包裹，包含字符数据和我们可以应用在数据上的函数。</p>
+<p>我们还可以使用类对数据结构进行分类，可以把任意数据结构看作范围更广的定义的一种特例。</p>
+<p>我们来看一个常见的例子，“汽车”可以被看作“交通工具”的一种特例，后者是更广泛的类。</p>
+<p>我们可以在软件中定义一个 Vehicle 类和一个 Car 类来对这种关系进行建模。Vehicle 的定义可能包含推进器（比如引擎）、载人能力等等，这些都是 Vehicle 的行为。我们在 Vehicle 中定义的是（几乎）所有类型的交通工具（飞机、火车和汽车）都包含的东西。</p>
+<p>在我们的软件中，对不同的交通工具重复定义“载人能力”是没有意义的。相反，我们只在 Vehicle 中定义一次，定义 Car 时，只要声明它继承（或者扩展）了 Vehicle 的这个基础定义就行。Car 的定义就是对通用 Vehicle 定义的特殊化。</p>
+<p>虽然 Vehicle 和 Car 会定义相同的方法，但是实例中的数据可能是不同的，比如每辆车独一无二的 VIN（Vehicle Identifification Number，车辆识别号码），等等。</p>
+<p>这就是类、继承和实例化。</p>
+<p>类的另一个核心概念是多态，这个概念是说父类的通用行为可以被子类用更特殊的行为重写。实际上，相对多态性允许我们从重写行为中引用基础行为。类理论强烈建议父类和子类使用相同的方法名来表示特定的行为，从而让子类重写父类。我们之后会看到，在 JavaScript 代码中这样做会降低代码的可读性和健壮性。</p>
+<h3 id="“类”设计模式"><a href="#“类”设计模式" class="headerlink" title="“类”设计模式"></a>“类”设计模式</h3><p>你可能从来没把类作为设计模式来看待，讨论得最多的是面向对象设计模式，比如迭代器模式、观察者模式、工厂模式、单例模式，等等。从这个角度来说，我们似乎是在（低级）面向对象类的基础上实现了所有（高级）设计模式，似乎面向对象是优秀代码的基础。</p>
+<h3 id="JavaScript中的“类”"><a href="#JavaScript中的“类”" class="headerlink" title="JavaScript中的“类”"></a>JavaScript中的“类”</h3><p>在相当长的一段时间里，JavaScript 只有一些近似类的语法元素（比如 new 和 instanceof），不过在后来的 ES6 中新增了一些元素，比如 class 关键字。这是不是意味着 JavaScript 中实际上有类呢？简单来说：不是。</p>
+<p>由于类是一种设计模式，所以你可以用一些方法（本章之后会介绍）近似实现类的功能。为了满足对于类设计模式的最普遍需求，JavaScript 提供了一些近似类的语法。</p>
+<p>虽然有近似类的语法，但是 JavaScript 的机制似乎一直在阻止你使用类设计模式。在近似类的表象之下，JavaScript 的机制其实和类完全不同。其他语言中的类和 JavaScript中的“类”并不一样。</p>
+<h2 id="机制"><a href="#机制" class="headerlink" title="机制"></a>机制</h2><p>在许多面向类的语言中，“标准库”会提供 Stack 类，它是一种“栈”数据结构（支持压入、弹出，等等）。Stack 类内部会有一些变量来存储数据，同时会提供一些公有的可访问行为（“方法”），从而让你的代码可以和（隐藏的）数据进行交互（比如添加、删除数据）。</p>
+<p>但是在这些语言中，你实际上并不是直接操作 Stack（除非创建一个静态类成员引用，这超出了我们的讨论范围）。Stack 类仅仅是一个抽象的表示，它描述了所有“栈”需要做的事，但是它本身并不是一个“栈”。你必须先实例化 Stack 类然后才能对它进行操作。</p>
+<h3 id="建造"><a href="#建造" class="headerlink" title="建造"></a>建造</h3><p>“类”和“实例”的概念来源于房屋建造。建筑师会规划出一个建筑的所有特性：多宽、多高、多少个窗户以及窗户的位置，甚至连建造墙和房顶需要的材料都要计划好。在这个阶段他并不需要关心建筑会被建在哪，也不需要关心会建造多少个这样的建筑。</p>
+<p>建筑师也不太关心建筑里的内容——家具、壁纸、吊扇等——他只关心需要用什么结构来容纳它们。</p>
+<p>建筑蓝图只是建筑计划，它们并不是真正的建筑，我们还需要一个建筑工人来建造建筑。建筑工人会按照蓝图建造建筑。实际上，他会把规划好的特性从蓝图中复制到现实世界的建筑中。</p>
+<p>完成后，建筑就成为了蓝图的物理实例，本质上就是对蓝图的复制。之后建筑工人就可以到下一个地方，把所有工作都重复一遍，再创建一份副本。</p>
+<p>建筑和蓝图之间的关系是间接的。你可以通过蓝图了解建筑的结构，只观察建筑本身是无法获得这些信息的。但是如果你想打开一扇门，那就必须接触真实的建筑才行——蓝图只能表示门应该在哪，但并不是真正的门。</p>
+<p>一个类就是一张蓝图。为了获得真正可以交互的对象，我们必须按照类来建造（也可以说实例化）一个东西，这个东西通常被称为实例，有需要的话，我们可以直接在实例上调用方法并访问其所有公有数据属性。这个对象就是类中描述的所有特性的一份副本。</p>
+<p>你走进一栋建筑时，它的蓝图不太可能挂在墙上（尽管这个蓝图可能会保存在公共档案馆中）。类似地，你通常也不会使用一个实例对象来直接访问并操作它的类，不过至少可以判断出这个实例对象来自哪个类。</p>
+<p>把类和实例对象之间的关系看作是直接关系而不是间接关系通常更有助于理解。类通过复制操作被实例化为对象形式：</p>
+<p><img src="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302251705594.png" srcset="/img/loading.gif" lazyload alt="image-20230225170507534"></p>
+<p>如你所见，箭头的方向是从左向右、从上向下，它表示概念和物理意义上发生的复制操作。</p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>类实例是由一个特殊的类方法构造的，这个方法名通常和类名相同，被称为构造函数。这个方法的任务就是初始化实例需要的所有信息（状态）。</p>
+<p>思考一下伪代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">CoolGuy</span> &#123; <br> 	specialTrick = nothing <br> 	<span class="hljs-title function_">CoolGuy</span><span class="hljs-params">( trick )</span> &#123; <br> 		specialTrick = trick <br> 	&#125; <br> 	showOff() &#123; <br> 		output( <span class="hljs-string">&quot;Here&#x27;s my trick: &quot;</span>, specialTrick ) <br> 	&#125; <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们可以调用类构造函数来生成一个 CoolGuy 实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Joe = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CoolGuy</span>( <span class="hljs-string">&quot;jumping rope&quot;</span> ) <br>Joe.showOff() <span class="hljs-comment">// 这是我的绝技：跳绳</span><br></code></pre></td></tr></table></figure>
+
+<p>注意，CoolGuy 类有一个 CoolGuy() 构造函数，执行 new CoolGuy() 时实际上调用的就是它。构造函数会返回一个对象（也就是类的一个实例），之后我们可以在这个对象上调用 showOff() 方法，来输出指定 CoolGuy 的特长。</p>
+<p>显然，跳绳让乔成为了一个非常酷的家伙。</p>
+<p>类构造函数属于类，而且通常和类同名。此外，构造函数大多需要用 new 来调，这样语言引擎才知道你想要构造一个新的类实例。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>在面向类的语言中，你可以先定义一个类，然后定义一个继承前者的类。</p>
+<p>后者通常被称为“子类”，前者通常被称为“父类”。这些术语显然是类比父母和孩子，不过在意思上稍有扩展，你很快就会看到。</p>
+<p>对于父母的亲生孩子来说，父母的基因特性会被复制给孩子。显然，在大多数生物的繁殖系统中，双亲都会贡献等量的基因给孩子。但是在编程语言中，我们假设只有一个父类。</p>
+<p>一旦孩子出生，他们就变成了单独的个体。虽然孩子会从父母继承许多特性，但是他是一个独一无二的存在。如果孩子的头发是红色，父母的头发未必是红的，也不会随之变红，二者之间没有直接的联系。</p>
+<p>同理，定义好一个子类之后，相对于父类来说它就是一个独立并且完全不同的类。子类会包含父类行为的原始副本，但是也可以重写所有继承的行为甚至定义新行为。</p>
+<p>非常重要的一点是，我们讨论的父类和子类并不是实例。父类和子类的比喻容易造成一些误解，实际上我们应当把父类和子类称为父类 DNA 和子类 DNA。我们需要根据这些 DNA 来创建（或者说实例化）一个人，然后才能和他进行沟通。</p>
+<p>好了，我们先抛开现实中的父母和孩子，来看一个稍有不同的例子：不同类型的交通工具。这是一个非常典型（并且经常被抱怨）的讲解继承的例子。</p>
+<p>首先回顾一下本章前面部分提出的 Vehicle 和 Car 类。思考下面关于类继承的伪代码（为了方便理解并缩短代码，我们省略了这些类的构造函数）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Vehicle</span> &#123; <br> 	engines = <span class="hljs-number">1</span> <br>	<span class="hljs-comment">// 点火</span><br> 	ignition() &#123; <br> 		output( <span class="hljs-string">&quot;Turning on my engine.&quot;</span> ); <br> 	&#125;<br> 	drive() &#123; <br> 		ignition(); <br> 		output( <span class="hljs-string">&quot;Steering and moving forward!&quot;</span> ) <br> 	&#125; <br>&#125; <br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Car</span> inherits Vehicle &#123; <br> 	wheels = <span class="hljs-number">4</span> <br> 	drive() &#123; <br> 		inherited:drive() <br> 		output( <span class="hljs-string">&quot;Rolling on all &quot;</span>, wheels, <span class="hljs-string">&quot; wheels!&quot;</span> ) <br> 	&#125; <br>&#125; <br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SpeedBoat</span> inherits Vehicle &#123; <br> 	engines = <span class="hljs-number">2</span> <br> 	ignition() &#123; <br> 		output( <span class="hljs-string">&quot;Turning on my &quot;</span>, engines, <span class="hljs-string">&quot; engines.&quot;</span> ) <br> 	&#125; <br> 	pilot() &#123; <br> 		inherited:drive() <br> 		output( <span class="hljs-string">&quot;Speeding through the water with ease!&quot;</span> ) <br> 	&#125; <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们通过定义 Vehicle 类来假设一种发动机，一种点火方式，一种驾驶方法。但是你不可能制造一个通用的“交通工具”，因为这个类只是一个抽象的概念。</p>
+<p>接下来我们定义了两类具体的交通工具：Car 和 SpeedBoat。它们都从 Vehicle 继承了通用的特性并根据自身类别修改了某些特性。汽车需要四个轮子，快艇需要两个发动机，因此它必须启动两个发动机的点火装置。</p>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>Car 重写了继承自父类的 drive() 方法，但是之后 Car 调用了 inherited:drive() 方法，这表明 Car 可以引用继承来的原始 drive() 方法。快艇的 pilot() 方法同样引用了原始drive() 方法。</p>
+<p>这个技术被称为多态或者虚拟多态。在本例中，更恰当的说法是相对多态。</p>
+<p>多态是一个非常广泛的话题，我们现在所说的“相对”只是多态的一个方面：任何方法都可以引用继承层次中高层的方法（无论高层的方法名和当前方法名是否相同）。之所以说“相对”是因为我们并不会定义想要访问的绝对继承层次（或者说类），而是使用相对引用“查找上一层”。</p>
+<p>在 许 多 语 言 中 可 以 使 用 super 来 代 替 本 例 中 的 inherited:， 它 的 含 义 是“ 超 类 ”（superclass），表示当前类的父类 &#x2F; 祖先类。</p>
+<p>多态的另一个方面是，在继承链的不同层次中一个方法名可以被多次定义，当调用方法时会自动选择合适的定义。</p>
+<p>在之前的代码中就有两个这样的例子：drive() 被定义在 Vehicle 和 Car 中，ignition() 被定义在 Vehicle 和 SpeedBoat 中。</p>
+<p>在传统的面向类的语言中 super 还有一个功能，就是从子类的构造函数中通过 super 可以直接调用父类的构造函数。通常来说这没什么问题，因为对于真正的类来说，构造函数是属于类的。然而，在 JavaScript 中恰好相反——实际上<strong>“类”是属于构造函数的</strong>（类似 Foo.prototype… 这样的类型引用）。由于 JavaScript 中父类和子类的关系只存在于两者构造函数对应的 .prototype 对象中，因此它们的构造函数之间并不存在直接联系，从而无法简单地实现两者的相对引用，在 ES6 的类中可以通过 super 来“解决”这个问题。</p>
+<p>我们可以在 ignition() 中看到多态非常有趣的一点。在 pilot() 中通过相对多态引用了（继承来的）Vehicle 中的 drive()。但是那个 drive() 方法直接通过名字（而不是相对引用）引用了 ignotion() 方法。</p>
+<p>那么语言引擎会使用哪个 ignition() 呢，Vehicle 的还是 SpeedBoat 的？实际上它会使用 SpeedBoat 的 ignition()。如果你直接实例化了 Vehicle 类然后调用它的 drive()，那语言引擎就会使用 Vehicle 中的 ignition() 方法。</p>
+<p>换言之，ignition() 方法定义的多态性取决于你是在哪个类的实例中引用它。这似乎是一个过于深入的学术细节，但是只有理解了这个细节才能理解 JavaScript 中类似（但是并不相同）的 [[Prototype]] 机制。</p>
+<p>在子类（而不是它们创建的实例对象！）中也可以相对引用它继承的父类，这种相对引用通常被称为 super。</p>
+<p>还记得之前的那张图吗？</p>
+<p><img src="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302251705594.png" srcset="/img/loading.gif" lazyload alt="image-20230225170507534"></p>
+<p>注意这些实例（a1、a2、b1 和 b2）和继承（Bar），箭头表示复制操作。从概念上来说，子类 Bar 应当可以通过相对多态引用（或者说 super）来访问父类 Foo 中的行为。需要注意，子类得到的仅仅是继承自父类行为的一份副本。子类对继承到的一个方法进行“重写”，不会影响父类中的方法，这两个方法互不影响，因此才能使用相对多态引用访问父类中的方法（如果重写会影响父类的方法，那重写之后父类中的原始方法就不存在了，自然也无法引用）。</p>
+<p>多态并不表示子类和父类有关联，子类得到的只是父类的一份副本。类的继承其实就是复制。</p>
+<h3 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h3><p>还记得我们之前关于父类、子类和 DNA 的讨论吗？当时我们说这个比喻不太恰当，因为在现实中绝大多数后代是由双亲产生的。如果类可以继承两个类，那看起来就更符合现实的比喻了。</p>
+<p>有些面向类的语言允许你继承多个“父类”。多重继承意味着所有父类的定义都会被复制到子类中。</p>
+<p>从表面上来，对于类来说这似乎是一个非常有用的功能，可以把许多功能组合在一起。然而，这个机制同时也会带来很多复杂的问题。如果两个父类中都定义了 drive() 方法的话，子类引用的是哪个呢？难道每次都需要手动指定具体父类的 drive() 方法吗？这样多态继承的很多优点就不存在了。</p>
+<p>除此之外，还有一种被称为钻石问题的变种。在钻石问题中，子类 D 继承自两个父类（B 和 C），这两个父类都继承自 A。如果 A 中有 drive() 方法并且 B 和 C 都重写了这个方法（多态），那当 D 引用 drive() 时应当选择哪个版本呢（B:drive() 还是 C:drive()）？</p>
+<p><img src="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302251746009.png" srcset="/img/loading.gif" lazyload alt="image-20230225174615962"></p>
+<p>这些问题远比看上去要复杂得多。之所以要介绍这些问题，主要是为了和 JavaScript 的机制进行对比。</p>
+<p>相比之下，JavaScript 要简单得多：它本身并不提供“多重继承”功能。许多人认为这是件好事，因为使用多重继承的代价太高。然而这无法阻挡开发者们的热情，他们会尝试各种各样的办法来实现多重继承，我们马上就会看到。</p>
+<h2 id="混入"><a href="#混入" class="headerlink" title="混入"></a>混入</h2><p>在继承或者实例化时，JavaScript 的对象机制并不会自动执行复制行为。简单来说， JavaScript 中只有对象，并不存在可以被实例化的“类”。一个对象并不会被复制到其他对象，它们会被关联起来。</p>
+<p>由于在其他语言中类表现出来的都是复制行为，因此 JavaScript 开发者也想出了一个方法来模拟类的复制行为，这个方法就是混入。接下来我们会看到两种类型的混入：显式和隐式。</p>
+<h3 id="显式混入"><a href="#显式混入" class="headerlink" title="显式混入"></a>显式混入</h3><p>首先我们来回顾一下之前提到的 Vehicle 和 Car。由于 JavaScript 不会自动实现 Vehicle 到 Car 的复制行为，所以我们需要手动实现复制功能。这个功能在许多库和框架中被称为 extend(..)，但是为了方便理解我们称之为 mixin(..)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 非常简单的 mixin(..) 例子 : </span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">mixin</span>(<span class="hljs-params"> sourceObj, targetObj </span>) &#123; <br> 	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> sourceObj) &#123; <br> 		<span class="hljs-comment">// 只会在不存在的情况下复制</span><br> 		<span class="hljs-keyword">if</span> (!(key <span class="hljs-keyword">in</span> targetObj)) &#123; <br> 			targetObj[key] = sourceObj[key]; <br> 		&#125; <br> 	&#125; <br> 	<span class="hljs-keyword">return</span> targetObj; <br>&#125; <br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Vehicle</span> = &#123; <br> 	<span class="hljs-attr">engines</span>: <span class="hljs-number">1</span>, <br> 	<span class="hljs-attr">ignition</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&quot;Turning on my engine.&quot;</span> ); <br> 	&#125;, <br> 	<span class="hljs-attr">drive</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">ignition</span>(); <br> 		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&quot;Steering and moving forward!&quot;</span> ); <br> 	&#125; <br>&#125;; <br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Car</span> = <span class="hljs-title function_">mixin</span>( <span class="hljs-title class_">Vehicle</span>, &#123; <br> 	<span class="hljs-attr">wheels</span>: <span class="hljs-number">4</span>, <br> 	<span class="hljs-attr">drive</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br>        <span class="hljs-comment">// 由于是函数调用，所以Vehicle.drive中的this仍然指向Vehicle对象，应当通过硬绑定修改this</span><br> 		<span class="hljs-title class_">Vehicle</span>.<span class="hljs-property">drive</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">this</span> ); <br> 		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <br> 			<span class="hljs-string">&quot;Rolling on all &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">wheels</span> + <span class="hljs-string">&quot; wheels!&quot;</span> <br> 		); <br> 	&#125; <br>&#125; );<br></code></pre></td></tr></table></figure>
+
+<p>现在 Car 中就有了一份 Vehicle 属性和函数的副本了。从技术角度来说，函数实际上没有被复制，复制的是函数引用。所以，Car 中的属性 ignition 只是从 Vehicle 中复制过来的对于 ignition() 函数的引用。相反，属性 engines 就是直接从 Vehicle 中复制了值 1。</p>
+<p>Car 已经有了 drive 属性（函数），所以这个属性引用并没有被 mixin 重写，从而保留了Car 中定义的同名属性，实现了“子类”对“父类”属性的重写（参见 mixin(..) 例子中的 if 语句）。</p>
+<h4 id="再说多态"><a href="#再说多态" class="headerlink" title="再说多态"></a>再说多态</h4><p>我们来分析一下这条语句：Vehicle.drive.call( this )。这就是我所说的显式多态。还记得吗，在之前的伪代码中对应的语句是 inherited:drive()，我们称之为相对多态。</p>
+<p>JavaScript（在 ES6 之前；参见附录 A）并没有相对多态的机制。所以，由于 Car 和 Vehicle 中都有 drive() 函数，为了指明调用对象，我们必须使用绝对（而不是相对）引用。我们通过名称显式指定 Vehicle 对象并调用它的 drive() 函数。</p>
+<p>但是如果直接执行 Vehicle.drive()，函数调用中的 this 会被绑定到 Vehicle 对象而不是Car 对象），这并不是我们想要的。因此，我们会使用 .call(this) 来确保 drive() 在 Car 对象的上下文中执行。</p>
+<p>如果函数 Car.drive() 的名称标识符并没有和 Vehicle.drive() 重叠的话，我们就不需要实现方法多态，因为调用 mixin(..) 时会把函数 Vehicle.drive() 的引用复制到 Car 中，因此我们可以直接访问 this.drive()。正是由于存在标识符重叠，所以必须使用更加复杂的显式伪多态方法。</p>
+<p>在支持相对多态的面向类的语言中，Car 和 Vehicle 之间的联系只在类定义的开头被创建，从而只需要在这一个地方维护两个类的联系。</p>
+<p>但是在 JavaScript 中（由于屏蔽）使用显式伪多态会在所有需要使用（伪）多态引用的地方创建一个函数关联，这会极大地增加维护成本。此外，由于显式伪多态可以模拟多重继承，所以它会进一步增加代码的复杂度和维护难度。</p>
+<p>使用伪多态通常会导致代码变得更加复杂、难以阅读并且难以维护，因此应当尽量避免使用显式伪多态，因为这样做往往得不偿失。</p>
+<h4 id="混合复制"><a href="#混合复制" class="headerlink" title="混合复制"></a>混合复制</h4><p>现在我们来分析一下之前实现的 mixin(..) 的工作原理。它会遍历 sourceObj（本例中是 Vehicle）的属性，如果在 targetObj（本例中是 Car）没有这个属性就会进行复制。由于我们是在目标对象初始化之后才进行复制，因此一定要小心不要覆盖目标对象的原有属性。</p>
+<p>如果我们是先进行复制然后对 Car 进行特殊化的话，就可以跳过存在性检查。不过这种方法并不好用并且效率更低，所以不如第一种方法常用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 另一种混入函数，可能有重写风险</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">mixin</span>(<span class="hljs-params"> sourceObj, targetObj </span>) &#123; <br> 	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> sourceObj) &#123; <br> 		<span class="hljs-comment">// 不判断是否原先存在这个属性。</span><br> 		targetObj[key] = sourceObj[key]; <br> 	&#125; <br> 	<span class="hljs-keyword">return</span> targetObj; <br>&#125; <br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Vehicle</span> = &#123; <br> 	<span class="hljs-comment">// ... </span><br>&#125;; <br><span class="hljs-comment">// 首先创建一个空对象并把 Vehicle 的内容复制进去</span><br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Car</span> = <span class="hljs-title function_">mixin</span>( <span class="hljs-title class_">Vehicle</span>, &#123; &#125; ); <br><span class="hljs-comment">// 然后把新内容复制到 Car 中</span><br><span class="hljs-title function_">mixin</span>( &#123; <br> 	<span class="hljs-attr">wheels</span>: <span class="hljs-number">4</span>, <br> 	<span class="hljs-attr">drive</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 		<span class="hljs-comment">// ... </span><br> 	&#125; <br>&#125;, <span class="hljs-title class_">Car</span> );<br></code></pre></td></tr></table></figure>
+
+<p>这两种方法都可以把不重叠的内容从 Vehicle 中显性复制到 Car 中。“混入”这个名字来源于这个过程的另一种解释：Car 中混合了 Vehicle 的内容，就像你把巧克力片混合到你最喜欢的饼干面团中一样。</p>
+<p>复制操作完成后，Car 就和 Vehicle 分离了，向 Car 中添加属性不会影响 Vehicle，反之亦然。由于两个对象引用的是同一个函数，因此这种复制（或者说混入）实际上并不能完全模拟面向类的语言中的复制。</p>
+<p>JavaScript 中的函数无法（用标准、可靠的方法）真正地复制，所以你只能复制对共享函数对象的引用（函数就是对象；参见第 3 章）。如果你修改了共享的函数对象（比如例子中的 ignition()），比如添加了一个属性，那 Vehicle 和 Car 都会受到影响。</p>
+<p>显式混入是 JavaScript 中一个很棒的机制，不过它的功能也没有看起来那么强大。虽然它可以把一个对象的属性复制到另一个对象中，但是这其实并不能带来太多的好处，无非就是少几条定义语句，而且还会带来我们刚才提到的函数对象引用问题。</p>
+<p>如果你向目标对象中显式混入超过一个对象，就可以部分模仿多重继承行为，但是仍没有直接的方式来处理函数和属性的同名问题。有些开发者 &#x2F; 库提出了“晚绑定”技术和其他的一些解决方法，但是从根本上来说，使用这些“诡计”通常会（降低性能并且）得不偿失。</p>
+<p>一定要注意，只在能够提高代码可读性的前提下使用显式混入，避免使用增加代码理解难度或者让对象关系更加复杂的模式。</p>
+<p>如果使用混入时感觉越来越困难，那或许你应该停止使用它了。实际上，如果你必须使用一个复杂的库或者函数来实现这些细节，那就标志着你的方法是有问题的或者是不必要的。第 6 章会试着提出一种更简单的方法，它能满足这些需求并且可以避免所有的问题。</p>
+<h4 id="寄生继承"><a href="#寄生继承" class="headerlink" title="寄生继承"></a>寄生继承</h4><p>显式混入模式的一种变体被称为“寄生继承”，它既是显式的又是隐式的，主要推广者是Douglas Crockford。下面是它的工作原理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// “传统的 JavaScript 类”Vehicle </span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Vehicle</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">engines</span> = <span class="hljs-number">1</span>; <br>&#125; <br><span class="hljs-title class_">Vehicle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">ignition</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&quot;Turning on my engine.&quot;</span> ); <br>&#125;;<br><span class="hljs-title class_">Vehicle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">drive</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">ignition</span>(); <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&quot;Steering and moving forward!&quot;</span> ); <br>&#125;; <br><span class="hljs-comment">// “寄生类” Car </span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Car</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-comment">// 首先，car 是一个 Vehicle </span><br> 	<span class="hljs-keyword">var</span> car = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vehicle</span>(); <br> 	<span class="hljs-comment">// 接着我们对 car 进行定制</span><br> 	car.<span class="hljs-property">wheels</span> = <span class="hljs-number">4</span>; <br> 	<span class="hljs-comment">// 保存到 Vehicle::drive() 的特殊引用</span><br> 	<span class="hljs-keyword">var</span> vehDrive = car.<span class="hljs-property">drive</span>; <br> 	<span class="hljs-comment">// 重写 Vehicle::drive() </span><br> 	car.<span class="hljs-property">drive</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 		vehDrive.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">this</span> ); <br> 		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <br> 			<span class="hljs-string">&quot;Rolling on all &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">wheels</span> + <span class="hljs-string">&quot; wheels!&quot;</span> <br> 		); <br> 	&#125; <br> 	<span class="hljs-keyword">return</span> car; <br>&#125; <br><span class="hljs-keyword">var</span> myCar = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(); <br>myCar.<span class="hljs-title function_">drive</span>(); <br><span class="hljs-comment">// Turning on my engine. </span><br><span class="hljs-comment">// Steering and moving forward! </span><br><span class="hljs-comment">// Rolling on all 4 wheels!</span><br></code></pre></td></tr></table></figure>
+
+<p>如你所见，首先我们复制一份 Vehicle 父类（对象）的定义，然后混入子类（对象）的定义（如果需要的话保留到父类的特殊引用），然后用这个复合对象构建实例。</p>
+<h3 id="隐式混入"><a href="#隐式混入" class="headerlink" title="隐式混入"></a>隐式混入</h3><p>隐式混入和之前提到的显式伪多态很像，因此也具备同样的问题。</p>
+<p>思考下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Something</span> = &#123; <br> 	<span class="hljs-attr">cool</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">greeting</span> = <span class="hljs-string">&quot;Hello World&quot;</span>; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> + <span class="hljs-number">1</span> : <span class="hljs-number">1</span>; <br> 	&#125; <br>&#125;; <br>混合对象“类” ｜ <span class="hljs-number">139</span><br><span class="hljs-title class_">Something</span>.<span class="hljs-title function_">cool</span>(); <br><span class="hljs-title class_">Something</span>.<span class="hljs-property">greeting</span>; <span class="hljs-comment">// &quot;Hello World&quot; </span><br><span class="hljs-title class_">Something</span>.<span class="hljs-property">count</span>; <span class="hljs-comment">// 1 </span><br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Another</span> = &#123; <br> 	<span class="hljs-attr">cool</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 		<span class="hljs-comment">// 隐式把 Something 混入 Another </span><br> 		<span class="hljs-title class_">Something</span>.<span class="hljs-property">cool</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">this</span> ); <br> 	&#125; <br>&#125;; <br><span class="hljs-title class_">Another</span>.<span class="hljs-title function_">cool</span>(); <br><span class="hljs-title class_">Another</span>.<span class="hljs-property">greeting</span>; <span class="hljs-comment">// &quot;Hello World&quot; </span><br><span class="hljs-title class_">Another</span>.<span class="hljs-property">count</span>; <span class="hljs-comment">// 1 （count 不是共享状态）</span><br></code></pre></td></tr></table></figure>
+
+<p>通过在构造函数调用或者方法调用中使用 Something.cool.call( this )，我们实际上“借用”了函数 Something.cool() 并在 Another 的上下文中调用了它。最终的结果是 Something.cool() 中的赋值操作都会应用在 Another 对象上而不是Something 对象上。</p>
+<p>因此，我们把 Something 的行为“混入”到了 Another 中。虽然这类技术利用了 this 的重新绑定功能，但是 Something.cool.call( this ) 仍然无法变成相对（而且更灵活的）引用，所以使用时千万要小心。通常来说，尽量避免使用这样的结构，以保证代码的整洁和可维护性。</p>
+<p>就是这样 ~</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JavaScript/" class="category-chain-item">你不知道的JavaScript</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JavaScript/">#你不知道的JavaScript</a>
+      
+        <a href="/tags/this%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%8E%9F%E5%9E%8B/">#this和对象原型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>不知JS - 上卷 - 第2部分 - 第4章 - 类</div>
+      <div>http://haozhuqian.github.io/2023/02/25/不知JS - 上卷 - 第2部分 - 第4章 - 类/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Mr.Good</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月25日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/25/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC2%E9%83%A8%E5%88%86%20-%20%E7%AC%AC5%E7%AB%A0%20-%20%E5%8E%9F%E5%9E%8B/" title="不知JS - 上卷 - 第2部分 - 第5章 - 原型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">不知JS - 上卷 - 第2部分 - 第5章 - 原型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/24/%E6%89%93%E5%8D%A1day19/" title="打卡day19">
+                        <span class="hidden-mobile">打卡day19</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="lv-container" data-id="city" data-uid="MTAyMC81NzEwMC8zMzU2NA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>始于2022年8月18日 18:55:40</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

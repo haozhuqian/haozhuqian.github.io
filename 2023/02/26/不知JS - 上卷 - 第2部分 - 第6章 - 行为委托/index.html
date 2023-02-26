@@ -1,0 +1,895 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/wenti.png">
+  <link rel="icon" href="/img/wenti.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Mr.Good">
+  <meta name="keywords" content="郝祝乾的博客">
+  
+    <meta name="description" content="主要讲述了与面向类的设计模式与面向委托的设计模式的不同，以及在js中的实现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不知JS - 上卷 - 第2部分 - 第6章 - 行为委托">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/02/26/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC2%E9%83%A8%E5%88%86%20-%20%E7%AC%AC6%E7%AB%A0%20-%20%E8%A1%8C%E4%B8%BA%E5%A7%94%E6%89%98/index.html">
+<meta property="og:site_name" content="GoodMoney的小窝">
+<meta property="og:description" content="主要讲述了与面向类的设计模式与面向委托的设计模式的不同，以及在js中的实现。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302261921701.png">
+<meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302261925474.png">
+<meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302261926587.png">
+<meta property="article:published_time" content="2023-02-26T10:11:09.000Z">
+<meta property="article:modified_time" content="2023-02-26T14:39:09.270Z">
+<meta property="article:author" content="Mr.Good">
+<meta property="article:tag" content="你不知道的JavaScript">
+<meta property="article:tag" content="this和对象原型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302261921701.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>不知JS - 上卷 - 第2部分 - 第6章 - 行为委托 - GoodMoney的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"haozhuqian.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":100,"cursorChar":"~","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":10},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>GoodMoney的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/definde.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="不知JS - 上卷 - 第2部分 - 第6章 - 行为委托"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-26 18:11" pubdate>
+          2023年2月26日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          22k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          185 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">不知JS - 上卷 - 第2部分 - 第6章 - 行为委托</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="行为委托"><a href="#行为委托" class="headerlink" title="行为委托"></a>行为委托</h1><p>第 5 章详细介绍了 [[Prototype]] 机制并说明了为什么在“类”或者“继承”的背景下讨论 [[Prototype]] 容易产生误解。我们搞清楚了繁杂的语法（各种 .prototype 代码），也见识了各种各样的陷阱（比如出人意料的 .constructor 和丑陋的伪多态语法），我们还看到了用来解决这些问题的各种“混入”方法。</p>
+<p>你可能会很好奇，为什么看起来简单的事情会变得这么复杂。现在我们会把帘子拉开，看看后面到底有什么。不出意外，绝大多数 JavaScript 开发者从来没有如此深入地了解过JavaScript，他们只是把这些交给一个“类”库来处理。</p>
+<p>现在，我希望你不仅满足于掩盖这些细节并把它们交给一个“黑盒”库。忘掉令人困惑的类，我们用一种更加简单直接的方法来深入发掘一下 JavaScript 中对象的 [[Prototype]] 机制到底是什么。</p>
+<p>首先简单回顾一下第 5 章的结论：[[Prototype]] 机制就是指对象中的一个内部链接引用另一个对象。</p>
+<p>如果在第一个对象上没有找到需要的属性或者方法引用，引擎就会继续在 [[Prototype]]关联的对象上进行查找。同理，如果在后者中也没有找到需要的引用就会继续查找它的[[Prototype]]，以此类推。这一系列对象的链接被称为“原型链”。</p>
+<p>换句话说，JavaScript 中这个机制的本质就是对象之间的关联关系。这个观点对于理解本章的内容来说是非常基础并且非常重要的。</p>
+<h2 id="面向委托设计"><a href="#面向委托设计" class="headerlink" title="面向委托设计"></a>面向委托设计</h2><p>为了更好地学习如何更直观地使用 [[Prototype]]，我们必须认识到它代表的是一种不同于类（参见第 4 章）的设计模式。</p>
+<p>面向类的设计中有些原则依然有效，因此不要把所有知识都抛掉。（只需要抛掉大部分就够了！）举例来说，封装是非常有用的，它同样可以应用在委托中（虽然不太常见）。</p>
+<p>我们需要试着把思路从类和继承的设计模式转换到委托行为的设计模式。如果你在学习或者工作的过程中几乎一直在使用类，那转换思路可能不太自然并且不太舒服。你可能需要多重复几次才能熟悉这种思维模式。</p>
+<p>首先我会带你们进行一些理论训练，然后再传授一些能够应用在代码中的具体实例。</p>
+<h3 id="类理论"><a href="#类理论" class="headerlink" title="类理论"></a>类理论</h3><p>假设我们需要在软件中建模一些类似的任务（“XYZ”、“ABC”等）。</p>
+<p>如果使用类，那设计方法可能是这样的：定义一个通用父（基）类，可以将其命名为Task，在 Task 类中定义所有任务都有的行为。接着定义子类 XYZ 和 ABC，它们都继承自Task 并且会添加一些特殊的行为来处理对应的任务。非常重要的是，类设计模式鼓励你在继承时使用方法重写（和多态），比如说在 XYZ 任务中重写 Task 中定义的一些通用方法，甚至在添加新行为时通过 super 调用这个方法的原始版本。你会发现许多行为可以先“抽象”到父类然后再用子类进行特殊化（重写）。</p>
+<p>下面是对应的伪代码：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-type">Task</span> &#123; </span><br><span class="hljs-class"> 	id; </span><br><span class="hljs-class"> 	// 构造函数 <span class="hljs-type">Task</span>() </span><br><span class="hljs-class"> 	<span class="hljs-type">Task</span>(<span class="hljs-type">ID</span>) &#123; id = <span class="hljs-type">ID</span>; &#125; </span><br><span class="hljs-class"> 	outputTask() &#123; output( <span class="hljs-title">id</span> ); &#125; </span><br><span class="hljs-class">&#125; </span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-type">XYZ</span> inherits <span class="hljs-type">Task</span> &#123; </span><br><span class="hljs-class"> 	label; </span><br><span class="hljs-class"> 	// 构造函数 <span class="hljs-type">XYZ</span>() </span><br><span class="hljs-class"> 	<span class="hljs-type">XYZ</span>(<span class="hljs-type">ID</span>,<span class="hljs-type">Label</span>) &#123; super( <span class="hljs-type">ID</span> ); label = <span class="hljs-type">Label</span>; &#125; </span><br><span class="hljs-class"> 	outputTask() &#123; super(); output( <span class="hljs-title">label</span> ); &#125; </span><br><span class="hljs-class">&#125;</span><br><span class="hljs-class">行为委托 ｜ 165</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-type">ABC</span> inherits <span class="hljs-type">Task</span> &#123; </span><br><span class="hljs-class"> 	// ... </span><br><span class="hljs-class">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>现在你可以实例化子类 XYZ 的一些副本然后使用这些实例来执行任务“XYZ”。这些实例会复制 Task 定义的通用行为以及 XYZ 定义的特殊行为。同理，ABC 类的实例也会复制 Task的行为和 ABC 的行为。在构造完成后，你通常只需要操作这些实例（而不是类），因为每个实例都有你需要完成任务的所有行为。</p>
+<h3 id="委托理论"><a href="#委托理论" class="headerlink" title="委托理论"></a>委托理论</h3><p>但是现在我们试着来使用委托行为而不是类来思考同样的问题。</p>
+<p>首先你会定义一个名为 Task 的对象（和许多 JavaScript 开发者告诉你的不同，它既不是类也不是函数），它会包含所有任务都可以使用（写作使用，读作委托）的具体行为。接着，对于每个任务（“XYZ”、“ABC”）你都会定义一个对象来存储对应的数据和行为。你会把特定的任务对象都关联到 Task 功能对象上，让它们在需要的时候可以进行委托。</p>
+<p>基本上你可以想象成，执行任务“XYZ”需要两个兄弟对象（XYZ 和 Task）协作完成。但是我们并不需要把这些行为放在一起，通过类的复制，我们可以把它们分别放在各自独立的对象中，需要时可以允许 XYZ 对象委托给 Task。</p>
+<p>下面是推荐的代码形式，非常简单：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">Task</span> = &#123; <br> 	<span class="hljs-attr">setID</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">ID</span>) &#123; <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = <span class="hljs-variable constant_">ID</span>; &#125;, <br> 	<span class="hljs-attr">outputID</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> ); &#125; <br>&#125;; <br><span class="hljs-comment">// 让 XYZ 委托 Task </span><br><span class="hljs-variable constant_">XYZ</span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Task</span> ); <br><span class="hljs-variable constant_">XYZ</span>.<span class="hljs-property">prepareTask</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">ID,Label</span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setID</span>( <span class="hljs-variable constant_">ID</span> ); <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> = <span class="hljs-title class_">Label</span>; <br>&#125;; <br><span class="hljs-variable constant_">XYZ</span>.<span class="hljs-property">outputTaskDetails</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">outputID</span>(); <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> ); <br>&#125;; <br><span class="hljs-comment">// ABC = Object.create( Task );</span><br><span class="hljs-comment">// ABC ... = ...</span><br></code></pre></td></tr></table></figure>
+
+<p>在 这 段 代 码 中，Task 和 XYZ 并 不 是 类（ 或 者 函 数 ）， 它 们 是 对 象。XYZ 通 过 Object.create(..) 创建，它的 [[Prototype]] 委托了 Task 对象（参见第 5 章）。</p>
+<p>相比于面向类（或者说面向对象），我会把这种编码风格称为“对象关联”（OLOO，objects linked to other objects）。我们真正关心的只是 XYZ 对象（和 ABC 对象）委托了Task 对象。</p>
+<p>在 JavaScript 中，[[Prototype]] 机制会把对象关联到其他对象。无论你多么努力地说服自己，JavaScript 中就是没有类似“类”的抽象机制。这有点像逆流而上：你确实可以这么做，但是如果你选择对抗事实，那要达到目的就显然会更加困难。</p>
+<p>对象关联风格的代码还有一些不同之处：</p>
+<ol>
+<li>在上面的代码中，id 和 label 数据成员都是直接存储在 XYZ 上（而不是 Task）。通常来说，在 [[Prototype]] 委托中最好把状态保存在委托者（XYZ、ABC）而不是委托目标（Task）上。</li>
+<li>在类设计模式中，我们故意让父类（Task）和子类（XYZ）中都有 outputTask 方法，这样就可以利用重写（多态）的优势。在委托行为中则恰好相反：我们会尽量避免在[[Prototype]] 链的不同级别中使用相同的命名，否则就需要使用笨拙并且脆弱的语法来消除引用歧义（参见第 4 章）。这个设计模式要求尽量少使用容易被重写的通用方法名，提倡使用更有描述性的方法名，尤其是要写清相应对象行为的类型。这样做实际上可以创建出更容易理解和维护的代码，因为方法名（不仅在定义的位置，而是贯穿整个代码）更加清晰（自文档）。</li>
+<li>this.setID(ID)；XYZ 中的方法首先会寻找 XYZ 自身是否有 setID(..)，但是 XYZ 中并没有这个方法名，因此会通过 [[Prototype]] 委托关联到 Task 继续寻找，这时就可以找到setID(..) 方法。此外，由于调用位置触发了 this 的隐式绑定规则（参见第 2 章），因此虽然 setID(..) 方法在 Task 中，运行时 this 仍然会绑定到 XYZ，这正是我们想要的。在之后的代码中我们还会看到 this.outputID()，原理相同。</li>
+</ol>
+<p>换句话说，我们和 XYZ 进行交互时可以使用 Task 中的通用方法，因为 XYZ 委托了 Task。</p>
+<p>委托行为意味着某些对象（XYZ）在找不到属性或者方法引用时会把这个请求委托给另一个对象（Task）。</p>
+<p>这是一种极其强大的设计模式，和父类、子类、继承、多态等概念完全不同。在你的脑海中对象并不是按照父类到子类的关系垂直组织的，而是通过任意方向的委托关联并排组织的。</p>
+<p>在 API 接口的设计中，委托最好在内部实现，不要直接暴露出去。在之前的例子中我们并没有让开发者通过 API 直接调用 XYZ.setID()。（当然，可以这么做！）相反，我们把委托隐藏在了 API 的内部，XYZ.prepareTask(..) 会委托 Task.setID(..)。</p>
+<h4 id="相互委托"><a href="#相互委托" class="headerlink" title="相互委托"></a>相互委托</h4><p>你无法在两个或两个以上互相（双向）委托的对象之间创建循环委托。如果你把 B 关联到 A 然后试着把 A 关联到 B，就会出错。</p>
+<p>很遗憾（并不是非常出乎意料，但是有点烦人）这种方法是被禁止的。如果你引用了一个两边都不存在的属性或者方法，那就会在 [[Prototype]] 链上产生一个无限递归的循环。</p>
+<p>但是如果所有的引用都被严格限制的话，B 是可以委托 A 的，反之亦然。因此，互相委托理论上是可以正常工作的，在某些情况下这是非常有用的。</p>
+<p>之所以要禁止互相委托，是因为引擎的开发者们发现在设置时检查（并禁止！）一次无限循环引用要更加高效，否则每次从对象中查找属性时都需要进行检查。</p>
+<h4 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h4><p>我们来简单介绍一个容易让开发者感到迷惑的细节。通常来说，JavaScript 规范并不会控制浏览器中开发者工具对于特定值或者结构的表示方式，浏览器和引擎可以自己选择合适的方式来进行解析，因此浏览器和工具的解析结果并不一定相同。比如，下面这段代码的结果只能在 Chrome 的开发者工具中才能看到。</p>
+<p>这段传统的“类构造函数”JavaScript 代码在 Chrome 开发者工具的控制台中结果如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params"></span>) &#123;&#125; <br><span class="hljs-keyword">var</span> a1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Foo</span>(); <br>a1; <span class="hljs-comment">// Foo &#123;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们看代码的最后一行：表达式 a1 的输出是 Foo {}。如果你在 Firefox 中运行同样的代码会得到 Object {}。为什么会这样呢？这些输出是什么意思呢？</p>
+<p>Chrome 实际上想说的是“{} 是一个空对象，由名为 Foo 的函数构造”。Firefox 想说的是“{}是一个空对象，由 Object 构造”。之所以有这种细微的差别，是因为 Chrome 会动态跟踪并把实际执行构造过程的函数名当作一个内置属性，但是其他浏览器并不会跟踪这些额外的信息。</p>
+<p>看起来可以用 JavaScript 的机制来解释 Chrome 的跟踪原理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params"></span>) &#123;&#125; <br><span class="hljs-keyword">var</span> a1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Foo</span>(); <br>a1.<span class="hljs-property">constructor</span>; <span class="hljs-comment">// Foo()&#123;&#125; </span><br>a1.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>; <span class="hljs-comment">// &quot;Foo&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>Chrome 是不是直接输出了对象的 .constructor.name 呢？令人迷惑的是，答案是“既是又不是”。</p>
+<p>思考下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params"></span>) &#123;&#125; <br><span class="hljs-keyword">var</span> a1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Foo</span>(); <br><span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">constructor</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">Gotcha</span>(<span class="hljs-params"></span>)&#123;&#125;; <br>a1.<span class="hljs-property">constructor</span>; <span class="hljs-comment">// Gotcha()&#123;&#125; </span><br>a1.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>; <span class="hljs-comment">// &quot;Gotcha&quot; </span><br>a1; <span class="hljs-comment">// Foo &#123;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>即使我们把 a1.constructor.name 修改为另一个合理的值（Gotcha），Chrome 控制台仍然会输出 Foo。</p>
+<p>看起来之前那个问题（是否使用 .constructor.name ？）的答案是“不是”；Chrome 在内部肯定是通过另一种方式进行跟踪。</p>
+<p>别着急！我们先看看下面这段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Foo</span> = &#123;&#125;; <br><span class="hljs-keyword">var</span> a1 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Foo</span> ); <br>a1; <span class="hljs-comment">// Object &#123;&#125;</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>( <span class="hljs-title class_">Foo</span>, <span class="hljs-string">&quot;constructor&quot;</span>, &#123; <br> 	<span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>, <br> 	<span class="hljs-attr">value</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">Gotcha</span>(<span class="hljs-params"></span>)&#123;&#125; <br>&#125;); <br>a1; <span class="hljs-comment">// Gotcha &#123;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>啊哈！抓到你了（Gotcha 的意思就是抓到你了）！本例中 Chrome 的控制台确实使用了 .constructor.name。实际上，在编写本书时，这个行为被认定是 Chrome 的一个 bug，当你读到此书时，它可能已经被修复了。所以你看到的可能是 a1; &#x2F;&#x2F; Object {}。</p>
+<p>除了这个 bug，Chrome 内部跟踪（只用于调试输出）“构造函数名称”的方法是 Chrome自身的一种扩展行为，并不包含在 JavaScript 的规范中。</p>
+<p>如果你并不是使用“构造函数”来生成对象，比如使用本章介绍的对象关联风格来编写代码，那 Chrome 就无法跟踪对象内部的“构造函数名称”，这样的对象输出是 Object {}，意思是“Object() 构造出的对象”。</p>
+<p>当然，这并不是对象关联风格代码的缺点。当你使用对象关联风格来编写代码并使用行为委托设计模式时，并不需要关注是谁“构造了”对象（就是使用 new 调用的那个函数）。只有使用类风格来编写代码时 Chrome 内部的“构造函数名称”跟踪才有意义，使用对象关联时这个功能不起任何作用。</p>
+<h3 id="比较思维模型"><a href="#比较思维模型" class="headerlink" title="比较思维模型"></a>比较思维模型</h3><p>现在你已经明白了“类”和“委托”这两种设计模式的理论区别，接下来我们看看它们在思维模型方面的区别。</p>
+<p>我们会通过一些示例（Foo、Bar）代码来比较一下两种设计模式（面向对象和对象关联）具体的实现方法。下面是典型的（“原型”）面向对象风格：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params">who</span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">me</span> = who; <br>&#125; <br><span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">identify</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;I am &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">me</span>; <br>&#125;; <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Bar</span>(<span class="hljs-params">who</span>) &#123; <br> 	<span class="hljs-title class_">Foo</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">this</span>, who ); <br>&#125; <br><span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> ); <br><span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">speak</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-title function_">alert</span>( <span class="hljs-string">&quot;Hello, &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">identify</span>() + <span class="hljs-string">&quot;.&quot;</span> ); <br>&#125;; <br><span class="hljs-keyword">var</span> b1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Bar</span>( <span class="hljs-string">&quot;b1&quot;</span> ); <br><span class="hljs-keyword">var</span> b2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Bar</span>( <span class="hljs-string">&quot;b2&quot;</span> ); <br>b1.<span class="hljs-title function_">speak</span>(); <br>b2.<span class="hljs-title function_">speak</span>();<br></code></pre></td></tr></table></figure>
+
+<p>子类 Bar 继承了父类 Foo，然后生成了 b1 和 b2 两个实例。b1 委托了 Bar.prototype，Bar.prototype 委托了 Foo.prototype。这种风格很常见，你应该很熟悉了。</p>
+<p>下面我们看看如何使用对象关联风格来编写功能完全相同的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">Foo</span> = &#123; <br> 	<span class="hljs-attr">init</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">who</span>) &#123; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">me</span> = who; <br> 	&#125;, <br> 	<span class="hljs-attr">identify</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;I am &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">me</span>; <br> 	&#125; <br>&#125;; <br><span class="hljs-title class_">Bar</span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Foo</span> ); <br><span class="hljs-title class_">Bar</span>.<span class="hljs-property">speak</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-title function_">alert</span>( <span class="hljs-string">&quot;Hello, &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">identify</span>() + <span class="hljs-string">&quot;.&quot;</span> ); <br>&#125;; <br><span class="hljs-keyword">var</span> b1 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Bar</span> ); <br>b1.<span class="hljs-title function_">init</span>( <span class="hljs-string">&quot;b1&quot;</span> ); <br><span class="hljs-keyword">var</span> b2 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Bar</span> ); <br>b2.<span class="hljs-title function_">init</span>( <span class="hljs-string">&quot;b2&quot;</span> ); <br>b1.<span class="hljs-title function_">speak</span>(); <br>b2.<span class="hljs-title function_">speak</span>();<br></code></pre></td></tr></table></figure>
+
+<p>这段代码中我们同样利用 [[Prototype]] 把 b1 委托给 Bar 并把 Bar 委托给 Foo，和上一段代码一模一样。我们仍然实现了三个对象之间的关联。</p>
+<p>但是非常重要的一点是，这段代码简洁了许多，我们只是把对象关联起来，并不需要那些既复杂又令人困惑的模仿类的行为（构造函数、原型以及 new）。</p>
+<p>问问你自己：如果对象关联风格的代码能够实现类风格代码的所有功能并且更加简洁易懂，那它是不是比类风格更好？</p>
+<p>下面我们看看两段代码对应的思维模型。</p>
+<p>首先，类风格代码的思维模型强调实体以及实体间的关系：</p>
+<p><img src="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302261921701.png" srcset="/img/loading.gif" lazyload alt="image-20230226192135614"></p>
+<p>实际上这张图有点不清晰 &#x2F; 误导人，因为它还展示了许多技术角度不需要关注的细节（但是你必须理解它们）！从图中可以看出这是一张十分复杂的关系网。此外，如果你跟着图中的箭头走就会发现，JavaScript 机制有很强的内部连贯性。</p>
+<p>举例来说，JavaScript 中的函数之所以可以访问 call(..)、apply(..) 和 bind(..)（参见第 2 章），就是因为函数本身是对象。而函数对象同样有 [[Prototype]] 属性并且关联到 Function.prototype 对象，因此所有函数对象都可以通过委托调用这些默认方法。</p>
+<p>JavaScript 能做到这一点，你也可以！</p>
+<p>好，下面我们来看一张简化版的图，它更“清晰”一些——只展示了必要的对象和关系：</p>
+<p><img src="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302261925474.png" srcset="/img/loading.gif" lazyload alt="image-20230226192511410"></p>
+<p>仍然很复杂，是吧？虚线表示的是 Bar.prototype 继承 Foo.prototype 之后丢失的 .constructor属性引用（参见 5.2.3 节的“回顾‘构造函数’”部分），它们还没有被修复。即使移除这些虚线，这个思维模型在你处理对象关联时仍然非常复杂。</p>
+<p>现在我们看看对象关联风格代码的思维模型：</p>
+<p><img src="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202302261926587.png" srcset="/img/loading.gif" lazyload alt="image-20230226192645531"></p>
+<p>通过比较可以看出，对象关联风格的代码显然更加简洁，因为这种代码只关注一件事：对象之间的关联关系。</p>
+<p>其他的“类”技巧都是非常复杂并且令人困惑的。去掉它们之后，事情会变得简单许多（同时保留所有功能）。</p>
+<h2 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h2><p>我们已经看到了“类”和“行为委托”在理论和思维模型方面的区别，现在看看在真实场景中如何应用这些方法。</p>
+<p>首先看看 Web 开发中非常典型的一种前端场景：创建 UI 控件（按钮、下拉列表，等等）。</p>
+<h3 id="控件“类”"><a href="#控件“类”" class="headerlink" title="控件“类”"></a>控件“类”</h3><p>你可能已经习惯了面向对象设计模式，所以很快会想到一个包含所有通用控件行为的父类（可能叫作 Widget）和继承父类的特殊控件子类（比如 Button）。</p>
+<p>下面这段代码展示的是如何在不使用任何“类”辅助库或者语法的情况下，使用纯JavaScript 实现类风格的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 父类</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Widget</span>(<span class="hljs-params">width,height</span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">width</span> = width || <span class="hljs-number">50</span>; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">height</span> = height || <span class="hljs-number">50</span>; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span> = <span class="hljs-literal">null</span>; <br>&#125; <br><span class="hljs-title class_">Widget</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">render</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">$where</span>)&#123; <br> 	<span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span>) &#123; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span>.<span class="hljs-title function_">css</span>( &#123; <br> 			<span class="hljs-attr">width</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">width</span> + <span class="hljs-string">&quot;px&quot;</span>, <br> 			<span class="hljs-attr">height</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">height</span> + <span class="hljs-string">&quot;px&quot;</span> <br> 		&#125; ).<span class="hljs-title function_">appendTo</span>( $where ); <br> 	&#125; <br>&#125;; <br><span class="hljs-comment">// 子类</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Button</span>(<span class="hljs-params">width,height,label</span>) &#123; <br> 	<span class="hljs-comment">// 调用“super”构造函数 </span><br> 	<span class="hljs-title class_">Widget</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">this</span>, width, height ); <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> = label || <span class="hljs-string">&quot;Default&quot;</span>; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span> = $( <span class="hljs-string">&quot;&lt;button&gt;&quot;</span> ).<span class="hljs-title function_">text</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> ); <br>&#125; <br><span class="hljs-comment">// 让 Button“继承”Widget </span><br><span class="hljs-title class_">Button</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Widget</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> ); <br><span class="hljs-comment">// 重写 render(..) </span><br><span class="hljs-title class_">Button</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">render</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">$where</span>) &#123; <br> 	<span class="hljs-comment">// “super”调用</span><br> 	<span class="hljs-title class_">Widget</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">render</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">this</span>, $where ); <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span>.<span class="hljs-title function_">click</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">onClick</span>.<span class="hljs-title function_">bind</span>( <span class="hljs-variable language_">this</span> ) ); <br>&#125;; <br><span class="hljs-title class_">Button</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">onClick</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">evt</span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&quot;Button &#x27;&quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> + <span class="hljs-string">&quot;&#x27; clicked!&quot;</span> );<br>&#125;; <br>$( <span class="hljs-variable language_">document</span> ).<span class="hljs-title function_">ready</span>( <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123; <br> 	<span class="hljs-keyword">var</span> $body = $( <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span> ); <br> 	<span class="hljs-keyword">var</span> btn1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Button</span>( <span class="hljs-number">125</span>, <span class="hljs-number">30</span>, <span class="hljs-string">&quot;Hello&quot;</span> ); <br> 	<span class="hljs-keyword">var</span> btn2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Button</span>( <span class="hljs-number">150</span>, <span class="hljs-number">40</span>, <span class="hljs-string">&quot;World&quot;</span> ); <br> 	btn1.<span class="hljs-title function_">render</span>( $body ); <br> 	btn2.<span class="hljs-title function_">render</span>( $body ); <br>&#125; );<br></code></pre></td></tr></table></figure>
+
+<p>在面向对象设计模式中我们需要先在父类中定义基础的 render(..)，然后在子类中重写它。子类并不会替换基础的 render(..)，只是添加一些按钮特有的行为。可以看到代码中出现了丑陋的显式伪多态（参见第 4 章），即通过 Widget.call 和 Widget.prototype.render.call 从“子类”方法中引用“父类”中的基础方法。</p>
+<h3 id="ES6的class语法糖"><a href="#ES6的class语法糖" class="headerlink" title="ES6的class语法糖"></a>ES6的class语法糖</h3><p>附录 A 会详细介绍 ES6 的 class 语法糖，不过这里可以简单介绍一下如何使用 class 来实现相同的功能：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Widget</span> &#123; <br> 	<span class="hljs-title function_">constructor</span>(<span class="hljs-params">width,height</span>) &#123; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">width</span> = width || <span class="hljs-number">50</span>; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">height</span> = height || <span class="hljs-number">50</span>; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span> = <span class="hljs-literal">null</span>; <br> 	&#125; <br> 	<span class="hljs-title function_">render</span>(<span class="hljs-params">$where</span>)&#123; <br> 		<span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span>) &#123; <br> 			<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span>.<span class="hljs-title function_">css</span>( &#123; <br> 				<span class="hljs-attr">width</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">width</span> + <span class="hljs-string">&quot;px&quot;</span>, <br> 				<span class="hljs-attr">height</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">height</span> + <span class="hljs-string">&quot;px&quot;</span> <br> 			&#125; ).<span class="hljs-title function_">appendTo</span>( $where ); <br> 		&#125; <br> 	&#125; <br>&#125; <br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Button</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Widget</span> &#123; <br> 	<span class="hljs-title function_">constructor</span>(<span class="hljs-params">width,height,label</span>) &#123; <br> 		<span class="hljs-variable language_">super</span>( width, height ); <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> = label || <span class="hljs-string">&quot;Default&quot;</span>; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span> = $( <span class="hljs-string">&quot;&lt;button&gt;&quot;</span> ).<span class="hljs-title function_">text</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> ); <br> 	&#125; <br> 	<span class="hljs-title function_">render</span>(<span class="hljs-params">$where</span>) &#123; <br> 		<span class="hljs-variable language_">super</span>.<span class="hljs-title function_">render</span>( $where ); <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span>.<span class="hljs-title function_">click</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">onClick</span>.<span class="hljs-title function_">bind</span>( <span class="hljs-variable language_">this</span> ) ); <br> 	&#125; <br> 	<span class="hljs-title function_">onClick</span>(<span class="hljs-params">evt</span>) &#123; <br> 		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&quot;Button &#x27;&quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> + <span class="hljs-string">&quot;&#x27; clicked!&quot;</span> ); <br> 	&#125; <br> &#125;<br>$( <span class="hljs-variable language_">document</span> ).<span class="hljs-title function_">ready</span>( <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123; <br> 	<span class="hljs-keyword">var</span> $body = $( <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span> ); <br> 	<span class="hljs-keyword">var</span> btn1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Button</span>( <span class="hljs-number">125</span>, <span class="hljs-number">30</span>, <span class="hljs-string">&quot;Hello&quot;</span> ); <br> 	<span class="hljs-keyword">var</span> btn2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Button</span>( <span class="hljs-number">150</span>, <span class="hljs-number">40</span>, <span class="hljs-string">&quot;World&quot;</span> ); <br> 	btn1.<span class="hljs-title function_">render</span>( $body ); <br> 	btn2.<span class="hljs-title function_">render</span>( $body ); <br>&#125; );<br></code></pre></td></tr></table></figure>
+
+<p>毫无疑问，使用 ES6 的 class 之后，上一段代码中许多丑陋的语法都不见了，super(..)函数棒极了。（尽管深入探究就会发现并不是那么完美！）</p>
+<p>尽管语法上得到了改进，但实际上这里并没有真正的类，class 仍然是通过 [[Prototype]]机制实现的，因此我们仍然面临第 4 章至第 6 章提到的思维模式不匹配问题。附录 A 会详细介绍 ES6 的 class 语法及其实现细节，我们会看到为什么解决语法上的问题无法真正解除对于 JavaScript 中类的误解，尽管它看起来非常像一种解决办法！</p>
+<p>无论你使用的是传统的原型语法还是 ES6 中的新语法糖，你仍然需要用“类”的概念来对问题（UI 控件）进行建模。就像前几章试图证明的一样，这种做法会为你带来新的麻烦。</p>
+<h3 id="委托控件对象"><a href="#委托控件对象" class="headerlink" title="委托控件对象"></a>委托控件对象</h3><p>下面的例子使用对象关联风格委托来更简单地实现 Widget&#x2F;Button：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Widget</span> = &#123; <br> 	<span class="hljs-attr">init</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">width,height</span>)&#123; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">width</span> = width || <span class="hljs-number">50</span>; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">height</span> = height || <span class="hljs-number">50</span>; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span> = <span class="hljs-literal">null</span>; <br> 	&#125;, <br> 	<span class="hljs-attr">insert</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">$where</span>)&#123; <br> 		<span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span>) &#123; <br> 			<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span>.<span class="hljs-title function_">css</span>( &#123; <br> 				<span class="hljs-attr">width</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">width</span> + <span class="hljs-string">&quot;px&quot;</span>, <br> 				<span class="hljs-attr">height</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">height</span> + <span class="hljs-string">&quot;px&quot;</span> <br> 			&#125; ).<span class="hljs-title function_">appendTo</span>( $where ); <br> 		&#125; <br> 	&#125; <br>&#125;; <br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Button</span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Widget</span> ); <br><span class="hljs-title class_">Button</span>.<span class="hljs-property">setup</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">width,height,label</span>)&#123; <br> 	<span class="hljs-comment">// 委托调用</span><br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">init</span>( width, height ); <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> = label || <span class="hljs-string">&quot;Default&quot;</span>; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span> = $( <span class="hljs-string">&quot;&lt;button&gt;&quot;</span> ).<span class="hljs-title function_">text</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> ); <br>&#125;; <br><span class="hljs-title class_">Button</span>.<span class="hljs-property">build</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">$where</span>) &#123; <br> 	<span class="hljs-comment">// 委托调用</span><br>     <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">insert</span>( $where ); <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">$elem</span>.<span class="hljs-title function_">click</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">onClick</span>.<span class="hljs-title function_">bind</span>( <span class="hljs-variable language_">this</span> ) ); <br>&#125;; <br><span class="hljs-title class_">Button</span>.<span class="hljs-property">onClick</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">evt</span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&quot;Button &#x27;&quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> + <span class="hljs-string">&quot;&#x27; clicked!&quot;</span> ); <br>&#125;; <br>$( <span class="hljs-variable language_">document</span> ).<span class="hljs-title function_">ready</span>( <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123; <br>     <span class="hljs-keyword">var</span> $body = $( <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span> ); <br>     <span class="hljs-keyword">var</span> btn1 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Button</span> ); <br>     btn1.<span class="hljs-title function_">setup</span>( <span class="hljs-number">125</span>, <span class="hljs-number">30</span>, <span class="hljs-string">&quot;Hello&quot;</span> ); <br>     <span class="hljs-keyword">var</span> btn2 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Button</span> ); <br>     btn2.<span class="hljs-title function_">setup</span>( <span class="hljs-number">150</span>, <span class="hljs-number">40</span>, <span class="hljs-string">&quot;World&quot;</span> ); <br>     btn1.<span class="hljs-title function_">build</span>( $body ); <br>     btn2.<span class="hljs-title function_">build</span>( $body ); <br>&#125; );<br></code></pre></td></tr></table></figure>
+
+<p>使用对象关联风格来编写代码时不需要把 Widget 和 Button 当作父类和子类。相反，Widget 只是一个对象，包含一组通用的函数，任何类型的控件都可以委托，Button 同样只是一个对象。（当然，它会通过委托关联到 Widget ！）</p>
+<p>从设计模式的角度来说，我们并没有像类一样在两个对象中都定义相同的方法名 render(..)，相反，我们定义了两个更具描述性的方法名（insert(..) 和 build(..)）。同理，初始化方法分别叫作 init(..) 和 setup(..)。</p>
+<p>在委托设计模式中，除了建议使用不相同并且更具描述性的方法名之外，还要通过对象关联避免丑陋的显式伪多态调用（Widget.call 和 Widget.prototype.render.call），代之以简单的相对委托调用 this.init(..) 和 this.insert(..)。</p>
+<p>从语法角度来说，我们同样没有使用任何构造函数、.prototype 或 new，实际上也没必要使用它们。</p>
+<p>如果你仔细观察就会发现，之前的一次调用（var btn1 &#x3D; new Button(..)）现在变成了两次（var btn1 &#x3D; Object.create(Button) 和 btn1.setup(..)）。乍一看这似乎是一个缺点（需要更多代码）。</p>
+<p>但是这一点其实也是对象关联风格代码相比传统原型风格代码有优势的地方。为什么呢？</p>
+<p>使用类构造函数的话，你需要（并不是硬性要求，但是强烈建议）在同一个步骤中实现构造和初始化。然而，在许多情况下把这两步分开（就像对象关联代码一样）更灵活。举例来说，假如你在程序启动时创建了一个实例池，然后一直等到实例被取出并使用时才执行特定的初始化过程。这个过程中两个函数调用是挨着的，但是完全可以根据需要让它们出现在不同的位置。</p>
+<p>对象关联可以更好地支持关注分离（separation of concerns）原则，创建和初始化并不需要合并为一个步骤。</p>
+<h2 id="更简洁的设计"><a href="#更简洁的设计" class="headerlink" title="更简洁的设计"></a>更简洁的设计</h2><p>对象关联除了能让代码看起来更简洁（并且更具扩展性）外还可以通过行为委托模式简化代码结构。我们来看最后一个例子，它展示了对象关联如何简化整体设计。</p>
+<p>在这个场景中我们有两个控制器对象，一个用来操作网页中的登录表单，另一个用来与服务器进行验证（通信）。</p>
+<p>我们需要一个辅助函数来创建 Ajax 通信。我们使用的是 jQuery（尽管其他框架也做得不错），它不仅可以处理 Ajax 并且会返回一个类 Promise 的结果，因此我们可以使用 .then(..) 来监听响应。</p>
+<p>在传统的类设计模式中，我们会把基础的函数定义在名为 Controller 的类中，然后派生两个子类 LoginController 和 AuthController，它们都继承自 Controller 并且重写了一些基础行为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 父类</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Controller</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">errors</span> = []; <br>&#125; <br><span class="hljs-title class_">Controller</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">showDialog</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">title,msg</span>) &#123; <br> 	<span class="hljs-comment">// 给用户显示标题和消息</span><br>&#125;; <br><span class="hljs-title class_">Controller</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">success</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">msg</span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">showDialog</span>( <span class="hljs-string">&quot;Success&quot;</span>, msg ); <br>&#125;; <br><span class="hljs-title class_">Controller</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">failure</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">errors</span>.<span class="hljs-title function_">push</span>( err ); <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">showDialog</span>( <span class="hljs-string">&quot;Error&quot;</span>, err ); <br>&#125;; <br><span class="hljs-comment">// 子类</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">LoginController</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-title class_">Controller</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">this</span> ); <br>&#125; <br><span class="hljs-comment">// 把子类关联到父类</span><br><span class="hljs-title class_">LoginController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Controller</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> ); <br><span class="hljs-title class_">LoginController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getUser</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">return</span> <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>( <span class="hljs-string">&quot;login_username&quot;</span> ).<span class="hljs-property">value</span>; <br>&#125;; <br><span class="hljs-title class_">LoginController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getPassword</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">return</span> <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>( <span class="hljs-string">&quot;login_password&quot;</span> ).<span class="hljs-property">value</span>; <br>&#125;; <br><span class="hljs-title class_">LoginController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">validateEntry</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">user,pw</span>) &#123; <br> 	user = user || <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getUser</span>(); <br> 	pw = pw || <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getPassword</span>(); <br> 	<span class="hljs-keyword">if</span> (!(user &amp;&amp; pw)) &#123; <br> 		<span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">failure</span>( <br> 			<span class="hljs-string">&quot;Please enter a username &amp; password!&quot;</span> <br> 		); <br> 	&#125; <br> 	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pw.<span class="hljs-property">length</span> &lt; <span class="hljs-number">5</span>) &#123; <br> 		<span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">failure</span>( <br> 			<span class="hljs-string">&quot;Password must be 5+ characters!&quot;</span> <br> 		); <br> 	&#125; <br> 	<span class="hljs-comment">// 如果执行到这里说明通过验证</span><br> 	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <br>	&#125;; <br>	<span class="hljs-comment">// 重写基础的 failure() </span><br>	<span class="hljs-title class_">LoginController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">failure</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) &#123; <br> 		<span class="hljs-comment">// “super”调用</span><br> 		<span class="hljs-title class_">Controller</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">failure</span>.<span class="hljs-title function_">call</span>( <br> 			<span class="hljs-variable language_">this</span>, <br> 			<span class="hljs-string">&quot;Login invalid: &quot;</span> + err <br> 		); <br>	&#125;; <br><span class="hljs-comment">// 子类</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">AuthController</span>(<span class="hljs-params">login</span>) &#123; <br> 	<span class="hljs-title class_">Controller</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">this</span> ); <br> 	<span class="hljs-comment">// 合成</span><br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-property">login</span> = login; <br>&#125; <br><span class="hljs-comment">// 把子类关联到父类</span><br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Controller</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> ); <br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">server</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">url,data</span>) &#123; <br> 	<span class="hljs-keyword">return</span> $.<span class="hljs-title function_">ajax</span>( &#123; <br> 		<span class="hljs-attr">url</span>: url, <br> 		<span class="hljs-attr">data</span>: data <br> 	&#125; ); <br>&#125;; <br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">checkAuth</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">var</span> user = <span class="hljs-variable language_">this</span>.<span class="hljs-property">login</span>.<span class="hljs-title function_">getUser</span>(); <br> 	<span class="hljs-keyword">var</span> pw = <span class="hljs-variable language_">this</span>.<span class="hljs-property">login</span>.<span class="hljs-title function_">getPassword</span>(); <br> 	<span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">login</span>.<span class="hljs-title function_">validateEntry</span>( user, pw )) &#123; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">server</span>( <span class="hljs-string">&quot;/check-auth&quot;</span>,&#123; <br> 			<span class="hljs-attr">user</span>: user, <br>         	<span class="hljs-attr">pw</span>: pw <br> 		&#125; ) <br> 		.<span class="hljs-title function_">then</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">success</span>.<span class="hljs-title function_">bind</span>( <span class="hljs-variable language_">this</span> ) ) <br> 		.<span class="hljs-title function_">fail</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">failure</span>.<span class="hljs-title function_">bind</span>( <span class="hljs-variable language_">this</span> ) ); <br> 	&#125; <br>&#125;; <br><span class="hljs-comment">// 重写基础的 success() </span><br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">success</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-comment">// “super”调用</span><br> 	<span class="hljs-title class_">Controller</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">success</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">this</span>, <span class="hljs-string">&quot;Authenticated!&quot;</span> ); <br>&#125;; <br><span class="hljs-comment">// 重写基础的 failure() </span><br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">failure</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) &#123; <br> 	<span class="hljs-comment">// “super”调用</span><br> 	<span class="hljs-title class_">Controller</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">failure</span>.<span class="hljs-title function_">call</span>( <br> 		<span class="hljs-variable language_">this</span>, <br> 		<span class="hljs-string">&quot;Auth Failed: &quot;</span> + err <br> 	); <br>&#125;; <br><span class="hljs-keyword">var</span> auth = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AuthController</span>( <br> 	<span class="hljs-comment">// 除了继承，我们还需要合成</span><br> 	<span class="hljs-keyword">new</span> <span class="hljs-title class_">LoginController</span>() <br>); <br>auth.<span class="hljs-title function_">checkAuth</span>();<br></code></pre></td></tr></table></figure>
+
+<p>所 有 控 制 器 共 享 的 基 础 行 为 是 success(..)、failure(..) 和 showDialog(..)。 子 类LoginController 和 AuthController 通过重写 failure(..) 和 success(..) 来扩展默认基础类行为。此外，注意 AuthController 需要一个 LoginController 的实例来和登录表单进行交互，因此这个实例变成了一个数据属性。</p>
+<p>另一个需要注意的是我们在继承的基础上进行了一些合成。AuthController 需要使用LoginController，因此我们实例化后者（new LoginController()）并用一个类成员属性this.login 来引用它，这样 AuthController 就可以调用 LoginController 的行为。</p>
+<p>你可能想让 AuthController 继承 LoginController 或者相反，这样我们就通过继承链实现了真正的合成。但是这就是类继承在问题领域建模时会产生的问题，因为 AuthController 和 LoginController 都不具备对方的基础行为，</p>
+<p>所以这种继承关系是不恰当的。我们的解决办法是进行一些简单的合成从而让它们既不必互相继承又可以互相合作。</p>
+<h3 id="反类"><a href="#反类" class="headerlink" title="反类"></a>反类</h3><p>但是，我们真的需要用一个 Controller 父类、两个子类加上合成来对这个问题进行建模吗？能不能使用对象关联风格的行为委托来实现更简单的设计呢？当然可以！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">LoginController</span> = &#123; <br> 	<span class="hljs-attr">errors</span>: [], <br> 	<span class="hljs-attr">getUser</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 		<span class="hljs-keyword">return</span> <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>( <br> 			<span class="hljs-string">&quot;login_username&quot;</span> <br>        ).<span class="hljs-property">value</span>; <br>    &#125;, <br>    <span class="hljs-attr">getPassword</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>( <br>        <span class="hljs-string">&quot;login_password&quot;</span> <br>        ).<span class="hljs-property">value</span>; <br>    &#125;, <br>    <span class="hljs-attr">validateEntry</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">user,pw</span>) &#123; <br>        user = user || <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getUser</span>(); <br>        pw = pw || <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getPassword</span>(); <br>        <span class="hljs-keyword">if</span> (!(user &amp;&amp; pw)) &#123; <br>            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">failure</span>( <br>                <span class="hljs-string">&quot;Please enter a username &amp; password!&quot;</span> <br>            ); <br>        &#125; <br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pw.<span class="hljs-property">length</span> &lt; <span class="hljs-number">5</span>) &#123; <br>            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">failure</span>( <br>                <span class="hljs-string">&quot;Password must be 5+ characters!&quot;</span> <br>            ); <br>        &#125; <br>        <span class="hljs-comment">// 如果执行到这里说明通过验证</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <br>    &#125;, <br>    <span class="hljs-attr">showDialog</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">title,msg</span>) &#123; <br>        <span class="hljs-comment">// 给用户显示标题和消息</span><br>    &#125;, <br>    <span class="hljs-attr">failure</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) &#123; <br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">errors</span>.<span class="hljs-title function_">push</span>( err ); <br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">showDialog</span>( <span class="hljs-string">&quot;Error&quot;</span>, <span class="hljs-string">&quot;Login invalid: &quot;</span> + err ); <br>    &#125; <br>&#125;; <br><span class="hljs-comment">// 让 AuthController 委托 LoginController </span><br><span class="hljs-keyword">var</span> <span class="hljs-title class_">AuthController</span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">LoginController</span> ); <br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property">errors</span> = []; <br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property">checkAuth</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">var</span> user = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getUser</span>(); <br> 	<span class="hljs-keyword">var</span> pw = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getPassword</span>(); <br> 	<span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">validateEntry</span>( user, pw )) &#123; <br> 		<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">server</span>( <span class="hljs-string">&quot;/check-auth&quot;</span>,&#123; <br> 			<span class="hljs-attr">user</span>: user, <br> 			<span class="hljs-attr">pw</span>: pw <br> 		&#125; ) <br> 		.<span class="hljs-title function_">then</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">accepted</span>.<span class="hljs-title function_">bind</span>( <span class="hljs-variable language_">this</span> ) ) <br> 		.<span class="hljs-title function_">fail</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">rejected</span>.<span class="hljs-title function_">bind</span>( <span class="hljs-variable language_">this</span> ) ); <br> 	&#125; <br>&#125;; <br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property">server</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">url,data</span>) &#123; <br> 	<span class="hljs-keyword">return</span> $.<span class="hljs-title function_">ajax</span>( &#123; <br> 		<span class="hljs-attr">url</span>: url, <br> 		<span class="hljs-attr">data</span>: data <br> 	&#125; ); <br>&#125;; <br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property">accepted</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">showDialog</span>( <span class="hljs-string">&quot;Success&quot;</span>, <span class="hljs-string">&quot;Authenticated!&quot;</span> ) <br>&#125;; <br><span class="hljs-title class_">AuthController</span>.<span class="hljs-property">rejected</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) &#123; <br> 	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">failure</span>( <span class="hljs-string">&quot;Auth Failed: &quot;</span> + err ); <br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>由于 AuthController 只是一个对象（LoginController 也一样），因此我们不需要实例化（比如 new AuthController()），只需要一行代码就行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">AuthController</span>.<span class="hljs-title function_">checkAuth</span>();<br></code></pre></td></tr></table></figure>
+
+<p>借助对象关联，你可以简单地向委托链上添加一个或多个对象，而且同样不需要实例化：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> controller1 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">AuthController</span> ); <br><br><span class="hljs-keyword">var</span> controller2 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">AuthController</span> );<br></code></pre></td></tr></table></figure>
+
+<p>在行为委托模式中，AuthController 和 LoginController 只是对象，它们之间是兄弟关系，并不是父类和子类的关系。代码中 AuthController 委托了 LoginController，反向委托也完全没问题。</p>
+<p>这种模式的重点在于只需要两个实体（LoginController 和 AuthController），而之前的模式需要三个。</p>
+<p>我们不需要 Controller 基类来“共享”两个实体之间的行为，因为委托足以满足我们需要的功能。同样，前面提到过，我们也不需要实例化类，因为它们根本就不是类，它们只是对象。此外，我们也不需要合成，因为两个对象可以通过委托进行合作。</p>
+<p>最后，我们避免了面向类设计模式中的多态。我们在不同的对象中没有使用相同的函数名 success(..) 和 failure(..)，这样就不需要使用丑陋的显示伪多态。相反，在 AuthController 中它们的名字是 accepted(..) 和 rejected(..)——可以更好地描述它们的行为。</p>
+<p>总结：我们用一种（极其）简单的设计实现了同样的功能，这就是对象关联风格代码和行为委托设计模式的力量。</p>
+<h2 id="更好的语法"><a href="#更好的语法" class="headerlink" title="更好的语法"></a>更好的语法</h2><p>ES6 的 class 语法可以简洁地定义类方法，这个特性让 class 乍看起来更有吸引力（附录 A 会介绍为什么要避免使用这个特性）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Foo</span> &#123; <br> 	<span class="hljs-title function_">methodName</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-comment">/* .. */</span> &#125; <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们终于可以抛弃定义中的关键字 function 了，对所有 JavaScript 开发者来说真是大快人心！</p>
+<p>你可能注意到了，在之前推荐的对象关联语法中出现了许多 function，看起来违背了对象关联的简洁性。但是实际上大可不必如此！</p>
+<p>在 ES6 中 我 们 可 以 在 任 意 对 象 的 字 面 形 式 中 使 用 简 洁 方 法 声 明（concise method  declaration），所以对象关联风格的对象可以这样声明（和 class 的语法糖一样）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">LoginController</span> = &#123; <br> 	<span class="hljs-attr">errors</span>: [], <br> 	<span class="hljs-title function_">getUser</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-comment">// 妈妈再也不用担心代码里有 function 了！</span><br> 		<span class="hljs-comment">// ... </span><br>	&#125;, <br>	<span class="hljs-title function_">getPassword</span>(<span class="hljs-params"></span>) &#123; <br> 		<span class="hljs-comment">// ... </span><br> 	&#125; <br> 	<span class="hljs-comment">// ... </span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>唯一的区别是对象的字面形式仍然需要使用“,”来分隔元素，而 class 语法不需要。这个</p>
+<p>区别对于整体的设计来说无关紧要。此外，在 ES6 中，你可以使用对象的字面形式（这样就可以使用简洁方法定义）来改写之前繁琐的属性赋值语法（ 比如 AuthController 的定义 ）， 然后用 Object.setPrototypeOf(..) 来修改它的 [[Prototype]]：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">setPrototypeOf</span>(..) 来修改它的 [[<span class="hljs-title class_">Prototype</span>]]：<br><span class="hljs-comment">// 使用更好的对象字面形式语法和简洁方法</span><br><span class="hljs-keyword">var</span> <span class="hljs-title class_">AuthController</span> = &#123; <br> 	<span class="hljs-attr">errors</span>: [], <br>	 <span class="hljs-title function_">checkAuth</span>(<span class="hljs-params"></span>) &#123; <br> 		<span class="hljs-comment">// ... </span><br> 	&#125;, <br> 	<span class="hljs-title function_">server</span>(<span class="hljs-params">url,data</span>) &#123; <br> 		<span class="hljs-comment">// ... </span><br> 	&#125; <br> 	<span class="hljs-comment">// ...</span><br>&#125;; <br><span class="hljs-comment">// 现在把 AuthController 关联到 LoginController </span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>( <span class="hljs-title class_">AuthController</span>, <span class="hljs-title class_">LoginController</span> );<br></code></pre></td></tr></table></figure>
+
+<p>使用 ES6 的简洁方法可以让对象关联风格更加人性化（并且仍然比典型的原型风格代码更加简洁和优秀）。你完全不需要使用类就能享受整洁的对象语法！</p>
+<h3 id="反词法"><a href="#反词法" class="headerlink" title="反词法"></a>反词法</h3><p>简洁方法有一个非常小但是很重要的缺点。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Foo</span> = &#123; <br> 	<span class="hljs-title function_">bar</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-comment">/*..*/</span> &#125;, <br> 	<span class="hljs-attr">baz</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">baz</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-comment">/*..*/</span> &#125; <br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>去掉语法糖之后的代码如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Foo</span> = &#123; <br> 	<span class="hljs-attr">bar</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-comment">/*..*/</span> &#125;, <br> 	<span class="hljs-attr">baz</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">baz</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-comment">/*..*/</span> &#125; <br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>看 到 区 别 了 吗？ 由 于 函 数 对 象 本 身 没 有 名 称 标 识 符， 所 以 bar() 的 缩 写 形 式（function()..）实际上会变成一个匿名函数表达式并赋值给 bar 属性。相比之下，具名函数表达式（function baz()..）会额外给 .baz 属性附加一个词法名称标识符 baz。</p>
+<p>然后呢？在本书第一部分“作用域和闭包”中我们分析了匿名函数表达式的三大主要缺点，下面我们会简单介绍一下这三个缺点，然后和简洁方法定义进行对比。</p>
+<p>匿名函数没有 name 标识符，这会导致：</p>
+<ol>
+<li>调试栈更难追踪；</li>
+<li>自我引用（递归、事件（解除）绑定，等等）更难；</li>
+<li>代码（稍微）更难理解。</li>
+</ol>
+<p>简洁方法没有第 1 和第 3 个缺点。</p>
+<p>去掉语法糖的版本使用的是匿名函数表达式，通常来说并不会在追踪栈中添加 name，但是简洁方法很特殊，会给对应的函数对象设置一个内部的 name 属性，这样理论上可以用在追踪栈中。（但是追踪的具体实现是不同的，因此无法保证可以使用。）</p>
+<p>很不幸，简洁方法无法避免第 2 个缺点，它们不具备可以自我引用的词法标识符。思考下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Foo</span> = &#123; <br> 	<span class="hljs-attr">bar</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) &#123; <br>        <span class="hljs-keyword">if</span>(x&lt;<span class="hljs-number">10</span>)&#123; <br>            <span class="hljs-keyword">return</span> <span class="hljs-title class_">Foo</span>.<span class="hljs-title function_">bar</span>( x * <span class="hljs-number">2</span> ); <br>        &#125; <br>        <span class="hljs-keyword">return</span> x; <br>    &#125;, <br>    <span class="hljs-attr">baz</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">baz</span>(<span class="hljs-params">x</span>) &#123; <br>        <span class="hljs-keyword">if</span>(x &lt; <span class="hljs-number">10</span>)&#123; <br>            <span class="hljs-keyword">return</span> <span class="hljs-title function_">baz</span>( x * <span class="hljs-number">2</span> ); <br>        &#125; <br> 	<span class="hljs-keyword">return</span> x; <br> 	&#125; <br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在本例中使用 Foo.bar(x*2) 就足够了，但是在许多情况下无法使用这种方法，比如多个对象通过代理共享函数、使用 this 绑定，等等。这种情况下最好的办法就是使用函数对象的name 标识符来进行真正的自我引用。</p>
+<p>使用简洁方法时一定要小心这一点。如果你需要自我引用的话，那最好使用传统的具名函数表达式来定义对应的函数（ · baz: function baz(){..}· ），不要使用简洁方法。</p>
+<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>如果你写过许多面向类的程序（无论是使用 JavaScript 还是其他语言），那你可能很熟悉内省。内省就是检查实例的类型。类实例的内省主要目的是通过创建方式来判断对象的结构和功能。</p>
+<p>下面的代码使用 instanceof（参见第 5 章）来推测对象 a1 的功能：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-comment">// ... </span><br>&#125; <br><span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">something</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123; <br> 	<span class="hljs-comment">// ... </span><br>&#125; <br><span class="hljs-keyword">var</span> a1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Foo</span>(); <br><span class="hljs-comment">// 之后</span><br><span class="hljs-keyword">if</span> (a1 <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Foo</span>) &#123; <br> 	a1.<span class="hljs-title function_">something</span>(); <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>因 为 Foo.prototype（不是 Foo ！） 在 a1 的 [[Prototype]] 链 上（ 参 见 第 5 章 ）， 所 以 instanceof 操作（会令人困惑地）告诉我们 a1 是 Foo“类”的一个实例。知道了这点后，我们就可以认为 a1 有 Foo“类”描述的功能。</p>
+<p>当然，Foo 类并不存在，只有一个普通的函数 Foo，它引用了 a1 委托的对象（Foo.prototype）。从语法角度来说，instanceof 似乎是检查 a1 和 Foo 的关系，但是实际上它想说的是 a1 和 Foo.prototype（引用的对象）是互相关联的。instanceof 语法会产生语义困惑而且非常不直观。如果你想检查对象 a1 和某个对象的关系，那必须使用另一个引用该对象的函数才行——你不能直接判断两个对象是否关联。</p>
+<p>还记得本章之前介绍的抽象的 Foo&#x2F;Bar&#x2F;b1 例子吗，简单来说是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-comment">/* .. */</span> &#125; <br><span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>... <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Bar</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-comment">/* .. */</span> &#125; <br><span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> ); <br><span class="hljs-keyword">var</span> b1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Bar</span>( <span class="hljs-string">&quot;b1&quot;</span> );<br></code></pre></td></tr></table></figure>
+
+<p>如果要使用 instanceof 和 .prototype 语义来检查本例中实体的关系，那必须这样做：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 让 Foo 和 Bar 互相关联</span><br><span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Foo</span>; <span class="hljs-comment">// true </span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>( <span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> ) === <span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>; <span class="hljs-comment">// true </span><br><span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">isPrototypeOf</span>( <span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> ); <span class="hljs-comment">// true </span><br><span class="hljs-comment">// 让 b1 关联到 Foo 和 Bar </span><br>b1 <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Foo</span>; <span class="hljs-comment">// true </span><br>b1 <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Bar</span>; <span class="hljs-comment">// true </span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>( b1 ) === <span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>; <span class="hljs-comment">// true </span><br><span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">isPrototypeOf</span>( b1 ); <span class="hljs-comment">// true </span><br><span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">isPrototypeOf</span>( b1 ); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<p>显然这是一种非常糟糕的方法。举例来说，（使用类时）你最直观的想法可能是使用 Bar  instanceof Foo（因为很容易把“实例”理解成“继承”），但是在 JavaScript 中这是行不通的，你必须使用 Bar.prototype instanceof Foo。</p>
+<p>还有一种常见但是可能更加脆弱的内省模式，许多开发者认为它比 instanceof 更好。这种模式被称为“鸭子类型”。这个术语源自这句格言“如果看起来像鸭子，叫起来像鸭子，那就一定是鸭子。”</p>
+<p>举例来说：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (a1.<span class="hljs-property">something</span>) &#123; <br> 	a1.<span class="hljs-title function_">something</span>(); <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们并没有检查 a1 和委托 something() 函数的对象之间的关系，而是假设如果 a1 通过了测试 a1.something 的话，那 a1 就一定能调用 .something()（无论这个方法存在于 a1 自身还是委托到其他对象）。这个假设的风险其实并不算很高。</p>
+<p>但是“鸭子类型”通常会在测试之外做出许多关于对象功能的假设，这当然会带来许多风险（或者说脆弱的设计）。</p>
+<p>ES6 的 Promise 就是典型的“鸭子类型”（之前解释过，本书并不会介绍 Promise）。出于各种各样的原因，我们需要判断一个对象引用是否是 Promise，但是判断的方法是检查对象是否有 then() 方法。换句话说，如果对象有 then() 方法，ES6 的 Promise 就会认为这个对象是“可持续”（thenable）的，因此会期望它具有 Promise 的所有标准行为。</p>
+<p>如果有一个不是 Promise 但是具有 then() 方法的对象，那你千万不要把它用在 ES6 的Promise 机制中，否则会出错。</p>
+<p>这个例子清楚地解释了“鸭子类型”的危害。你应该尽量避免使用这个方法，即使使用也要保证条件是可控的。</p>
+<p>现在回到本章想说的对象关联风格代码，其内省更加简洁。我们先来回顾一下之前的 Foo&#x2F;Bar&#x2F;b1 对象关联例子（只包含关键代码）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Foo</span> = &#123; <span class="hljs-comment">/* .. */</span> &#125;; <br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Bar</span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Foo</span> ); <br><span class="hljs-title class_">Bar</span>... <br><span class="hljs-keyword">var</span> b1 = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>( <span class="hljs-title class_">Bar</span> );<br></code></pre></td></tr></table></figure>
+
+<p>使用对象关联时，所有的对象都是通过 [[Prototype]] 委托互相关联，下面是内省的方法，非常简单：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 让 Foo 和 Bar 互相关联</span><br><span class="hljs-title class_">Foo</span>.<span class="hljs-title function_">isPrototypeOf</span>( <span class="hljs-title class_">Bar</span> ); <span class="hljs-comment">// true </span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>( <span class="hljs-title class_">Bar</span> ) === <span class="hljs-title class_">Foo</span>; <span class="hljs-comment">// true </span><br><span class="hljs-comment">// 让 b1 关联到 Foo 和 Bar </span><br><span class="hljs-title class_">Foo</span>.<span class="hljs-title function_">isPrototypeOf</span>( b1 ); <span class="hljs-comment">// true </span><br><span class="hljs-title class_">Bar</span>.<span class="hljs-title function_">isPrototypeOf</span>( b1 ); <span class="hljs-comment">// true </span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>( b1 ) === <span class="hljs-title class_">Bar</span>; <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<p>我们没有使用 instanceof，因为它会产生一些和类有关的误解。现在我们想问的问题是“你是我的原型吗？”我们并不需要使用间接的形式，比如 Foo.prototype 或者繁琐的 Foo.prototype.isPrototypeOf(..)。</p>
+<p>我觉得和之前的方法比起来，这种方法显然更加简洁并且清晰。再说一次，我们认为JavaScript 中对象关联比类风格的代码更加简洁（而且功能相同）</p>
+<p>就是这样 ~</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JavaScript/" class="category-chain-item">你不知道的JavaScript</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JavaScript/">#你不知道的JavaScript</a>
+      
+        <a href="/tags/this%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%8E%9F%E5%9E%8B/">#this和对象原型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>不知JS - 上卷 - 第2部分 - 第6章 - 行为委托</div>
+      <div>http://haozhuqian.github.io/2023/02/26/不知JS - 上卷 - 第2部分 - 第6章 - 行为委托/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Mr.Good</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月26日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/26/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC2%E9%83%A8%E5%88%86%20-%20%E9%99%84%E5%BD%95A%20-%20ES6%E4%B8%AD%E7%9A%84Class/" title="不知JS - 上卷 - 第2部分 - 附录A - ES6中的Class">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">不知JS - 上卷 - 第2部分 - 附录A - ES6中的Class</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/25/%E6%89%93%E5%8D%A1day20/" title="打卡day20">
+                        <span class="hidden-mobile">打卡day20</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="lv-container" data-id="city" data-uid="MTAyMC81NzEwMC8zMzU2NA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>始于2022年8月18日 18:55:40</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
