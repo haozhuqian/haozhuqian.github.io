@@ -16,26 +16,25 @@
   <meta name="author" content="Mr.Good">
   <meta name="keywords" content="郝祝乾的博客">
   
-    <meta name="description" content="青训营开营直播，确定大项目，暂停网易云项目的开发。">
+    <meta name="description" content="总结《你不知道的JavaScript（上卷）》第一部分">
 <meta property="og:type" content="article">
-<meta property="og:title" content="打卡day3">
-<meta property="og:url" content="http://haozhuqian.github.io/2023/01/12/%E6%89%93%E5%8D%A1day3/index.html">
+<meta property="og:title" content="不知JS - 上卷 - 第1部分 - 总结">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/02/27/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="GoodMoney的小窝">
-<meta property="og:description" content="青训营开营直播，确定大项目，暂停网易云项目的开发。">
+<meta property="og:description" content="总结《你不知道的JavaScript（上卷）》第一部分">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-01-12T13:36:59.000Z">
-<meta property="article:modified_time" content="2023-02-27T13:27:36.906Z">
+<meta property="article:published_time" content="2023-02-27T13:10:58.000Z">
+<meta property="article:modified_time" content="2023-02-28T08:59:24.597Z">
 <meta property="article:author" content="Mr.Good">
-<meta property="article:tag" content="字节青训营">
-<meta property="article:tag" content="第一个百日计划">
-<meta property="article:tag" content="JavaScript高级程序设计">
+<meta property="article:tag" content="你不知道的JavaScript">
+<meta property="article:tag" content="作用域和闭包">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>打卡day3 - GoodMoney的小窝</title>
+  <title>不知JS - 上卷 - 第1部分 - 总结 - GoodMoney的小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -227,7 +226,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="打卡day3"></span>
+            <span id="subtitle" data-typed-text="不知JS - 上卷 - 第1部分 - 总结"></span>
           
         </div>
 
@@ -238,8 +237,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-01-12 21:36" pubdate>
-          2023年1月12日 晚上
+        <time datetime="2023-02-27 21:10" pubdate>
+          2023年2月27日 晚上
         </time>
       </span>
     
@@ -250,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          1.6k 字
         
       </span>
     
@@ -261,7 +260,7 @@
         
         
         
-          22 分钟
+          14 分钟
         
       </span>
     
@@ -309,42 +308,37 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">打卡day3</h1>
+            <h1 style="display: none">不知JS - 上卷 - 第1部分 - 总结</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="今天做了什么"><a href="#今天做了什么" class="headerlink" title="今天做了什么"></a>今天做了什么</h1><h2 id="字节青训营"><a href="#字节青训营" class="headerlink" title="字节青训营"></a>字节青训营</h2><p>今天观看了开营直播，了解了一下如何拿到结营证书，课程流程，打卡制度，以及最重要的最终的大项目选择，经过讨论，考虑到技术栈以及项目经验，我们八人小组选择了尝试实现一个组件库的项目，但其实仍然很有挑战性。考虑到未来的时间安排，网易云项目我决定暂停对它的进一步了解开发。</p>
-<h2 id="红宝书第2章"><a href="#红宝书第2章" class="headerlink" title="红宝书第2章"></a>红宝书第2章</h2><h3 id="lt-script-gt-元素"><a href="#lt-script-gt-元素" class="headerlink" title="&lt;script&gt;元素"></a>&lt;script&gt;元素</h3><p>使用&lt;script&gt;的方式有两种：通过它直接在网页中嵌入 JavaScript 代码，以及通过它在网页中包含外部 JavaScript 文件。</p>
-<p>嵌入时直接在其中插入代码即可，值得注意的是注意不可以出现字符串&lt;&#x2F;script&gt;，如果需要的话应当用转义字符\将&#x2F;转移，即写作&lt;/script&gt;。</p>
-<p>要包含外部文件中的 JavaScript 就必须使用 src 属性。</p>
-<p>在没有使用 defer 和 async 属性时，&lt;script&gt;元素的代码将会从上至下按顺序解析。</p>
-<p>标签位置在 body 标签之前时，需要加载完所有&lt;script&gt;标签代码页面元素才开始渲染。在此期间浏览器窗口完全空白。为解决这个问题，现代 Web 应用程序通常 将所有 JavaScript 引用放在元素中的页面内容后面。</p>
-<h3 id="lt-script-gt-属性"><a href="#lt-script-gt-属性" class="headerlink" title="&lt;script&gt;属性"></a>&lt;script&gt;属性</h3><p>language，charset属性大多失去了支持，比较有用的有以下几个属性</p>
-<h4 id="src属性"><a href="#src属性" class="headerlink" title="src属性"></a>src属性</h4><p>要包含外部文件中的 JavaScript 就必须使用 src 属性，其值为一个 url 指向目标 JavaScript 代码文件，<strong>这种标签引入的 JavaScript 代码与行内嵌入的都会阻塞页面加载</strong>。</p>
-<p>注意，使用了 src 属性的&lt;script&gt;元素将不会再被解析，（src属性常见的作用通常可以视为引入外部资源而代替属性所在的标签）。</p>
-<h5 id="JS扩展名"><a href="#JS扩展名" class="headerlink" title="JS扩展名"></a>JS扩展名</h5><p>特别的是，<strong>外部 JavaScript 文件的扩展名可以不是.js</strong>。因为浏览器不会检查所包含 JavaScript 文件的扩展名。这就为使用服务器端脚本语言动态生成 JavaScript 代码，或者在浏览器中将 JavaScript 扩展语言（如 TypeScript，或 React 的 JSX）转译为JavaScript 提供了可能性。不过要注意，服务器经常会根据文件扩展来确定响应的正确 MIME 类型。如果不打算使用.js 扩展名，一定要确保服务器能返回正确的 MIME 类型。</p>
-<h5 id="MIME是啥"><a href="#MIME是啥" class="headerlink" title="MIME是啥"></a>MIME是啥</h5><p>MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的标准，用来表示文档、文件或字节流的性质和格式。MIME 消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。浏览器通常使用 MIME 类型（而不是文件扩展名）来确定如何处理URL，因此 We b服务器在响应头中添加正确的 MIME 类型非常重要。如果配置不正确，浏览器可能会无法解析文件内容，网站将无法正常工作，并且下载的文件也会被错误处理。</p>
-<p>详细信息可参考<a target="_blank" rel="noopener" href="https://www.runoob.com/http/mime-types.html">MIME 类型 | 菜鸟教程 (runoob.com)</a></p>
-<h4 id="defer-属性"><a href="#defer-属性" class="headerlink" title="defer 属性"></a>defer 属性</h4><p><strong>defer 属性只对外部脚本文件才有效。</strong></p>
-<p>这个属性表示脚本在执行的时候不会改 变页面的结构。也就是说，脚本会被延迟到整个页面都解析完毕后再运行。因此，在&lt;script&gt;元素上设置 defer 属性，相当于告诉浏览器立即下载，但延迟执行。</p>
-<p>HTML5 规范要求脚本应该按照它们出现的顺序执行，因此第一个推迟的脚 本会在第二个推迟的脚本之前执行，而且两者都会在 DOMContentLoaded 事件之前执行。不过在实际当中，推迟执行的脚本不一定总会按顺序执行或者在 DOMContentLoaded 事件之前执行，因此最好只包含一个这样的脚本。当然，更好的做法应当是直接把标签放置在页面文档底部</p>
-<h4 id="async-属性"><a href="#async-属性" class="headerlink" title="async 属性"></a>async 属性</h4><p>同样只适用于外部脚本，拥有该属性的&lt;script&gt;标签代码将会异步加载这也导致了多个异步脚本之间的执行顺序不确定，同时这类脚本也不应当在加载期间修改DOM。</p>
-<p>异步脚本保证会在页面的 load 事件前执行，但可能会在 DOMContentLoaded 之前或之后。</p>
-<h3 id="动态加载脚本"><a href="#动态加载脚本" class="headerlink" title="动态加载脚本"></a>动态加载脚本</h3><p>因为 JavaScript 可以使用 DOM API，所以通过 向 DOM 中动态添加 script 元素同样可以加载指定的脚本。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><br><span class="hljs-keyword">let</span> script = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;script&#x27;</span>);<br><br>script.<span class="hljs-property">src</span> = <span class="hljs-string">&#x27;gibberish.js&#x27;</span>;<br><br><span class="hljs-variable language_">document</span>.<span class="hljs-property">head</span>.<span class="hljs-title function_">appendChild</span>(script); <br><br></code></pre></td></tr></table></figure>
+                <h1 id="不知JS-上卷-第1部分-总结"><a href="#不知JS-上卷-第1部分-总结" class="headerlink" title="不知JS - 上卷 - 第1部分 - 总结"></a>不知JS - 上卷 - 第1部分 - 总结</h1><h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>JS 中的作用域是词法作用域，顾名思义，在编译代码前的词法阶段就已经确定，这种定义域最大的特点就是调用函数时，内部变量的查询，会在函数的定义位置开始查询，而非从调用位置开始，举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 2 </span><br>&#125; <br><span class="hljs-keyword">function</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">var</span> a = <span class="hljs-number">3</span>; <br> 	<span class="hljs-title function_">foo</span>(); <br>&#125; <br><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>; <br><span class="hljs-title function_">bar</span>();<br></code></pre></td></tr></table></figure>
 
-<p>默认情况下， 以这种方式创建的&lt;script&gt;元素是以异步方式加载的，相当于添加了 async 属性。如果想要统一动态加载脚本的行为，可以明确修改 script 标签的 async 属性为false。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><br><span class="hljs-keyword">let</span> script = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;script&#x27;</span>);<br><br>script.<span class="hljs-property">src</span> = <span class="hljs-string">&#x27;gibberish.js&#x27;</span>;<br><br>script.<span class="hljs-property">async</span> = <span class="hljs-literal">false</span>;<br><br><span class="hljs-variable language_">document</span>.<span class="hljs-property">head</span>.<span class="hljs-title function_">appendChild</span>(script);<br><br></code></pre></td></tr></table></figure>
+<p>在以上代码片段中函数 foo() 的作用域就是全局作用域以及自己的函数作用域，即使它是在函数 bar() 中被调用，它在检索变量时的顺序依旧是首先查询 foo() 函数作用域，如果没有找到继续查询全局作用域，不会经过 bar() 函数作用域。</p>
+<h2 id="变量查询"><a href="#变量查询" class="headerlink" title="变量查询"></a>变量查询</h2><p>当JS引擎执行变量赋值操作时，会进行两种变量查询，LHS（左值查询）与 RHS（右值查询），两种查询都会先在当前定义域内查询这个变量是否存在，找到的话就返回这个变量，找不到就去上一层继续查，直到来到最顶层（全局作用域，在浏览器中可以通过 window 对象直接访问，Nodej.s中则是 global  对象）查询，然后结束查询。</p>
+<h3 id="LHS（左值查询）"><a href="#LHS（左值查询）" class="headerlink" title="LHS（左值查询）"></a>LHS（左值查询）</h3><p>之所以叫这个名字是因为它的作用对象通常出现在 &#x3D; 的左侧。JS引擎会逐级查询，如果在全局作用域仍然找不到，一般情况下会在全局作用域中创建这个变量并返回，严格模式下，则会抛出 ReferenceError 异常。</p>
+<p>值得注意的是，此处查询与返回的目标仅仅是变量本身，而非这个值，可以认为是在寻找存放值的容器。</p>
+<h3 id="RHS（右值查询）"><a href="#RHS（右值查询）" class="headerlink" title="RHS（右值查询）"></a>RHS（右值查询）</h3><p>同样的RHS（右值查询），一般发生在 &#x3D; 的右侧或者 &#x3D; 不存在时（比如调用函数时传入的参数，命令行式编程时直接输入变量名查询值等等），逐级查询到全局作用域仍找不到改变量，则直接抛出 ReferenceError 异常。</p>
+<p>这种查询与返回的目标为目标变量的值，也就是变量的内容。</p>
+<p>对象属性的查询不在此类讨论中。</p>
+<h3 id="隐式变量分配"><a href="#隐式变量分配" class="headerlink" title="隐式变量分配"></a>隐式变量分配</h3><p>函数在被调用时，传入的参数实际上也视为赋值，如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params">a</span>) &#123; <br> 	<span class="hljs-keyword">var</span> b = a; <br> 	<span class="hljs-keyword">return</span> a + b; <br>&#125; <br><span class="hljs-keyword">var</span> c = <span class="hljs-title function_">foo</span>( <span class="hljs-number">2</span> );<br></code></pre></td></tr></table></figure>
 
-<p>以这种方式获取的资源对浏览器预加载器是不可见的。这会严重影响它们在资源获取队列中的优先级。根据应用程序的工作方式以及怎么使用，这种方式可能会严重影响性能。要想让预加载器知道这些动态请求文件的存在，可以在文档头部显式声明它们：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;preload&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;gibberish.js&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>（在没有其他代码的情况下）可以视为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">foo</span>();<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br>    <span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;<br> 	<span class="hljs-keyword">var</span> b = a; <br> 	<span class="hljs-keyword">return</span> a + b; <br>&#125; <br></code></pre></td></tr></table></figure>
 
-<h3 id="lt-noscript-gt-元素"><a href="#lt-noscript-gt-元素" class="headerlink" title="&lt;noscript&gt;元素"></a>&lt;noscript&gt;元素</h3><p>元素可以包含任何可以出现在中的 HTML 元素，当浏览器禁用活不支持（几乎不可能）JavaScript 时，浏览器将显示包含在中的内容。</p>
-<h2 id="今日总结"><a href="#今日总结" class="headerlink" title="今日总结"></a>今日总结</h2><p>今天依然没有养成良好的作息，由于青训营的正式开课时间在1月15日 - 2月13日，所以明天和后天仍然比较轻松。将继续阅读 JavaScript 高级程序设计。</p>
-<h2 id="hexo报错"><a href="#hexo报错" class="headerlink" title="hexo报错"></a>hexo报错</h2><p>在运行hexo g命令时出现 ERROR Process failed: 文档名</p>
-<p>经过排查结果为文档语法错误导致的无法解析，先已处理</p>
-<p>由于页面左侧目录宽度有限，建议文档目录结构不要高于四层，最好三层。小标题字数在五字到七字左右。</p>
+<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><p>当你声明一个函数时，会建立一个包含内部所有声明的标识符以及参数名的定义域，外部不能访问这个函数内部声明的标识符和参数。但作用域内仍然可以访问外部作用域，但如果内部作用域中定义了某个变量与外部变量重名，则无法访问外部变量，这是由于RHS查询与LHS查询的方式导致的。</p>
+<h3 id="立即执行函数表达式"><a href="#立即执行函数表达式" class="headerlink" title="立即执行函数表达式"></a>立即执行函数表达式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>; <br>(<span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">var</span> a = <span class="hljs-number">3</span>; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 3 </span><br>&#125;)(); <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 2</span><br><span class="hljs-title function_">foo</span>();<span class="hljs-comment">// ReferenceError: foo is not defined</span><br></code></pre></td></tr></table></figure>
+
+<p>这一表达式可以定义一个函数并立即执行它，而函数名并不会暴露在外界作用域。这样的函数也可以有参数，实参在第二个括号中。</p>
+<p>另一种书写形式为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>; <br>(<span class="hljs-keyword">function</span> <span class="hljs-title function_">IIFE</span>(<span class="hljs-params"> <span class="hljs-variable language_">global</span> </span>) &#123; <br> 	<span class="hljs-keyword">var</span> a = <span class="hljs-number">3</span>; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 3 </span><br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-variable language_">global</span>.<span class="hljs-property">a</span> ); <span class="hljs-comment">// 2 </span><br>&#125;( <span class="hljs-variable language_">window</span> )) <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( a ); <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="块作用域"><a href="#块作用域" class="headerlink" title="块作用域"></a>块作用域</h2><p>ES6性添加的变量定义关键字 let 可以在任意作用域内约束变量（比如单纯的 {} 内）。而传统的var只会被约束在函数作用域内，甚至不能被 if 的作用域约束！</p>
+<p>同时这也可以通过定义一些块作用域，告诉JS引擎，这个块中的内容在运行之后就可以销毁了，进行性能的优化。</p>
+<h2 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h2><p>未完待续…</p>
 <p>就是这样 ~</p>
 
                 
@@ -364,12 +358,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%89%93%E5%8D%A1/" class="category-chain-item">打卡</a>
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%89%93%E5%8D%A1/%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%99%BE%E6%97%A5%E8%AE%A1%E5%88%92/" class="category-chain-item">第一个百日计划</a>
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JavaScript/" class="category-chain-item">你不知道的JavaScript</a>
   
   
 
@@ -386,11 +380,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5/">#字节青训营</a>
+        <a href="/tags/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JavaScript/">#你不知道的JavaScript</a>
       
-        <a href="/tags/%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%99%BE%E6%97%A5%E8%AE%A1%E5%88%92/">#第一个百日计划</a>
-      
-        <a href="/tags/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">#JavaScript高级程序设计</a>
+        <a href="/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E9%97%AD%E5%8C%85/">#作用域和闭包</a>
       
     </div>
   
@@ -402,8 +394,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>打卡day3</div>
-      <div>http://haozhuqian.github.io/2023/01/12/打卡day3/</div>
+      <div>不知JS - 上卷 - 第1部分 - 总结</div>
+      <div>http://haozhuqian.github.io/2023/02/27/不知JS - 上卷 - 第1部分 - 总结/</div>
     </div>
     <div class="license-meta">
       
@@ -415,7 +407,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年1月12日</div>
+          <div>2023年2月27日</div>
         </div>
       
       
@@ -445,18 +437,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/01/13/%E6%89%93%E5%8D%A1day4/" title="打卡day4">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">打卡day4</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/01/11/%E6%89%93%E5%8D%A1day2/" title="打卡day2">
-                        <span class="hidden-mobile">打卡day2</span>
+                      <a href="/2023/02/27/%E6%89%93%E5%8D%A1day22/" title="打卡day22">
+                        <span class="hidden-mobile">打卡day22</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

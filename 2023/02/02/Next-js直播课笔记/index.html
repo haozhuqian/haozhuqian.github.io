@@ -24,7 +24,7 @@
 <meta property="og:description" content="简单讲解了Next.js的用法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-02T10:30:43.000Z">
-<meta property="article:modified_time" content="2023-02-25T12:11:59.855Z">
+<meta property="article:modified_time" content="2023-02-27T13:27:36.906Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="字节青训营">
 <meta name="twitter:card" content="summary_large_image">
@@ -315,14 +315,14 @@
                 <h1 id="Next-js直播课笔记"><a href="#Next-js直播课笔记" class="headerlink" title="Next.js直播课笔记"></a>Next.js直播课笔记</h1><h2 id="网页应用"><a href="#网页应用" class="headerlink" title="网页应用"></a>网页应用</h2><h3 id="B端应用"><a href="#B端应用" class="headerlink" title="B端应用"></a>B端应用</h3><p>供内部用户使用。不会连接外网。</p>
 <p>一般挂在内网，或者仅供内部用户使用。不会连接外网。</p>
 <h3 id="C端应用"><a href="#C端应用" class="headerlink" title="C端应用"></a>C端应用</h3><p>连接外网，联网即可用。</p>
-<h2 id="渲染方式"><a href="#渲染方式" class="headerlink" title="渲染方式"></a>渲染方式</h2><h3 id="CSR"><a href="#CSR" class="headerlink" title="CSR"></a>CSR</h3><p>客户端渲染。常见 B 端web应用开发，前后端分离，服务器压力轻，渲染工作在客户端进行。服务器仅仅返回不加工的 HTML 供后续访问。这个 HTML 中几乎不会有任何元素，仅仅包含所需的引用，在客户端进行渲染。</p>
+<h2 id="渲染方式"><a href="#渲染方式" class="headerlink" title="渲染方式"></a>渲染方式</h2><h3 id="CSR"><a href="#CSR" class="headerlink" title="CSR"></a>CSR</h3><p>客户端渲染。常见 B 端 web 应用开发，前后端分离，服务器压力轻，渲染工作在客户端进行。服务器仅仅返回不加工的 HTML 供后续访问。这个 HTML 中几乎不会有任何元素，仅仅包含所需的引用，在客户端进行渲染。</p>
 <h3 id="SSR"><a href="#SSR" class="headerlink" title="SSR"></a>SSR</h3><p>服务器端渲染。代码耦合度高，多种语言混杂在模板中，维护比较困难。</p>
 <h4 id="同构SSR"><a href="#同构SSR" class="headerlink" title="同构SSR"></a>同构SSR</h4><p>BFF 服务于前端应用的后端。是一个服务，通常不会直接操作数据，一般是前后端的中介，可以提高大型项目的可维护性与可复用性。</p>
 <p>前后端一体化，一套代码在服务器上运行一遍，到达浏览器端也会渲染一遍，前后端都会参与渲染，而且首次渲染出的 HTML 要一样。</p>
 <h3 id="SSG"><a href="#SSG" class="headerlink" title="SSG"></a>SSG</h3><p>静态站点生成。构建时直接把结果页面 HTML 输出并保存，每次访问直接返回HTML，相当于一个静态资源，无法实现与用户相关数据交互，每个人看到的页面都一样。（这个博客就是这样产生的）。可以减轻服务器压力，只要直接访问 CDN 上的静态资源。</p>
 <h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><h4 id="SSR-SSG更利于SEO"><a href="#SSR-SSG更利于SEO" class="headerlink" title="SSR,SSG更利于SEO"></a>SSR,SSG更利于SEO</h4><p>SEO（搜索引擎优化），搜索引擎爬虫可以了解网页内信息，曝光需要的内容，影响搜索结果排序。CSR由于网页内容需要在客户端才能渲染，就无法被爬虫找到内容。</p>
-<h4 id="SSR-SSG首屏时间更短，"><a href="#SSR-SSG首屏时间更短，" class="headerlink" title="SSR,SSG首屏时间更短，"></a>SSR,SSG首屏时间更短，</h4><p>因为只需要请求一个 HTML 文件而非大量JS文件，由于服务器间访问远快于客户端访问，所以通常 CSR 要慢一些。</p>
-<h2 id="next-js"><a href="#next-js" class="headerlink" title="next.js"></a>next.js</h2><p>更好更快地开发SSR，SSG项目。是基于Node.js的开源 Web 开发框架，支持基于 React 的Web应用程序功能，例如服务端渲染与生成静态网页。</p>
+<h4 id="SSR-SSG首屏时间更短，"><a href="#SSR-SSG首屏时间更短，" class="headerlink" title="SSR,SSG首屏时间更短，"></a>SSR,SSG首屏时间更短，</h4><p>因为只需要请求一个 HTML 文件而非大量 JS 文件，由于服务器间访问远快于客户端访问，所以通常 CSR 要慢一些。</p>
+<h2 id="next-js"><a href="#next-js" class="headerlink" title="next.js"></a>next.js</h2><p>更好更快地开发SSR，SSG项目。是基于Node.js的开源 Web 开发框架，支持基于 React 的 Web 应用程序功能，例如服务端渲染与生成静态网页。</p>
 <p>解决了许多原本服务端渲染的痛点。</p>
 <h3 id="SSR的实现，"><a href="#SSR的实现，" class="headerlink" title="SSR的实现，"></a>SSR的实现，</h3><p>核心在于 ”同构“ ，也就是说客户端与服务端都会做一样的事情，保证二者渲染预期相同。</p>
 <h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><p>仓库网址</p>
