@@ -1,0 +1,1115 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/wenti.png">
+  <link rel="icon" href="/img/wenti.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Mr.Good">
+  <meta name="keywords" content="郝祝乾的博客">
+  
+    <meta name="description" content="js基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS高级 - 第3章 - 语言基础">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/03/02/JS%E9%AB%98%E7%BA%A7%20-%20%E7%AC%AC3%E7%AB%A0%20-%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="GoodMoney的小窝">
+<meta property="og:description" content="js基础">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-02T09:02:11.000Z">
+<meta property="article:modified_time" content="2023-03-02T14:48:12.399Z">
+<meta property="article:author" content="Mr.Good">
+<meta property="article:tag" content="JavaScript高级程序设计">
+<meta property="article:tag" content="语言基础">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>JS高级 - 第3章 - 语言基础 - GoodMoney的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"haozhuqian.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":100,"cursorChar":"~","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":10},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>GoodMoney的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/definde.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JS高级 - 第3章 - 语言基础"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-02 17:02" pubdate>
+          2023年3月2日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          137 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS高级 - 第3章 - 语言基础</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="JS高级-第3章-语言基础"><a href="#JS高级-第3章-语言基础" class="headerlink" title="JS高级 - 第3章 - 语言基础"></a>JS高级 - 第3章 - 语言基础</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="区分大小写"><a href="#区分大小写" class="headerlink" title="区分大小写"></a>区分大小写</h3><p>ECMAScript 中<strong>一切都区分大小写</strong>。无论是变量、函数名还是操作符，都区分大小写。换句话说，变量 test 和变量 Test 是两个不同的变量。类似地，typeof 不能作为函数名，因为它是一个关键字（后面会介绍）。但 Typeof 是一个完全有效的函数名。</p>
+<h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><p>所谓标识符，就是变量、函数、属性或函数参数的名称。标识符可以由一或多个下列字符组成：</p>
+<ul>
+<li>第一个字符必须是一个字母、下划线（_）或美元符号（$）；</li>
+<li>剩下的其他字符可以是字母、下划线、美元符号或数字。</li>
+<li>关键字、保留字、true、false 和 null 不能作为标识符。</li>
+</ul>
+<p>标识符中的字母可以是扩展 ASCII（Extended ASCII）中的字母，也可以是 Unicode 的字母字符，如 À 和 Æ（但不推荐使用）。</p>
+<p>按照惯例，ECMAScript 标识符使用驼峰大小写形式，即第一个单词的首字母小写，后面每个单词的首字母大写。这种写法并不是强制性的，但因为这种形式跟 ECMAScript 内置函数和对象的命名方式一致，所以算是最佳实践。</p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//单行注释</span><br><br><span class="hljs-comment">/* 多行</span><br><span class="hljs-comment">注释 */</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><p>ECMAScript 5 增加了严格模式（strict mode）的概念。严格模式是一种不同的 JavaScript 解析和执行模型，ECMAScript 3 的一些不规范写法在这种模式下会被处理，对于不安全的活动将抛出错误。要对整个脚本启用严格模式，在脚本开头加上这一行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-meta">&quot;use strict&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>虽然看起来像个没有赋值给任何变量的字符串，但它其实是一个<strong>预处理指令</strong>。任何支持的 JavaScript引擎看到它都会切换到严格模式。选择这种语法形式的目的是不破坏 ECMAScript 3 语法。</p>
+<p>也可以单独指定一个函数在严格模式下执行，只要把这个预处理指令放到函数体开头即可：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">doSomething</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-string">&quot;use strict&quot;</span><br>	<span class="hljs-comment">// 函数体</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>所有现代浏览器都支持严格模式。</p>
+<h3 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h3><p>ECMAScript 中的语句以分号结尾。省略分号意味着由解析器确定语句在哪里结尾。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> sum = a + b <span class="hljs-comment">// 没有分号也有效，但不推荐</span><br><span class="hljs-keyword">let</span> diff = a - b;<br></code></pre></td></tr></table></figure>
+
+<p>即使语句末尾的分号不是必需的，也应该加上。记着加分号有助于防止省略造成的问题，比如可以避免输入内容不完整。此外，加分号也便于开发者通过删除空行来压缩代码（如果没有结尾的分号，只删除空行，则会导致语法错误）。加分号也有助于在某些情况下提升性能，因为解析器会尝试在合适的位置补上分号以纠正语法错误。</p>
+<p>多条语句可以合并到一个 C 语言风格的代码块中。代码块由一个左花括号（{）标识开始，一个右花括号（}）标识结束。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (test) &#123; <br> 	test = <span class="hljs-literal">false</span>; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(test); <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>if 之类的控制语句只在执行多条语句时要求必须有代码块。不过，最佳实践是始终在控制语句中使用代码块，即使要执行的只有一条语句。</p>
+<h2 id="关键字与保留字"><a href="#关键字与保留字" class="headerlink" title="关键字与保留字"></a>关键字与保留字</h2><p>ECMA-262 描述了一组保留的关键字，这些关键字有特殊用途，比如表示控制语句的开始和结束，或者执行特定的操作。按照规定，保留的关键字不能用作标识符或属性名。ECMA-262 第 6 版规定的所有关键字如下：</p>
+<table>
+<thead>
+<tr>
+<th>break</th>
+<th>continue</th>
+<th>else</th>
+<th>function</th>
+<th>new</th>
+<th>throw</th>
+<th>while</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>case</td>
+<td>debugger</td>
+<td>export</td>
+<td>if</td>
+<td>return</td>
+<td>try</td>
+<td>with</td>
+</tr>
+<tr>
+<td>catch</td>
+<td>default</td>
+<td>extends</td>
+<td>import</td>
+<td>super</td>
+<td>typeof</td>
+<td>yield</td>
+</tr>
+<tr>
+<td>class</td>
+<td>delete</td>
+<td>finally</td>
+<td>in</td>
+<td>switch</td>
+<td>var</td>
+<td></td>
+</tr>
+<tr>
+<td>const</td>
+<td>do</td>
+<td>for</td>
+<td>instanceof</td>
+<td>this</td>
+<td>void</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>规范中也描述了一组未来的保留字，同样不能用作标识符或属性名。虽然保留字在语言中没有特定用途，但它们是保留给将来做关键字用的。</p>
+<p>以下是 ECMA-262 第 6 版为将来保留的所有词汇。</p>
+<p>始终保留: enum </p>
+<p>严格模式下保留: </p>
+<table>
+<thead>
+<tr>
+<th align="left">implements</th>
+<th>public</th>
+<th align="left">protected</th>
+<th>let</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">package</td>
+<td>interface</td>
+<td align="left">static</td>
+<td>private</td>
+</tr>
+</tbody></table>
+<p>模块代码中保留: await </p>
+<p>这些词汇不能用作标识符，但现在还可以用作对象的属性名。一般来说，最好还是不要使用关键字和保留字作为标识符和属性名，以确保兼容过去和未来的 ECMAScript 版本。</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>ECMAScript 变量是松散类型的，意思是变量可以用于保存任何类型的数据。每个变量只不过是一个用于保存任意值的命名占位符。有 3 个关键字可以声明变量：var、const 和 let。其中，var 在ECMAScript 的所有版本中都可以使用，而 const 和 let 只能在 ECMAScript 6 及更晚的版本中使用。</p>
+<h3 id="var"><a href="#var" class="headerlink" title="var"></a>var</h3><p>要定义变量，可以使用 var 操作符（注意 var 是一个关键字），后跟变量名（即标识符，如前所述）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> message; <br></code></pre></td></tr></table></figure>
+
+<p>这行代码定义了一个名为 message 的变量，可以用它保存任何类型的值。（不赋值的情况下，变量会保存一个特殊值 undefined）ECMAScript 实现变量初始化，因此可以同时定义变量并设置它的值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> message = <span class="hljs-string">&quot;hi&quot;</span>; <br></code></pre></td></tr></table></figure>
+
+<p>这里，message 被定义为一个保存字符串值 hi 的变量。像这样初始化变量不会将它标识为字符串类型，只是一个简单的赋值而已。随后，不仅可以改变保存的值，也可以改变值的类型：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> message = <span class="hljs-string">&quot;hi&quot;</span>; <br>message = <span class="hljs-number">100</span>; <span class="hljs-comment">//合法，但不推荐</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，变量 message 首先被定义为一个保存字符串值 hi 的变量，然后又被重写为保存了数值 100，这在 ECMAScript 中是完全有效的。</p>
+<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p>使用 var 操作符定义的变量会成为包含它的<strong>函数的局部变量</strong>。比如，使用 var在一个函数内部定义一个变量，就意味着该变量将在函数退出时被销毁：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">test</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">var</span> message = <span class="hljs-string">&quot;hi&quot;</span>; <span class="hljs-comment">// 局部变量</span><br>&#125; <br><span class="hljs-title function_">test</span>(); <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(message); <span class="hljs-comment">// 出错！</span><br></code></pre></td></tr></table></figure>
+
+<p>在函数内定义变量时省略 var 操作符，可以创建一个<strong>全局变量</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">test</span>(<span class="hljs-params"></span>) &#123; <br> 	message = <span class="hljs-string">&quot;hi&quot;</span>; <span class="hljs-comment">// 全局变量</span><br>&#125; <br><span class="hljs-title function_">test</span>(); <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(message); <span class="hljs-comment">// &quot;hi&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>去掉之前的 var 操作符之后，message 就变成了全局变量。只要调用一次函数 test()，就会定义这个变量，并且可以在函数外部访问到。</p>
+<p>在严格模式下，如果像这样给未声明的变量赋值，则会导致抛出 ReferenceError。</p>
+<p>如果需要定义多个变量，可以在一条语句中用逗号分隔每个变量：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> message = <span class="hljs-string">&quot;hi&quot;</span>, <br> 	found = <span class="hljs-literal">false</span>, <br> 	age = <span class="hljs-number">29</span>;<br></code></pre></td></tr></table></figure>
+
+<p>插入换行和空格缩进并不是必需的，但这样有利于阅读理解。</p>
+<p>在严格模式下，不能定义名为 eval 和 arguments 的变量，否则会导致语法错误。</p>
+<h4 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h4><p>使用 var 时，下面的代码不会报错。这是因为使用这个关键字声明的变量会自动提升到函数作用域顶部：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <br> 	<span class="hljs-keyword">var</span> age = <span class="hljs-number">26</span>; <br>&#125; <br><span class="hljs-title function_">foo</span>(); <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
+
+<p>之所以不会报错，是因为 ECMAScript 运行时把它看成等价于如下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">var</span> age; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <br> 	age = <span class="hljs-number">26</span>; <br>&#125; <br><span class="hljs-title function_">foo</span>(); <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
+
+<p>这就是所谓的“提升”（hoist），也就是把所有变量声明都拉到函数作用域的顶部。此外，反复多次使用 var 声明同一个变量也没有问题：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; <br> 	<span class="hljs-keyword">var</span> age = <span class="hljs-number">16</span>; <br> 	<span class="hljs-keyword">var</span> age = <span class="hljs-number">26</span>; <br> 	<span class="hljs-keyword">var</span> age = <span class="hljs-number">36</span>; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <br>&#125; <br><span class="hljs-title function_">foo</span>(); <span class="hljs-comment">// 36</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p>let 声明的范围是块作用域，而 var 声明的范围是函数作用域。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123; <br> 	<span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Matt&#x27;</span>; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(name); <span class="hljs-comment">// Matt </span><br>&#125; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(name); <span class="hljs-comment">// Matt </span><br><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123; <br> 	<span class="hljs-keyword">let</span> age = <span class="hljs-number">26</span>; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <span class="hljs-comment">// 26 </span><br>&#125; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <span class="hljs-comment">// ReferenceError: age 没有定义</span><br></code></pre></td></tr></table></figure>
+
+<p>在这里，age 变量之所以不能在 if 块外部被引用，是因为它的作用域仅限于该块内部。块作用域是函数作用域的子集，因此适用于 var 的作用域限制同样也适用于 let。</p>
+<p>let 也不允许同一个块作用域中出现冗余声明。这样会导致报错。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name; <br><span class="hljs-keyword">var</span> name; <br><span class="hljs-keyword">let</span> age; <br><span class="hljs-keyword">let</span> age; <span class="hljs-comment">// SyntaxError；标识符 age 已经声明过了</span><br></code></pre></td></tr></table></figure>
+
+<p>当然，JavaScript 引擎会记录用于变量声明的标识符及其所在的块作用域，因此嵌套使用相同的标识符不会报错，而这是因为同一个块中没有重复声明：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Nicholas&#x27;</span>; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(name); <span class="hljs-comment">// &#x27;Nicholas&#x27; </span><br><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123; <br> 	<span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Matt&#x27;</span>; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(name); <span class="hljs-comment">// &#x27;Matt&#x27; </span><br>&#125; <br><span class="hljs-keyword">let</span> age = <span class="hljs-number">30</span>; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <span class="hljs-comment">// 30 </span><br><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123; <br> 	<span class="hljs-keyword">let</span> age = <span class="hljs-number">26</span>; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <span class="hljs-comment">// 26 </span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对声明冗余报错不会因混用 let 和 var 而受影响。这两个关键字声明的并不是不同类型的变量，它们只是指出变量在相关作用域如何存在。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name; <br><span class="hljs-keyword">let</span> name; <span class="hljs-comment">// SyntaxError </span><br><span class="hljs-keyword">let</span> age; <br><span class="hljs-keyword">var</span> age; <span class="hljs-comment">// SyntaxError</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a>暂时性死区</h4><p>let 与 var 的另一个重要的区别，就是 let 声明的变量不会在作用域中被提升。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// name 会被提升</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(name); <span class="hljs-comment">// undefined </span><br><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Matt&#x27;</span>; <br><span class="hljs-comment">// age 不会被提升</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <span class="hljs-comment">// ReferenceError：age 没有定义</span><br><span class="hljs-keyword">let</span> age = <span class="hljs-number">26</span>;<br></code></pre></td></tr></table></figure>
+
+<p>在解析代码时，JavaScript 引擎也会注意出现在块后面的 let 声明，只不过在此之前不能以任何方式来引用未声明的变量。在 let 声明之前的执行瞬间被称为“暂时性死区”（temporal dead zone），在此阶段引用任何后面才声明的变量都会抛出 ReferenceError。</p>
+<h4 id="全局声明"><a href="#全局声明" class="headerlink" title="全局声明"></a>全局声明</h4><p>与 var 关键字不同，使用 let 在全局作用域中声明的变量不会成为 window 对象的属性（var 声明的变量则会）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Matt&#x27;</span>; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">name</span>); <span class="hljs-comment">// &#x27;Matt&#x27; </span><br><span class="hljs-keyword">let</span> age = <span class="hljs-number">26</span>; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">age</span>); <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
+
+<p>不过，let 声明仍然是在全局作用域中发生的，相应变量会在页面的生命周期内存续。因此，为了避免 SyntaxError，必须确保页面不会重复声明同一个变量。</p>
+<h4 id="for循环中"><a href="#for循环中" class="headerlink" title="for循环中"></a>for循环中</h4><p>在 let 出现之前，for 循环定义的迭代变量会渗透到循环体外部：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123; <br> 	<span class="hljs-comment">// 循环逻辑 </span><br>&#125; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i); <span class="hljs-comment">// 5</span><br></code></pre></td></tr></table></figure>
+
+<p>改成使用 let 之后，这个问题就消失了，因为迭代变量的作用域仅限于 for 循环块内部：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123; <br> 	<span class="hljs-comment">// 循环逻辑</span><br>&#125; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i); <span class="hljs-comment">// ReferenceError: i 没有定义</span><br></code></pre></td></tr></table></figure>
+
+<p>在使用 var 的时候，最常见的问题就是对迭代变量的奇特声明和修改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123; <br> 	<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i), <span class="hljs-number">0</span>) <br>&#125; <br><span class="hljs-comment">// 你可能以为会输出 0、1、2、3、4 </span><br><span class="hljs-comment">// 实际上会输出 5、5、5、5、5</span><br></code></pre></td></tr></table></figure>
+
+<p>之所以会这样，是因为在退出循环时，迭代变量保存的是导致循环退出的值：5。在之后执行超时逻辑时，所有的 i 都是同一个变量，因而输出的都是同一个最终值。</p>
+<p>而在使用 let 声明迭代变量时，JavaScript 引擎在后台会为每个迭代循环声明一个新的迭代变量。每个 setTimeout 引用的都是不同的变量实例，所以 console.log 输出的是我们期望的值，也就是循环执行过程中每个迭代变量的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123; <br> 	<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i), <span class="hljs-number">0</span>) <br>&#125; <br><span class="hljs-comment">// 会输出 0、1、2、3、4</span><br></code></pre></td></tr></table></figure>
+
+<p>这种每次迭代声明一个独立变量实例的行为适用于所有风格的 for 循环，包括 for-in 和 for-of 循环。</p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>const 的行为与 let 基本相同，唯一一个重要的区别是用它声明变量时必须同时初始化变量，且尝试修改 const 声明的变量会导致运行时错误。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> age = <span class="hljs-number">26</span>; <br>age = <span class="hljs-number">36</span>; <span class="hljs-comment">// TypeError: 给常量赋值</span><br><span class="hljs-comment">// const 也不允许重复声明</span><br><span class="hljs-keyword">const</span> name = <span class="hljs-string">&#x27;Matt&#x27;</span>; <br><span class="hljs-keyword">const</span> name = <span class="hljs-string">&#x27;Nicholas&#x27;</span>; <span class="hljs-comment">// SyntaxError </span><br><span class="hljs-comment">// const 声明的作用域也是块</span><br><span class="hljs-keyword">const</span> name = <span class="hljs-string">&#x27;Matt&#x27;</span>; <br><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123; <br> 	<span class="hljs-keyword">const</span> name = <span class="hljs-string">&#x27;Nicholas&#x27;</span>; <br>&#125; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(name); <span class="hljs-comment">// Matt</span><br></code></pre></td></tr></table></figure>
+
+<p>const 声明的限制只适用于它指向的变量的引用。换句话说，如果 const 变量引用的是一个对象，那么修改这个对象内部的属性并不违反 const 的限制。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> person = &#123;&#125;; <br>person.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;Matt&#x27;</span>; <span class="hljs-comment">// ok</span><br></code></pre></td></tr></table></figure>
+
+<p>JavaScript 引擎会为 for 循环中的 let 声明分别创建独立的变量实例，虽然 const 变量跟 let 变量很相似，但是不能用 const 来声明迭代变量（因为迭代变量会自增）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; ++i) &#123;&#125; <span class="hljs-comment">// TypeError：给常量赋值</span><br></code></pre></td></tr></table></figure>
+
+<p>不过，如果你只想用 const 声明一个不会被修改的 for 循环变量，那也是可以的。也就是说，每次迭代只是创建一个新变量。这对 for-of 和 for-in 循环特别有意义：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; <br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> j = <span class="hljs-number">7</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(j); <br>&#125; <br><span class="hljs-comment">// 7, 7, 7, 7, 7 </span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">in</span> &#123;<span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>&#125;) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(key); <br>&#125; <br><span class="hljs-comment">// a, b </span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> value <span class="hljs-keyword">of</span> [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]) &#123; <br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(value); <br>&#125; <br><span class="hljs-comment">// 1, 2, 3, 4, 5</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="风格"><a href="#风格" class="headerlink" title="风格"></a>风格</h3><h4 id="不用var"><a href="#不用var" class="headerlink" title="不用var"></a>不用var</h4><p>限制自己只使用 let 和 const有助于提升代码质量，因为变量有了明确的作用域、声明位置，以及不变的值。</p>
+<h4 id="const-优先"><a href="#const-优先" class="headerlink" title="const 优先"></a>const 优先</h4><p>使用 const 声明可以让浏览器运行时强制保持变量不变，也可以让静态代码分析工具提前发现不合法的赋值操作。因此，很多开发者认为应该优先使用 const 来声明变量，只在提前知道未来会有修改时，再使用 let。这样可以让开发者更有信心地推断某些变量的值永远不会变，同时也能迅速发现因意外赋值导致的非预期行为。</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>ECMAScript 有 6 种简单数据类型（也称为原始类型）：Undefined、Null、Boolean、Number、String、Symbol 和 Symbol。还有一种复杂数据类型叫 Object（对象）。Object 是一种无序名值对的集合。因为在 ECMAScript 中不能定义自己的数据类型，所有值都可以用上述 7 种数据类型之一来表示。只有 7 种数据类型似乎不足以表示全部数据。但 ECMAScript 的数据类型很灵活，一种数据类型可以当作多种数据类型来使用。</p>
+<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><p>因为 ECMAScript 的类型系统是松散的，所以需要一种手段来确定任意变量的数据类型。typeof操作符就是为此而生的。对一个值使用 typeof 操作符会返回下列字符串之一：</p>
+<ul>
+<li>“undefined”表示值未定义；</li>
+<li>“boolean”表示值为布尔值；</li>
+<li>“string”表示值为字符串；</li>
+<li>“number”表示值为数值；</li>
+<li>“object”表示值为<strong>对象（除了函数）或 null</strong>；</li>
+<li>“function”表示值为函数；</li>
+<li>“symbol”表示值为符号。</li>
+</ul>
+<p>事实上，函数在 ECMAScript 中被认为是对象，并不代表一种数据类型。可是，函数也有自己特殊的属性。为此，就有必要通过 typeof 操作符来区分函数和其他对象。</p>
+<p>下面是使用 typeof 操作符的例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> message = <span class="hljs-string">&quot;some string&quot;</span>; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">typeof</span> message); <span class="hljs-comment">// &quot;string&quot; </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">typeof</span>(message)); <span class="hljs-comment">// &quot;string&quot; </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">typeof</span> <span class="hljs-number">95</span>); <span class="hljs-comment">// &quot;number&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们把一个变量（message）和一个数值字面量传给了 typeof 操作符。注意，因为 typeof 是一个操作符而不是函数，所以不需要参数（但可以使用参数）。</p>
+<h3 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h3><p>Undefined 类型只有一个值，就是特殊值 undefined。当使用 var 或 let 声明了变量但没有初始化时，就相当于给变量赋予了 undefined 值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> message; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(message == <span class="hljs-literal">undefined</span>); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<p>一般来说，永远不用显式地给某个变量设置 undefined 值。字面值 undefined主要用于比较，而且在 ECMA-262 第 3 版之前是不存在的。增加这个特殊值的目的就是为了正式明确空对象指针（null）和未初始化变量的区别。</p>
+<p>注意，包含 undefined 值的变量跟未定义变量是有区别的。请看下面的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> message; <span class="hljs-comment">// 这个变量被声明了，只是值为 undefined </span><br><span class="hljs-comment">// 确保没有声明过这个变量</span><br><span class="hljs-comment">// let age </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(message); <span class="hljs-comment">// &quot;undefined&quot; </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <span class="hljs-comment">// 报错</span><br></code></pre></td></tr></table></figure>
+
+<p>在上面的例子中，第一个 console.log 会指出变量 message 的值，即”undefined”。而第二个console.log 要输出一个未声明的变量 age 的值，因此会导致报错。对未声明的变量，只能执行一个有用的操作，就是对它调用 typeof。（对未声明的变量调用 delete 也不会报错，但这个操作没什么用，实际上在严格模式下会抛出错误。）</p>
+<p>在对未初始化的变量调用 typeof 时，返回的结果是”undefined”，但对未声明的变量调用它时，返回的结果还是”undefined”，这就有点让人看不懂了。比如下面的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> message; <span class="hljs-comment">// 这个变量被声明了，只是值为 undefined </span><br><span class="hljs-comment">// 确保没有声明过这个变量</span><br><span class="hljs-comment">// let age </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">typeof</span> message); <span class="hljs-comment">// &quot;undefined&quot; </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">typeof</span> age); <span class="hljs-comment">// &quot;undefined&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>无论是声明还是未声明，typeof 返回的都是字符串”undefined”。逻辑上讲这是对的，因为虽然严格来讲这两个变量存在根本性差异，但它们都无法执行实际操作。</p>
+<h3 id="null"><a href="#null" class="headerlink" title="null"></a>null</h3><p>Null 类型同样只有一个值，即特殊值 null。逻辑上讲，null 值表示一个空对象指针，这也是给typeof 传一个 null 会返回”object”的原因：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> car = <span class="hljs-literal">null</span>; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-keyword">typeof</span> car); <span class="hljs-comment">// &quot;object&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>在定义将来要保存对象值的变量时，建议使用 null 来初始化，不要使用其他值。这样，只要检查这个变量的值是不是 null 就可以知道这个变量是否在后来被重新赋予了一个对象的引用，比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (car != <span class="hljs-literal">null</span>) &#123; <br> 	<span class="hljs-comment">// car 是一个对象的引用</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>undefined 值是由 null 值派生而来的，因此 ECMA-262 将它们定义为表面上相等，如下面的例子所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-literal">null</span> == <span class="hljs-literal">undefined</span>); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<p>用等于操作符（&#x3D;&#x3D;）比较 null 和 undefined 始终返回 true。但要注意，这个操作符会为了比较而转换它的操作数。</p>
+<p>即使 null 和 undefined 有关系，它们的用途也是完全不一样的。如前所述，永远不必显式地将变量值设置为 undefined。但 null 不是这样的。任何时候，只要变量要保存对象，而当时又没有那个对象可保存，就要用 null 来填充该变量。这样就可以保持 null 是空对象指针的语义，并进一步将其与 undefined 区分开来。</p>
+<h3 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h3><p>Boolean（布尔值）类型是 ECMAScript 中使用最频繁的类型之一，有两个字面值：true 和 false。这两个布尔值不同于数值，因此 true 不等于 1，false 不等于 0。</p>
+<p>注意，布尔值字面量 true 和 false 是区分大小写的，因此 True 和 False（及其他大小混写形式）是有效的标识符，但不是布尔值。</p>
+<p>虽然布尔值只有两个，但所有其他 ECMAScript 类型的值都有相应布尔值的等价形式。要将一个其他类型的值转换为布尔值，可以调用特定的 Boolean()转型函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> message = <span class="hljs-string">&quot;Hello world!&quot;</span>; <br><span class="hljs-keyword">let</span> messageAsBoolean = <span class="hljs-title class_">Boolean</span>(message);<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，字符串 message 会被转换为布尔值并保存在变量 messageAsBoolean 中。Boolean()转型函数可以在任意类型的数据上调用，而且始终返回一个布尔值。什么值能转换为 true 或 false 的规则取决于数据类型和实际的值。下表总结了不同类型与布尔值之间的转换规则。</p>
+<table>
+<thead>
+<tr>
+<th align="center">数据类型</th>
+<th align="center">转换为true的值</th>
+<th align="center">转换为falsee的值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">boolean</td>
+<td align="center">true</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">String</td>
+<td align="center">非空字符串</td>
+<td align="center">“”（空字符串）</td>
+</tr>
+<tr>
+<td align="center">Number</td>
+<td align="center">非零值</td>
+<td align="center">0、NaN</td>
+</tr>
+<tr>
+<td align="center">Object</td>
+<td align="center">任意对象</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="center">Undefined</td>
+<td align="center">不存在</td>
+<td align="center">undefined</td>
+</tr>
+</tbody></table>
+<h3 id="number"><a href="#number" class="headerlink" title="number"></a>number</h3><p>Number 类型使用 IEEE 754 格式表示整数和浮点值（在某些语言中也叫双精度值）。不同的数值类型相应地也有不同的数值字面量格式。</p>
+<p>最基本的数值字面量格式是十进制整数，直接写出来即可：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> intNum = <span class="hljs-number">55</span>; <span class="hljs-comment">// 整数</span><br></code></pre></td></tr></table></figure>
+
+<p>整数也可以用八进制（以 8 为基数）或十六进制（以 16 为基数）字面量表示。对于八进制字面量，第一个数字必须是零（0），然后是相应的八进制数字（数值 0~7）。如果字面量中包含的数字超出了应有的范围，就会忽略前缀的零，后面的数字序列会被当成十进制数，如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> octalNum1 = <span class="hljs-number">070</span>; <span class="hljs-comment">// 八进制的 56 </span><br><span class="hljs-keyword">let</span> octalNum2 = <span class="hljs-number">079</span>; <span class="hljs-comment">// 无效的八进制值，当成 79 处理</span><br><span class="hljs-keyword">let</span> octalNum3 = <span class="hljs-number">08</span>; <span class="hljs-comment">// 无效的八进制值，当成 8 处理</span><br><span class="hljs-keyword">let</span> octalNum1 = <span class="hljs-number">0o70</span>; <span class="hljs-comment">// 八进制的 56</span><br></code></pre></td></tr></table></figure>
+
+<p>0前缀表示的八进制字面量在严格模式下是无效的，会导致 JavaScript 引擎抛出语法错误，应当使用0o前缀表示八进制。要创建十六进制字面量，必须让真正的数值前缀 0x（区分大小写），然后是十六进制数字（0<del>9 以及 A</del>F）。十六进制数字中的字母大小写均可。下面是几个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> hexNum1 = <span class="hljs-number">0xA</span>; <span class="hljs-comment">// 十六进制 10 </span><br><span class="hljs-keyword">let</span> hexNum2 = <span class="hljs-number">0x1f</span>; <span class="hljs-comment">// 十六进制 31</span><br></code></pre></td></tr></table></figure>
+
+<p>使用八进制和十六进制格式创建的数值在所有数学操作中都被视为十进制数值。</p>
+<p>由于 JavaScript 保存数值的方式，实际中可能存在正零（+0）和负零（0）。正零和负零在所有情况下都被认为是等同的，这里特地说明一下。</p>
+<h4 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h4><p>要定义浮点值，数值中必须包含小数点，而且小数点后面必须至少有一个数字。虽然小数点前面不是必须有整数，但推荐加上。下面是几个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> floatNum1 = <span class="hljs-number">1.1</span>; <br><span class="hljs-keyword">let</span> floatNum2 = <span class="hljs-number">0.1</span>; <br><span class="hljs-keyword">let</span> floatNum3 = <span class="hljs-number">.1</span>; <span class="hljs-comment">// 有效，但不推荐</span><br></code></pre></td></tr></table></figure>
+
+<p>因为存储浮点值使用的内存空间是存储整数值的两倍，所以 ECMAScript 总是想方设法把值转换为整数。在小数点后面没有数字的情况下，数值就会变成整数。类似地，如果数值本身就是整数，只是小数点后面跟着 0（如 1.0），那它也会被转换为整数，如下例所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> floatNum1 = <span class="hljs-number">1.</span>; <span class="hljs-comment">// 小数点后面没有数字，当成整数 1 处理</span><br><span class="hljs-keyword">let</span> floatNum2 = <span class="hljs-number">10.0</span>; <span class="hljs-comment">// 小数点后面是零，当成整数 10 处理</span><br></code></pre></td></tr></table></figure>
+
+<p>对于非常大或非常小的数值，浮点值可以用科学记数法来表示。科学记数法用于表示一个应该乘以 10 的给定次幂的数值。ECMAScript 中科学记数法的格式要求是一个数值（整数或浮点数）后跟一个大写或小写的字母 e，再加上一个要乘的 10 的多少次幂。比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> floatNum = <span class="hljs-number">3.125e7</span>; <span class="hljs-comment">// 等于 31250000</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，floatNum 等于 31 250 000，只不过科学记数法显得更简洁。这种表示法实际上相当于说：“以 3.125 作为系数，乘以 10 的 7 次幂。”</p>
+<p>科学记数法也可以用于表示非常小的数值，例如 0.000 000 000 000 000 03。这个数值用科学记数法可以表示为 3e-17。默认情况下，ECMAScript 会将小数点后至少包含 6 个零的浮点值转换为科学记数法（例如，0.000 000 3 会被转换为 3e-7）。</p>
+<p>浮点值的精确度最高可达 17 位小数，但在算术计算中远不如整数精确。例如，0.1 加 0.2 得到的不是 0.3，而是 0.300 000 000 000 000 04。由于这种微小的舍入错误，导致很难测试特定的浮点值。比如下面的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (a + b == <span class="hljs-number">0.3</span>) &#123; <span class="hljs-comment">// 别这么干！ </span><br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;You got 0.3.&quot;</span>); <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里检测两个数值之和是否等于 0.3。如果两个数值分别是 0.05 和 0.25，或者 0.15 和 0.15，那没问题。但如果是 0.1 和 0.2，如前所述，测试将失败。因此永远不要测试某个特定的浮点值。</p>
+<h4 id="范围"><a href="#范围" class="headerlink" title="范围"></a>范围</h4><p>由于内存的限制，ECMAScript 并不支持表示这个世界上的所有数值。ECMAScript 可以表示的最小数值保存在 Number.MIN_VALUE 中，这个值在多数浏览器中是 5e324；可以表示的最大数值保存在Number.MAX_VALUE 中，这个值在多数浏览器中是 1.797 693 134 862 315 7e+308。如果某个计算得到的数值结果超出了 JavaScript 可以表示的范围，那么这个数值会被自动转换为一个特殊的 Infinity（无穷）值。任何无法表示的负数以-Infinity（负无穷大）表示，任何无法表示的正数以 Infinity（正无穷大）表示。</p>
+<p>如果计算返回正 Infinity 或负 Infinity，则该值将不能再进一步用于任何计算。这是因为Infinity 没有可用于计算的数值表示形式。要确定一个值是不是有限大（即介于 JavaScript 能表示的最小值和最大值之间），可以使用 isFinite()函数，如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> result = <span class="hljs-title class_">Number</span>.<span class="hljs-property">MAX_VALUE</span> + <span class="hljs-title class_">Number</span>.<span class="hljs-property">MAX_VALUE</span>; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">isFinite</span>(result)); <span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
+
+<p>虽然超出有限数值范围的计算并不多见，但总归还是有可能的。因此在计算非常大或非常小的数值时，有必要监测一下计算结果是否超出范围。</p>
+<p>使用 Number.NEGATIVE_INFINITY 和 Number.POSITIVE_INFINITY 也可以获取正、负 Infinity。没错，这两个属性包含的值分别就是-Infinity 和 Infinity。</p>
+<h4 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h4><p>有一个特殊的数值叫 NaN，意思是“不是数值”（Not a Number），用于表示本来要返回数值的操作失败了（而不是抛出错误）。比如，用 0 除任意数值在其他语言中通常都会导致错误，从而中止代码执行。但在 ECMAScript 中，0、+0 或0 相除会返回 NaN：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">0</span>/<span class="hljs-number">0</span>); <span class="hljs-comment">// NaN </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(-<span class="hljs-number">0</span>/+<span class="hljs-number">0</span>); <span class="hljs-comment">// NaN</span><br></code></pre></td></tr></table></figure>
+
+<p>如果分子是非 0 值，分母是有符号 0 或无符号 0，则会返回 Infinity 或-Infinity：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">5</span>/<span class="hljs-number">0</span>); <span class="hljs-comment">// Infinity </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">5</span>/-<span class="hljs-number">0</span>); <span class="hljs-comment">// -Infinity</span><br></code></pre></td></tr></table></figure>
+
+<p>NaN 有几个独特的属性。首先，任何涉及 NaN 的操作始终返回 NaN（如 NaN&#x2F;10），在连续多步计算时这可能是个问题。其次，NaN 不等于包括 NaN 在内的任何值。例如，下面的比较操作会返回 false：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">NaN</span> == <span class="hljs-title class_">NaN</span>); <span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
+
+<p>为此，ECMAScript 提供了 isNaN()函数。该函数接收一个参数，可以是任意数据类型，然后判断这个参数是否“不是数值”。把一个值传给 isNaN()后，该函数会尝试把它转换为数值。某些非数值的值可以直接转换成数值，如字符串”10”或布尔值。任何不能转换为数值的值都会导致这个函数返回 true。举例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">isNaN</span>(<span class="hljs-title class_">NaN</span>)); <span class="hljs-comment">// true </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">isNaN</span>(<span class="hljs-number">10</span>)); <span class="hljs-comment">// false，10 是数值</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">isNaN</span>(<span class="hljs-string">&quot;10&quot;</span>)); <span class="hljs-comment">// false，可以转换为数值 10 </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">isNaN</span>(<span class="hljs-string">&quot;blue&quot;</span>)); <span class="hljs-comment">// true，不可以转换为数值</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">isNaN</span>(<span class="hljs-literal">true</span>)); <span class="hljs-comment">// false，可以转换为数值 1</span><br></code></pre></td></tr></table></figure>
+
+<p>上述的例子测试了 5 个不同的值。首先测试的是 NaN 本身，显然会返回 true。接着测试了数值 10 和字符串”10”，都返回 false，因为它们的数值都是 10。字符串”blue”不能转换为数值，因此函数返回 true。布尔值 true 可以转换为数值 1，因此返回 false。</p>
+<p>虽然不常见，但 isNaN()可以用于测试对象。此时，首先会调用对象的 valueOf()方法，然后再确定返回的值是否可以转换为数值。如果不能，再调用 toString()方法，并测试其返回值。这通常是 ECMAScript 内置函数和操作符的工作方式，本章后面会讨论。</p>
+<h4 id="数值转换"><a href="#数值转换" class="headerlink" title="数值转换"></a>数值转换</h4><h5 id="Number"><a href="#Number" class="headerlink" title="Number()"></a>Number()</h5><p>有 3 个函数可以将非数值转换为数值：Number()、parseInt()和 parseFloat()。Number()是转型函数，可用于任何数据类型。后两个函数主要用于将字符串转换为数值。对于同样的参数，这 3 个函数执行的操作也不同。</p>
+<p>Number()函数基于如下规则执行转换</p>
+<ul>
+<li><p>布尔值，true 转换为 1，false 转换为 0。</p>
+</li>
+<li><p>数值，直接返回。</p>
+</li>
+<li><p>null，返回 0。</p>
+</li>
+<li><p>undefined，返回 NaN。</p>
+</li>
+<li><p>字符串，应用以下规则。</p>
+</li>
+<li><ul>
+<li>如果字符串包含数值字符，包括数值字符前面带加、减号的情况，则转换为一个十进制数值。因此，Number(“1”)返回 1，Number(“123”)返回 123，Number(“011”)返回 11（忽略前面的零）。</li>
+<li>如果字符串包含有效的浮点值格式如”1.1”，则会转换为相应的浮点值（同样，忽略前面的零）。</li>
+<li>如果字符串包含有效的十六进制格式如”0xf”，则会转换为与该十六进制值对应的十进制整数值。</li>
+<li>如果是空字符串（不包含字符），则返回 0。</li>
+<li>如果字符串包含除上述情况之外的其他字符，则返回 NaN。</li>
+</ul>
+</li>
+<li><p>对象，调用 valueOf()方法，并按照上述规则转换返回的值。如果转换结果是 NaN，则调用toString()方法，再按照转换字符串的规则转换。</p>
+</li>
+</ul>
+<p>从不同数据类型到数值的转换有时候会比较复杂，看一看 Number()的转换规则就知道了。下面是几个具体的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num1 = <span class="hljs-title class_">Number</span>(<span class="hljs-string">&quot;Hello world!&quot;</span>); <span class="hljs-comment">// NaN </span><br><span class="hljs-keyword">let</span> num2 = <span class="hljs-title class_">Number</span>(<span class="hljs-string">&quot;&quot;</span>); <span class="hljs-comment">// 0 </span><br><span class="hljs-keyword">let</span> num3 = <span class="hljs-title class_">Number</span>(<span class="hljs-string">&quot;000011&quot;</span>); <span class="hljs-comment">// 11 </span><br><span class="hljs-keyword">let</span> num4 = <span class="hljs-title class_">Number</span>(<span class="hljs-literal">true</span>); <span class="hljs-comment">// 1</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到，字符串”Hello world”转换之后是 NaN，因为它找不到对应的数值。空字符串转换后是 0。字符串 000011 转换后是 11，因为前面的零被忽略了。最后，true 转换为 1。</p>
+<p>本章后面会讨论到的一元加操作符与 Number()函数遵循相同的转换规则。</p>
+<h5 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt()"></a>parseInt()</h5><p>考虑到用 Number()函数转换字符串时相对复杂且有点反常规，通常在需要得到整数时可以优先使用 parseInt()函数。parseInt()函数更专注于字符串是否包含数值模式。字符串最前面的空格会被忽略，从第一个非空格字符开始转换。如果第一个字符不是数值字符、加号或减号，parseInt()立即返回 NaN。这意味着空字符串也会返回 NaN（这一点跟 Number()不一样，它返回 0）。如果第一个字符是数值字符、加号或减号，则继续依次检测每个字符，直到字符串末尾，或碰到非数值字符。比如，”1234blue”会被转换为 1234，因为”blue”会被完全忽略。类似地，”22.5”会被转换为 22，因为小数点不是有效的整数字符。</p>
+<p>假设字符串中的第一个字符是数值字符，parseInt()函数也能识别不同的整数格式（十进制、八进制、十六进制）。换句话说，如果字符串以”0x”开头，就会被解释为十六进制整数。如果字符串以”0”开头，且紧跟着数值字符，在非严格模式下会被某些实现解释为八进制整数。</p>
+<p>下面几个转换示例有助于理解上述规则：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num1 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;1234blue&quot;</span>); <span class="hljs-comment">// 1234 </span><br><span class="hljs-keyword">let</span> num2 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;&quot;</span>); <span class="hljs-comment">// NaN </span><br><span class="hljs-keyword">let</span> num3 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;0xA&quot;</span>); <span class="hljs-comment">// 10，解释为十六进制整数</span><br><span class="hljs-keyword">let</span> num4 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-number">22.5</span>); <span class="hljs-comment">// 22 </span><br><span class="hljs-keyword">let</span> num5 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;70&quot;</span>); <span class="hljs-comment">// 70，解释为十进制值</span><br><span class="hljs-keyword">let</span> num6 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;0xf&quot;</span>); <span class="hljs-comment">// 15，解释为十六进制整数</span><br></code></pre></td></tr></table></figure>
+
+<p>不同的数值格式很容易混淆，因此 parseInt()也接收第二个参数，用于指定底数（进制数）。如果知道要解析的值是十六进制，那么可以传入 16 作为第二个参数，以便正确解析：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;0xAF&quot;</span>, <span class="hljs-number">16</span>); <span class="hljs-comment">// 175</span><br></code></pre></td></tr></table></figure>
+
+<p>事实上，如果提供了十六进制参数，那么字符串前面的”0x”可以省掉：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num1 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;AF&quot;</span>, <span class="hljs-number">16</span>); <span class="hljs-comment">// 175 </span><br><span class="hljs-keyword">let</span> num2 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;AF&quot;</span>); <span class="hljs-comment">// NaN</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，第一个转换是正确的，而第二个转换失败了。区别在于第一次传入了进制数作为参数，告诉 parseInt()要解析的是一个十六进制字符串。而第二个转换检测到第一个字符就是非数值字符，随即自动停止并返回 NaN。</p>
+<p>通过第二个参数，可以极大扩展转换后获得的结果类型。比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num1 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;10&quot;</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// 2，按二进制解析</span><br><span class="hljs-keyword">let</span> num2 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;10&quot;</span>, <span class="hljs-number">8</span>); <span class="hljs-comment">// 8，按八进制解析</span><br><span class="hljs-keyword">let</span> num3 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;10&quot;</span>, <span class="hljs-number">10</span>); <span class="hljs-comment">// 10，按十进制解析</span><br><span class="hljs-keyword">let</span> num4 = <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">&quot;10&quot;</span>, <span class="hljs-number">16</span>); <span class="hljs-comment">// 16，按十六进制解析</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="parseFloat"><a href="#parseFloat" class="headerlink" title="parseFloat()"></a>parseFloat()</h5><p>parseFloat()函数的工作方式跟 parseInt()函数类似，都是从位置 0 开始检测每个字符。同样，它也是解析到字符串末尾或者解析到一个无效的浮点数值字符为止。这意味着第一次出现的小数点是有效的，但第二次出现的小数点就无效了，此时字符串的剩余字符都会被忽略。因此，”22.34.5”将转换成 22.34。</p>
+<p>parseFloat()函数的另一个不同之处在于，它始终忽略字符串开头的零。这个函数能识别前面讨论的所有浮点格式，以及十进制格式（开头的零始终被忽略）。十六进制数值始终会返回 0。因为parseFloat()只解析十进制值，因此不能指定底数。最后，如果字符串表示整数（没有小数点或者小数点后面只有一个零），则 parseFloat()返回整数。下面是几个示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num1 = <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&quot;1234blue&quot;</span>); <span class="hljs-comment">// 1234，按整数解析</span><br><span class="hljs-keyword">let</span> num2 = <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&quot;0xA&quot;</span>); <span class="hljs-comment">// 0 </span><br><span class="hljs-keyword">let</span> num3 = <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&quot;22.5&quot;</span>); <span class="hljs-comment">// 22.5 </span><br><span class="hljs-keyword">let</span> num4 = <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&quot;22.34.5&quot;</span>); <span class="hljs-comment">// 22.34 </span><br><span class="hljs-keyword">let</span> num5 = <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&quot;0908.5&quot;</span>); <span class="hljs-comment">// 908.5 </span><br><span class="hljs-keyword">let</span> num6 = <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">&quot;3.125e7&quot;</span>); <span class="hljs-comment">// 31250000</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><p>String（字符串）数据类型表示零或多个 16 位 Unicode 字符序列。字符串可以使用双引号（”）、单引号（’）或反引号（&#96;）标示，因此下面的代码都是合法的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> firstName = <span class="hljs-string">&quot;John&quot;</span>; <br><span class="hljs-keyword">let</span> lastName = <span class="hljs-string">&#x27;Jacob&#x27;</span>; <br><span class="hljs-keyword">let</span> lastName = <span class="hljs-string">`Jingleheimerschmidt`</span><br></code></pre></td></tr></table></figure>
+
+<p>跟某些语言中使用不同的引号会改变对字符串的解释方式不同，ECMAScript 语法中表示字符串的引号没有区别。不过要注意的是，以某种引号作为字符串开头，必须仍然以该种引号作为字符串结尾。</p>
+<h4 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h4><p>字符串数据类型包含一些字符字面量，用于表示非打印字符或有其他用途的字符，如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>字面量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\n</td>
+<td>换行</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>制表</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>退格</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页</td>
+</tr>
+<tr>
+<td>\\</td>
+<td>反斜杠（\）</td>
+</tr>
+<tr>
+<td>&#39;</td>
+<td>单引号（’），在字符串以单引号标示时使用，例如’He said, &#39;hey.&#39;‘</td>
+</tr>
+<tr>
+<td>&quot;</td>
+<td>双引号（”），在字符串以双引号标示时使用，例如”He said, &quot;hey.&quot;“</td>
+</tr>
+<tr>
+<td>`</td>
+<td>反引号（<code>），在字符串以反引号标示时使用，例如</code>He said, `hey.`&#96;</td>
+</tr>
+<tr>
+<td>\x<em>nn</em></td>
+<td>以十六进制编码 <em>nn</em> 表示的字符（其中 <em>n</em> 是十六进制数字 0~F），例如\x41 等于”A”</td>
+</tr>
+<tr>
+<td>\u<em>nnnn</em></td>
+<td>以十六进制编码 <em>nnnn</em> 表示的 Unicode 字符（其中 <em>n</em> 是十六进制数字 0~F），例如\u03a3 等于希腊字</td>
+</tr>
+</tbody></table>
+<p>这些字符字面量可以出现在字符串中的任意位置，且可以作为单个字符被解释：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> text = <span class="hljs-string">&quot;This is the letter sigma: \u03a3.&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，即使包含 6 个字符长的转义序列，变量 text 仍然是 28 个字符长。因为转义序列表示一个字符，所以只算一个字符。</p>
+<p>字符串的长度可以通过其 length 属性获取：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(text.<span class="hljs-property">length</span>); <span class="hljs-comment">// 28</span><br></code></pre></td></tr></table></figure>
+
+<p>这个属性返回字符串中 16 位字符的个数。如果字符串中包含双字节字符，那么length 属性返回的值可能不是准确的字符数。</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><p>ECMAScript 中的字符串是不可变的（immutable），意思是一旦创建，它们的值就不能变了。要修改某个变量中的字符串值，必须先销毁原始的字符串，然后将包含新值的另一个字符串保存到该变量，如下所示：</p>
+<p>就是这样 ~</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" class="category-chain-item">JavaScript高级程序设计</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">#JavaScript高级程序设计</a>
+      
+        <a href="/tags/%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">#语言基础</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JS高级 - 第3章 - 语言基础</div>
+      <div>http://haozhuqian.github.io/2023/03/02/JS高级 - 第3章 - 语言基础/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Mr.Good</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月2日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/02/%E6%89%93%E5%8D%A1day23/" title="打卡day23">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">打卡day23</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/27/%E6%89%93%E5%8D%A1day22/" title="打卡day22">
+                        <span class="hidden-mobile">打卡day22</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="lv-container" data-id="city" data-uid="MTAyMC81NzEwMC8zMzU2NA==">
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>始于2022年8月18日 18:55:40</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
