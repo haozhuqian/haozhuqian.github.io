@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202303032112615.png">
 <meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202303032114390.png">
 <meta property="article:published_time" content="2023-03-02T09:02:11.000Z">
-<meta property="article:modified_time" content="2023-03-03T14:43:53.125Z">
+<meta property="article:modified_time" content="2023-03-10T08:46:03.905Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="JavaScript高级程序设计">
 <meta property="article:tag" content="语言基础">
@@ -546,8 +546,8 @@
 <thead>
 <tr>
 <th align="center">数据类型</th>
-<th align="center">转换为true的值</th>
-<th align="center">转换为falsee的值</th>
+<th align="center">转换为 true 的值</th>
+<th align="center">转换为 falsee 的值</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -603,7 +603,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (a + b == <span class="hljs-number">0.3</span>) &#123; <span class="hljs-comment">// 别这么干！ </span><br> 	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;You got 0.3.&quot;</span>); <br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>这里检测两个数值之和是否等于 0.3。如果两个数值分别是 0.05 和 0.25，或者 0.15 和 0.15，那没问题。但如果是 0.1 和 0.2，如前所述，测试将失败。因此永远不要测试某个特定的浮点值。</p>
-<h4 id="范围"><a href="#范围" class="headerlink" title="范围"></a>范围</h4><p>由于内存的限制，ECMAScript 并不支持表示这个世界上的所有数值。ECMAScript 可以表示的最小数值保存在 Number.MIN_VALUE 中，这个值在多数浏览器中是 5e324；可以表示的最大数值保存在Number.MAX_VALUE 中，这个值在多数浏览器中是 1.797 693 134 862 315 7e+308。如果某个计算得到的数值结果超出了 JavaScript 可以表示的范围，那么这个数值会被自动转换为一个特殊的 Infinity（无穷）值。任何无法表示的负数以-Infinity（负无穷大）表示，任何无法表示的正数以 Infinity（正无穷大）表示。</p>
+<h4 id="范围"><a href="#范围" class="headerlink" title="范围"></a>范围</h4><p>由于内存的限制，ECMAScript 并不支持表示这个世界上的所有数值。ECMAScript 可以表示的最小数值保存在 Number.MIN_VALUE 中，这个值在多数浏览器中是 5e-324；可以表示的最大数值保存在Number.MAX_VALUE 中，这个值在多数浏览器中是 1.797 693 134 862 315 7e+308。如果某个计算得到的数值结果超出了 JavaScript 可以表示的范围，那么这个数值会被自动转换为一个特殊的 Infinity（无穷）值。任何无法表示的负数以-Infinity（负无穷大）表示，任何无法表示的正数以 Infinity（正无穷大）表示。</p>
 <p>如果计算返回正 Infinity 或负 Infinity，则该值将不能再进一步用于任何计算。这是因为Infinity 没有可用于计算的数值表示形式。要确定一个值是不是有限大（即介于 JavaScript 能表示的最小值和最大值之间），可以使用 isFinite()函数，如下所示：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> result = <span class="hljs-title class_">Number</span>.<span class="hljs-property">MAX_VALUE</span> + <span class="hljs-title class_">Number</span>.<span class="hljs-property">MAX_VALUE</span>; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-built_in">isFinite</span>(result)); <span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
 
@@ -1004,7 +1004,7 @@
 
 <p>在将-18 转换为二进制字符串时，结果得到-10010。转换过程会求得二补数，然后再以更符合逻辑的形式表示出来。</p>
 <p>默认情况下，ECMAScript 中的所有整数都表示为有符号数。不过，确实存在无符号整数。对无符号整数来说，第 32 位不表示符号，因为只有正值。无符号整数比有符号整数的范围更大，因为符号位被用来表示数值了。</p>
-<p>在对 ECMAScript 中的数值应用位操作符时，后台会发生转换：64 位数值会转换为 32 位数值，然后执行位操作，最后再把结果从 32 位转换为 64 位存储起来。整个过程就像处理 32 位数值一样，这让二进制操作变得与其他语言中类似。但这个转换也导致了一个奇特的副作用，即特殊值NaN 和Infinity在位操作中都会被当成 0 处理。</p>
+<p>在对 ECMAScript 中的数值应用位操作符时，后台会发生转换：64 位数值会转换为 32 位数值，然后执行位操作，最后再把结果从 32 位转换为 64 位存储起来。整个过程就像处理 32 位数值一样，这让二进制操作变得与其他语言中类似。但这个转换也导致了一个奇特的副作用，即特殊值NaN 和 Infinity 在位操作中都会被当成 0 处理。</p>
 <p>如果将位操作符应用到非数值，那么首先会使用 Number()函数将该值转换为数值（这个过程是自动的），然后再应用位操作。最终结果是数值。</p>
 <h4 id="按位非"><a href="#按位非" class="headerlink" title="按位非"></a>按位非</h4><p>按位非操作符用波浪符（~）表示，它的作用是返回数值的一补数。按位非是 ECMAScript 中为数不多的几个二进制数学操作符之一。看下面的例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num1 = <span class="hljs-number">25</span>; <span class="hljs-comment">// 二进制 00000000000000000000000000011001 </span><br><span class="hljs-keyword">let</span> num2 = ~num1; <span class="hljs-comment">// 二进制 11111111111111111111111111100110 </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num2); <span class="hljs-comment">// -26</span><br></code></pre></td></tr></table></figure>
@@ -1287,7 +1287,7 @@
 
 <p>跟乘法操作符一样，除法操作符针对特殊值也有一些特殊的行为。</p>
 <ul>
-<li>如果操作数都是数值，则执行常规的除法运算，即两个正值相除是正值，两个负值相除也是正值，符号不同的值相除得到负值。如果ECMAScript不能表示商，则返回Infinity或-Infinity。</li>
+<li>如果操作数都是数值，则执行常规的除法运算，即两个正值相除是正值，两个负值相除也是正值，符号不同的值相除得到负值。如果 ECMAScript 不能表示商，则返回 Infinity 或-Infinity。</li>
 <li>如果有任一操作数是 NaN，则返回 NaN。</li>
 <li>如果是 Infinity 除以 Infinity，则返回 NaN。</li>
 <li>如果是 0 除以 0，则返回 NaN。</li>
@@ -1589,7 +1589,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num = <span class="hljs-number">0</span>; <br><span class="hljs-attr">outermost</span>: <br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123; <br>     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">10</span>; j++) &#123; <br>         <span class="hljs-keyword">if</span> (i == <span class="hljs-number">5</span> &amp;&amp; j == <span class="hljs-number">5</span>) &#123; <br>         	<span class="hljs-keyword">break</span> outermost; <br>         &#125; <br>     num++; <br>     &#125; <br>&#125; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num); <span class="hljs-comment">// 55 </span><br></code></pre></td></tr></table></figure>
 
 <p>在这个例子中，outermost 标签标识的是第一个 for 语句。正常情况下，每个循环执行 10 次，意味着 num++语句会执行 100 次，而循环结束时 console.log 的结果应该是 100。但是，break 语句带来了一个变数，即要退出到的标签。添加标签不仅让 break 退出（使用变量 j 的）内部循环，也会退出（使用变量 i 的）外部循环。当执行到 i 和 j 都等于 5 时，循环停止执行，此时 num 的值是 55。continue语句也可以使用标签，如下面的例子所示：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num = <span class="hljs-number">0</span>; <br><span class="hljs-attr">outermost</span>: <br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123; <br>     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">10</span>; j++) &#123; <span class="hljs-number">78</span> 第 <span class="hljs-number">3</span> 章 语言基础<br>         <span class="hljs-keyword">if</span> (i == <span class="hljs-number">5</span> &amp;&amp; j == <span class="hljs-number">5</span>) &#123; <br>         	<span class="hljs-keyword">continue</span> outermost; <br>         &#125; <br>     num++; <br>     &#125; <br>&#125; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num); <span class="hljs-comment">// 95 </span><br></code></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> num = <span class="hljs-number">0</span>; <br><span class="hljs-attr">outermost</span>: <br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123; <br>     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">10</span>; j++) &#123; <span class="hljs-number">78</span><br>         <span class="hljs-keyword">if</span> (i == <span class="hljs-number">5</span> &amp;&amp; j == <span class="hljs-number">5</span>) &#123; <br>         	<span class="hljs-keyword">continue</span> outermost; <br>         &#125; <br>     num++; <br>     &#125; <br>&#125; <br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num); <span class="hljs-comment">// 95 </span><br></code></pre></td></tr></table></figure>
 
 <p>这一次，continue 语句会强制循环继续执行，但不是继续执行内部循环，而是继续执行外部循环。当 i 和 j 都等于 5 时，会执行 continue，跳到外部循环继续执行，从而导致内部循环少执行 5 次，结果 num 等于 95。</p>
 <p>组合使用标签语句和 break、continue 能实现复杂的逻辑，但也容易出错。注意标签要使用描述性强的文本，而嵌套也不要太深。</p>
@@ -1637,7 +1637,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">sayHi</span>(<span class="hljs-string">&quot;Nicholas&quot;</span>, <span class="hljs-string">&quot;how are you today?&quot;</span>); <br></code></pre></td></tr></table></figure>
 
 <p>调用这个函数的输出结果是”Hello Nicholas, how are you today?”。参数 name 和 message在函数内部作为字符串被拼接在了一起，最终通过 console.log 输出到控制台。</p>
-<p>ECMAScript 中的函数不需要指定是否返回值。任何函数在任何时间都可以使用 return 语句来返回函数的值，用法是后跟要返回的值。比如：</p>
+<p>ECMAScript 中的函数不需要指定是否返回值。任何函数在任何时间都可以使用 return 语句来返回函数的值，用法是 return 后跟要返回的值。比如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">num1, num2</span>) &#123; <br> 	<span class="hljs-keyword">return</span> num1 + num2; <br>&#125; <br></code></pre></td></tr></table></figure>
 
 <p>函数 sum()会将两个值相加并返回结果。注意，除了 return 语句之外没有任何特殊声明表明该函数有返回值。然后就可以这样调用它：</p>

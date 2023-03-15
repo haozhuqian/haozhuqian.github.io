@@ -24,7 +24,7 @@
 <meta property="og:description" content="了解了 JS 对象">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-24T08:11:29.000Z">
-<meta property="article:modified_time" content="2023-02-27T13:27:36.906Z">
+<meta property="article:modified_time" content="2023-03-06T10:58:58.920Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="你不知道的JavaScript">
 <meta property="article:tag" content="this和对象原型">
@@ -347,7 +347,7 @@
 <li>RegExp</li>
 <li>Error</li>
 </ul>
-<p>这些内置对象从表现形式上很像其他语言中的类型（type）或者类（class），比如 Java 中的String类等等。</p>
+<p>这些内置对象从表现形式上很像其他语言中的类型（type）或者类（class），比如 Java 中的 String 类等等。</p>
 <p>但在 JavaScript 中，它们实际上只是一些内置函数。这些内置函数可以当做构造函数（利用 new 操作符）来使用，从而可以构造一个对应子类型的新对象。比如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> strPrimitive = <span class="hljs-string">&quot;I am a string&quot;</span>; <br><span class="hljs-keyword">typeof</span> strPrimitive; <span class="hljs-comment">// &quot;string&quot; </span><br>strPrimitive <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">String</span>; <span class="hljs-comment">// false </span><br><span class="hljs-keyword">var</span> strObject = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>( <span class="hljs-string">&quot;I am a string&quot;</span> ); <br><span class="hljs-keyword">typeof</span> strObject; <span class="hljs-comment">// &quot;object&quot; </span><br>strObject <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">String</span>; <span class="hljs-comment">// true </span><br><span class="hljs-comment">// 检查 sub-type 对象</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>( strObject ); <span class="hljs-comment">// [object String]</span><br></code></pre></td></tr></table></figure>
 
