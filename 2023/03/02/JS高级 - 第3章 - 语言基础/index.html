@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202303032112615.png">
 <meta property="og:image" content="https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/202303032114390.png">
 <meta property="article:published_time" content="2023-03-02T09:02:11.000Z">
-<meta property="article:modified_time" content="2023-03-10T08:46:03.905Z">
+<meta property="article:modified_time" content="2023-03-22T06:29:41.702Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="JavaScript高级程序设计">
 <meta property="article:tag" content="语言基础">
@@ -577,7 +577,7 @@
 </tr>
 </tbody></table>
 <h3 id="number"><a href="#number" class="headerlink" title="number"></a>number</h3><p>Number 类型使用 IEEE 754 格式表示整数和浮点值（在某些语言中也叫双精度值）。不同的数值类型相应地也有不同的数值字面量格式。</p>
-<p>最基本的数值字面量格式是十进制整数，直接写出来即可：</p>
+<h4 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h4><p>最基本的数值字面量格式是十进制整数，直接写出来即可：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> intNum = <span class="hljs-number">55</span>; <span class="hljs-comment">// 整数</span><br></code></pre></td></tr></table></figure>
 
 <p>整数也可以用八进制（以 8 为基数）或十六进制（以 16 为基数）字面量表示。对于八进制字面量，第一个数字必须是零（0），然后是相应的八进制数字（数值 0~7）。如果字面量中包含的数字超出了应有的范围，就会忽略前缀的零，后面的数字序列会被当成十进制数，如下所示：</p>
@@ -609,7 +609,7 @@
 
 <p>虽然超出有限数值范围的计算并不多见，但总归还是有可能的。因此在计算非常大或非常小的数值时，有必要监测一下计算结果是否超出范围。</p>
 <p>使用 Number.NEGATIVE_INFINITY 和 Number.POSITIVE_INFINITY 也可以获取正、负 Infinity。没错，这两个属性包含的值分别就是-Infinity 和 Infinity。</p>
-<h4 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h4><p>有一个特殊的数值叫 NaN，意思是“不是数值”（Not a Number），用于表示本来要返回数值的操作失败了（而不是抛出错误）。比如，用 0 除任意数值在其他语言中通常都会导致错误，从而中止代码执行。但在 ECMAScript 中，0、+0 或0 相除会返回 NaN：</p>
+<h4 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h4><p>有一个特殊的数值叫 NaN，意思是“不是数值”（Not a Number），用于表示本来要返回数值的操作失败了（而不是抛出错误）。比如，用 0 除任意数值在其他语言中通常都会导致错误，从而中止代码执行。但在 ECMAScript 中，0、+0 或 - 0 相除会返回 NaN：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">0</span>/<span class="hljs-number">0</span>); <span class="hljs-comment">// NaN </span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(-<span class="hljs-number">0</span>/+<span class="hljs-number">0</span>); <span class="hljs-comment">// NaN</span><br></code></pre></td></tr></table></figure>
 
 <p>如果分子是非 0 值，分母是有符号 0 或无符号 0，则会返回 Infinity 或-Infinity：</p>
