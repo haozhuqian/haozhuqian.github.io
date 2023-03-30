@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>打卡day33</title>
+    <link href="/2023/03/30/%E6%89%93%E5%8D%A1day33/"/>
+    <url>/2023/03/30/%E6%89%93%E5%8D%A1day33/</url>
+    
+    <content type="html"><![CDATA[<h1 id="学习新知识"><a href="#学习新知识" class="headerlink" title="学习新知识"></a>学习新知识</h1><p>复习了vue组件插槽，组件子传父通信，非父子组件通信的基础方法。有些东西好像去年就没有好好学，根本不知道，非父子组件通信除了逐层父子组件传参就是VueX，今天头回听说事件总线。继续学习，在vue框架学习结束后，回头看coderwhy之前的基础课，有好多也没学过。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>打卡</category>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>第一个百日计划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>打卡day32</title>
     <link href="/2023/03/29/%E6%89%93%E5%8D%A1day32/"/>
     <url>/2023/03/29/%E6%89%93%E5%8D%A1day32/</url>
