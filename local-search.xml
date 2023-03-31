@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>打卡day34</title>
+    <link href="/2023/03/31/%E6%89%93%E5%8D%A1day34/"/>
+    <url>/2023/03/31/%E6%89%93%E5%8D%A1day34/</url>
+    
+    <content type="html"><![CDATA[<h1 id="学到了之前没有好好看的Vue"><a href="#学到了之前没有好好看的Vue" class="headerlink" title="学到了之前没有好好看的Vue"></a>学到了之前没有好好看的Vue</h1><p>了解了事件总线，事件总线在之前的js高级课程里好像有讲，但我直接看的vue3课程，跳过了那一部分，使用不知道，不过也没什么关系。</p><p>复习了Vue生命周期，这部分本来就不是很难，问题不大。</p><p>了解了Vue动态组件，这个似乎完全忘了，似乎刚知道。</p><p>了解了异步组件，这个也没听过。</p><p>获取组件实例，这个很少用，之前没用过。</p><p>数据双向绑定，就是在组件上使用v-model指令。</p><p>明天，学习组件混入。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>打卡</category>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>第一个百日计划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>打卡day33</title>
     <link href="/2023/03/30/%E6%89%93%E5%8D%A1day33/"/>
     <url>/2023/03/30/%E6%89%93%E5%8D%A1day33/</url>
