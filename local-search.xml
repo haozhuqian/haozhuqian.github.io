@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>打卡day36</title>
+    <link href="/2023/04/02/%E6%89%93%E5%8D%A1day36/"/>
+    <url>/2023/04/02/%E6%89%93%E5%8D%A1day36/</url>
+    
+    <content type="html"><![CDATA[<h2 id="开始了解React"><a href="#开始了解React" class="headerlink" title="开始了解React"></a>开始了解React</h2><p>今天学习了Vue3组合式Api中的生命周期，响应式数据传递，单向数据流的相关语法，</p><p>晚上与学长开会，大体定下七期学员的上半年学习路线，整体上建议以框架学习为主，可以例外学习小程序，桌面应用，程序打包，nodejs，服务端渲染等学习，学习形式暂未决定，框架学习大概分为React与Vue两部分，选择一种完成每周学习任务，小问题在于，书院六期大部分人并不了解React，开设这条路线可能会很困难。还没有确定解决方案。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>打卡</category>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>第一个百日计划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>打卡day35</title>
+    <link href="/2023/04/02/%E6%89%93%E5%8D%A1day35/"/>
+    <url>/2023/04/02/%E6%89%93%E5%8D%A1day35/</url>
+    
+    <content type="html"><![CDATA[<h1 id="学习了Vue3新语法"><a href="#学习了Vue3新语法" class="headerlink" title="学习了Vue3新语法"></a>学习了Vue3新语法</h1><p>去年上半年的时候学习了vue2语法，当时文档也以vue2为主，但vue3已经发展了一段时间，周边生态和风向都有Vue3的学习需求，所以来补课了。</p><p>今天了解了Vue3组件的混入，以及组合式API入门。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>打卡</category>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>第一个百日计划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>打卡day34</title>
     <link href="/2023/03/31/%E6%89%93%E5%8D%A1day34/"/>
     <url>/2023/03/31/%E6%89%93%E5%8D%A1day34/</url>
