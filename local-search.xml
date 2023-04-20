@@ -4,6 +4,87 @@
   
   
   <entry>
+    <title>打卡49</title>
+    <link href="/2023/04/20/%E6%89%93%E5%8D%A1day49/"/>
+    <url>/2023/04/20/%E6%89%93%E5%8D%A1day49/</url>
+    
+    <content type="html"><![CDATA[<p>学习了webpack的打包基本流程，各类配置文件与选项的作用与写法，尝试使用了部分loader与插件，大致了解了脚手架的基本原理。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>打卡</category>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>第一个百日计划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>打卡48</title>
+    <link href="/2023/04/18/%E6%89%93%E5%8D%A1day48/"/>
+    <url>/2023/04/18/%E6%89%93%E5%8D%A1day48/</url>
+    
+    <content type="html"><![CDATA[<p>写了本周关于插槽的学习文档，写了一个案例演示，学习了pnpm的大致原理与优势，尝试使用了一些指令。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>打卡</category>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>第一个百日计划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>打卡47</title>
+    <link href="/2023/04/15/%E6%89%93%E5%8D%A1day47/"/>
+    <url>/2023/04/15/%E6%89%93%E5%8D%A1day47/</url>
+    
+    <content type="html"><![CDATA[<p>重写了一下上周vue组件化的作业，不使用脚手架，检查了一下负责学员的任务完成情况，了解了CommonJs的模块化规范，以及node模块加载的过程，了解了yarn与npm包管理器。</p><p>就是这样 ~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>打卡</category>
+      
+      <category>第一个百日计划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>第一个百日计划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>打卡day46</title>
     <link href="/2023/04/14/%E6%89%93%E5%8D%A1day46/"/>
     <url>/2023/04/14/%E6%89%93%E5%8D%A1day46/</url>
