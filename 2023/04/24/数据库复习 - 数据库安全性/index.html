@@ -1,0 +1,911 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/wenti.png">
+  <link rel="icon" href="/img/wenti.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Mr.Good">
+  <meta name="keywords" content="郝祝乾的博客">
+  
+    <meta name="description" content="复习了数据库权限操作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库安全性">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/04/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E6%80%A7/index.html">
+<meta property="og:site_name" content="GoodMoney的小窝">
+<meta property="og:description" content="复习了数据库权限操作。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-24T06:30:56.000Z">
+<meta property="article:modified_time" content="2023-04-29T08:15:02.665Z">
+<meta property="article:author" content="Mr.Good">
+<meta property="article:tag" content="复习">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>数据库安全性 - GoodMoney的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"haozhuqian.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":100,"cursorChar":"~","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":10},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>GoodMoney的小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://good-money.oss-cn-beijing.aliyuncs.com/blog-imgs/definde.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数据库安全性"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-24 14:30" pubdate>
+          2023年4月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数据库安全性</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="数据库安全性"><a href="#数据库安全性" class="headerlink" title="数据库安全性"></a>数据库安全性</h1><h2 id="数据库安全性控制"><a href="#数据库安全性控制" class="headerlink" title="数据库安全性控制"></a>数据库安全性控制</h2><h3 id="用户标识与鉴别"><a href="#用户标识与鉴别" class="headerlink" title="用户标识与鉴别"></a>用户标识与鉴别</h3><p>系统提供的最外层安全保护措施</p>
+<h4 id="基本方法"><a href="#基本方法" class="headerlink" title="基本方法"></a>基本方法</h4><ul>
+<li>系统提供一定的方式让用户标识自己的名字或身份</li>
+<li>系统内部记录着所有合法用户的标识</li>
+<li>每次用户要求进入系统时，由系统核对用户提供的身份标识</li>
+<li>通过鉴定后才提供系统使用权</li>
+</ul>
+<h4 id="静态口令"><a href="#静态口令" class="headerlink" title="静态口令"></a>静态口令</h4><ul>
+<li>口令由用户确定</li>
+<li>鉴别时只要输入口令正确即可使用数据库系统</li>
+<li>缺点：用户名和口令易被窃取，易被攻击，安全性低<ul>
+<li>应增加口令的复杂度，如长度大于8位，字母数字混合，等策略</li>
+</ul>
+</li>
+<li>特点：用户标识与鉴定可以重复多次</li>
+</ul>
+<h4 id="动态口令"><a href="#动态口令" class="headerlink" title="动态口令"></a>动态口令</h4><ul>
+<li>口令是动态变化的，每次鉴别时均需要动态产生新的口令登录DBMS</li>
+<li>常用的方式如短信密码、动态令牌.<ul>
+<li>每次鉴别时要求用户使用短信、令牌等途径获取新的口令来登录DBMS</li>
+</ul>
+</li>
+<li>优点：不易被窃取和破解</li>
+</ul>
+<h3 id="存取控制"><a href="#存取控制" class="headerlink" title="存取控制"></a>存取控制</h3><ul>
+<li>存取控制是一种主要的数据库安全机制它确保只授权给有资格的用户访问数据库的权限，未被授权的人员无法访问数据</li>
+<li>存取控制机制由两部分组成<ul>
+<li>定义用户权限<br>　在数据库系统中，为了保证用户只能访问他有权存取的数据，必须预先对每个用户定义存取权限。</li>
+<li>合法权限检查<br>　当用户操作数据库时，DBMS根据他的存取权限定义对他的各种操作请求进行控制，确保他只执行合法操作。</li>
+</ul>
+</li>
+</ul>
+<p>常用的存取控制方法</p>
+<ul>
+<li>自主存取控制（Discretionary Access Control ，简称DAC）<ul>
+<li>同一用户对于不同的数据对象有不同的存取权限</li>
+<li>不同的用户对同一对象也有不同的权限</li>
+<li>用户还可将其拥有的存取权限转授给其他用户</li>
+</ul>
+</li>
+<li>强制存取控制（Mandatory Access Control，简称 MAC）<ul>
+<li>每一个数据对象被标以一定的密级</li>
+<li>每一个用户也被授予某一个级别的许可证</li>
+<li>对于任意一个对象，只有具有合法许可证的用户才可以存取</li>
+</ul>
+</li>
+</ul>
+<h3 id="自主存取控制方法"><a href="#自主存取控制方法" class="headerlink" title="自主存取控制方法"></a>自主存取控制方法</h3><ul>
+<li><p>定义用户存取权限，称授权</p>
+<p>定义用户可以在哪些数据库对象上进行哪些类型的操作</p>
+<ul>
+<li>用户权限组成要素：<ul>
+<li>数据库对象</li>
+<li>操作类型</li>
+</ul>
+</li>
+<li>通过GRANT 和 REVOKE 语句实现权限控制<ul>
+<li>授权将用户的权限保存在数据字典中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>检查存取权限</p>
+<p>对于合法用户发出存取数据库操作：</p>
+<ul>
+<li>DBMS首先查找数据字典，根据其存取权限对操作的合法性进行检查</li>
+<li>若用户的操作请求超出了定义的权限，系统将拒绝执行此操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="授权与回收"><a href="#授权与回收" class="headerlink" title="授权与回收"></a>授权与回收</h3><ul>
+<li>自主存取方法需要DBA对用户授权<ul>
+<li>利用SQL的GRANT和REVOKE授权和回收权限</li>
+<li>DBMS把授权的结果存入数据字典</li>
+<li>当用户提出操作请求时，DBMS根据授权定义进行检查</li>
+<li>只有授权的操作请求才能执行</li>
+</ul>
+</li>
+</ul>
+<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><p>GRANT语句将指定操作对象的指定操作权限授予指定的用户，一般格式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">GRANT <span class="hljs-tag">&lt;<span class="hljs-name">权限</span>&gt;</span>,<span class="hljs-tag">&lt;&gt;</span>... ON [<span class="hljs-tag">&lt;<span class="hljs-name">对象类型</span>&gt;</span>]<span class="hljs-tag">&lt;<span class="hljs-name">对象名</span>&gt;</span>,... TO <span class="hljs-tag">&lt;<span class="hljs-name">用户</span>&gt;</span>,... [WITH GRANT OPTION]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>执行GRANT的用户可以为：<ul>
+<li>DBA：可将任何权限授予用户</li>
+<li>数据库对象创建者（即属主Owner）：可将该对象的任何权限授予其他用户</li>
+<li>拥有某权限的用户：可将该权限授予其他用户</li>
+</ul>
+</li>
+<li>接受权限的用户可以是： <ul>
+<li>一个或多个具体用户</li>
+<li>角色（组），如PUBLIC<ul>
+<li>既其中的全体用户</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">ON</span> &lt;表名&gt; <span class="hljs-keyword">TO</span> &lt;用户名&gt;<br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> PRIVLIGES <span class="hljs-keyword">ON</span> &lt;表名&gt; ,&lt;另一个表&gt; <span class="hljs-keyword">TO</span> &lt;用户&gt; ,&lt;另一个用户&gt;<br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">ON</span> &lt;表名&gt; <span class="hljs-keyword">TO</span> &lt;用户组名&gt;<br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">SELECT</span>(&lt;列名&gt;) <span class="hljs-keyword">ON</span> &lt;表名&gt; <span class="hljs-keyword">TO</span> &lt;用户名&gt; <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">OPTION</span><br></code></pre></td></tr></table></figure>
+
+<p>WITH GRANT OPTION 表示拥有此权限的用户可以将此权限授权给其他用户</p>
+<h4 id="回收"><a href="#回收" class="headerlink" title="回收"></a>回收</h4><p>REVOKE语句用于收回授予用户的权限 ，格式为：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">REVOKE <span class="hljs-variable">&lt;权限&gt;</span>,... [ON <span class="hljs-variable">&lt;对象类型&gt;</span> <span class="hljs-variable">&lt;对象名&gt;</span>] FROM <span class="hljs-variable">&lt;用户&gt;</span>,<span class="hljs-variable">&lt;另一个用户&gt;</span>... [CASCADE|<span class="hljs-string">RESTRICT]</span><br></code></pre></td></tr></table></figure>
+
+<p>CASCADE表示还会收回从改用户手上授权给其他用户的权限（以及被他授权的用户授权的别人等等）。</p>
+<h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><p>数据库用户由DBA创建</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> &lt;用户名&gt; [<span class="hljs-keyword">WITH</span> [DBA|RESOURCE|<span class="hljs-keyword">CONNECT</span>]]<br>DBA 可以创建用户、模式、表，查询与操纵数据<br>RESOURCE 可以创建表，查询操纵数据<br>CONNNECT 可以在有权限的情况下查询操纵数据<br></code></pre></td></tr></table></figure>
+
+<h3 id="数据库角色"><a href="#数据库角色" class="headerlink" title="数据库角色"></a>数据库角色</h3><p>被命名的一组与数据库操作相关的权限</p>
+<h4 id="角色的创建"><a href="#角色的创建" class="headerlink" title="角色的创建"></a>角色的创建</h4><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">CREATE <span class="hljs-keyword">ROLE</span> <span class="hljs-title">&lt;角色名&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="角色权限管理"><a href="#角色权限管理" class="headerlink" title="角色权限管理"></a>角色权限管理</h4><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lasso">GRANT &lt;角色或权限名&gt;,<span class="hljs-params">...</span> <span class="hljs-keyword">ON</span> &lt;对象名&gt;,<span class="hljs-params">...</span> <span class="hljs-keyword">TO</span> &lt;角色&gt;,<span class="hljs-params">...</span> <br>REVOKE &lt;权限&gt;,<span class="hljs-params">...</span> <span class="hljs-keyword">ON</span> &lt;对象名&gt;,<span class="hljs-params">...</span> FROM &lt;角色&gt;,<span class="hljs-params">...</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="强制存取控制方法"><a href="#强制存取控制方法" class="headerlink" title="强制存取控制方法"></a>强制存取控制方法</h3><p>强制存取控制（MAC)</p>
+<ul>
+<li>是指系统为保证更高程度的安全性，按照TCSEC&#x2F; TDI标准中安全策略的要求，所采取的强制存取检查手段。</li>
+<li>它不是由用户能直接感知或进行控制</li>
+<li>适用于对数据有严格而固定密级分类的部门</li>
+</ul>
+<p>MAC中将所管理的实体分主体和客体为两类</p>
+<ul>
+<li>主体：是系统中的活动实体，包括<ul>
+<li>DBMS所管理的实际用户</li>
+<li>代表用户的各进程</li>
+</ul>
+</li>
+<li>客体：是系统中的被动实体，是受主体操纵的，包括<ul>
+<li>文件、基表、索引、视图等</li>
+</ul>
+</li>
+</ul>
+<p>对于主体和客体，DBMS为它们每个实例（值）指派一个敏感度标记（Label）</p>
+<ul>
+<li>敏感度标记分为若干级：<ul>
+<li>绝密（Top Secret）</li>
+<li>机密（Secret）</li>
+<li>可信（Confidential）</li>
+<li>公开（Public）</li>
+</ul>
+</li>
+<li>主体的敏感度标记称为许可证级别</li>
+<li>客体的敏感度标记称为密级</li>
+</ul>
+<p>MAC机制就是通过对比主体的Label和客体的Label，最终确定主体是否能够存取客体<br>当某一主体以标记label注册入系统时，系统要求他对任何客体的存取必须遵循下面两条规则：</p>
+<ul>
+<li>仅当主体的许可证级别大于或等于客体的密级时，该主体才能读取相应的客体</li>
+<li>仅当主体的许可证级别小于等于客体的密级时，该主体才能写相应的客体</li>
+</ul>
+<p>强制存取控制的特点</p>
+<ul>
+<li>MAC是对数据本身进行密级标记</li>
+<li>无论数据如何复制，标记与数据是一个不可分的整体</li>
+<li>只有符合密级标记要求的用户才可以操纵数据</li>
+<li>从而提供了更高级别的安全性</li>
+</ul>
+<p>实现MAC时要首先实现DAC。先进行DAC检查，通过DAC检查的数据对象再由系统进行MAC检查，只有通过MAC检查的数据对象方可存取。</p>
+<h2 id="视图机制"><a href="#视图机制" class="headerlink" title="视图机制"></a>视图机制</h2><p>通过视图可将数据对象限制在一定的范围内</p>
+<ul>
+<li>把要保密的数据对无权存取这些数据的用户隐藏起来，对数据提供一定程度的安全保护</li>
+</ul>
+<p>视图机制可与授权机制配合使用:</p>
+<ul>
+<li>首先用视图机制屏蔽掉一部分保密数据</li>
+<li>视图上面再进一步定义存取权限</li>
+<li>可间接实现支持存取谓词的用户权限定义</li>
+</ul>
+<h2 id="审计"><a href="#审计" class="headerlink" title="审计"></a>审计</h2><p>什么是审计</p>
+<ul>
+<li>审计功能启用一个专用的审计日志（Audit Log）将用户对数据库的所有操作记录在上面</li>
+<li>DBA利用审计日志监控数据库中的各种行为，重现导致数据库现有状况的一系列事件，找出非法存取数据的人、时间和内容。</li>
+<li>C2以上安全级别的DBMS必须具有审计功能</li>
+</ul>
+<p>审计分为：</p>
+<ul>
+<li>用户级审计：用户设置<ul>
+<li>针对自己创建的数据库表或视图进行审计 </li>
+<li>记录所有用户对这些表或视图的一切成功和（或）不成功的访问要求以及各种类型的SQL操作</li>
+</ul>
+</li>
+<li>系统级审计 ：DBA设置 <ul>
+<li>监测成功或失败的登录要求 </li>
+<li>监测GRANT和REVOKE操作以及其他数据库级权限下的操作</li>
+</ul>
+</li>
+</ul>
+<p>审计功能的可选性</p>
+<ul>
+<li>审计很费时间和空间</li>
+<li>DBA可以根据应用对安全性的要求，灵活地打开或关闭审计功能。</li>
+<li>与用户识别和鉴定、存取控制、视图等作为强制性机制不同，审计技术作为预防监测手段</li>
+</ul>
+<h3 id="可审计事件"><a href="#可审计事件" class="headerlink" title="可审计事件"></a>可审计事件</h3><p>DBMS能对用户行为、各种表操作、身份鉴别、存取控制等操作进行审计，包括</p>
+<ul>
+<li>服务器事件：审计数据库服务器发生的事件，包括服务器的启动、停止等</li>
+<li>系统权限：对系统拥有的结构或模式对象进行操作的审计</li>
+<li>语句事件：对SQL语句，如DDL、DML、DQL、DCL等语句审计。</li>
+<li>模式对象事件：对特定模式对象（包括表、视图、存储过程等）上进行的SELECT或DML操作的审计。</li>
+</ul>
+<h3 id="审计功能"><a href="#审计功能" class="headerlink" title="审计功能"></a>审计功能</h3><p>审计具有如下几个方面的功能</p>
+<ul>
+<li>基本功能，提供多种审计查阅方式：包括基本的、可选的、有限的，等。</li>
+<li>提供多套审计规则，审计规则一般在数据库初始化时设定</li>
+<li>提供审计和分析报表功能</li>
+<li>审计日志管理功能</li>
+<li>系统提供查询审计设置及审计记录信息的专门视图。</li>
+</ul>
+<h3 id="审计功能的设置取消"><a href="#审计功能的设置取消" class="headerlink" title="审计功能的设置取消"></a>审计功能的设置取消</h3><p>使用AUDIT、 NOAUDIT语句设置、取消审计功能</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lasso">AUDIT &lt;操作&gt;,<span class="hljs-params">...</span> <span class="hljs-keyword">ON</span> &lt;对象名&gt; <span class="hljs-comment">// 对某对象的一些操作进行审计</span><br>NOVUDIT &lt;操作&gt;,<span class="hljs-params">...</span> <span class="hljs-keyword">ON</span> &lt;对象名&gt; <span class="hljs-comment">// 取消对对象某些操作的审计</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="数据加密"><a href="#数据加密" class="headerlink" title="数据加密"></a>数据加密</h2><p>是防止数据库中数据在存储和传输中失密的有效手段</p>
+<p>基本思想</p>
+<ul>
+<li>根据一定的算法将原始数据变换为不可直接识别的格式（明文转换为密文）</li>
+<li>不知道解密算法的人无法获知数据内容</li>
+</ul>
+<p>加密方法</p>
+<ul>
+<li><p>替换方法：使用密钥将明文中每一个字符转换为密文中的一个字符</p>
+</li>
+<li><p>置换方法：将明文字符按不同顺序重新排列</p>
+</li>
+<li><p>混合方法：DES，灭国1977年制定的官方加密标准</p>
+</li>
+<li><p>存储加密：对存储在数据库中的数据加密</p>
+<ul>
+<li>透明加密方式：数据加密对用户透明，当对数据进行增、删、改、查询时，DBMS自动对数据加密、解密。</li>
+<li>非透明加密方式：通过加密函数进行加密。</li>
+</ul>
+</li>
+<li><p>传输加密：对传输的数据进行加密</p>
+<ul>
+<li>链路加密：对传输数据在链路层进行加密，对报头和报文均加密</li>
+<li>端对端加密：对传输数据只加密报文，不加密报头。</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%8D%E4%B9%A0/" class="category-chain-item">复习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A4%8D%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" class="category-chain-item">数据库系统原理</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%8D%E4%B9%A0/">#复习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据库安全性</div>
+      <div>http://haozhuqian.github.io/2023/04/24/数据库复习 - 数据库安全性/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Mr.Good</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月24日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" title="数据库设计">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据库设计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20SQL/" title="SQL">
+                        <span class="hidden-mobile">SQL</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>始于2022年8月18日 18:55:40</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

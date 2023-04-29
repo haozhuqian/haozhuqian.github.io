@@ -16,24 +16,24 @@
   <meta name="author" content="Mr.Good">
   <meta name="keywords" content="郝祝乾的博客">
   
-    <meta name="description" content="学习了webpack的打包基本流程，大致了解了脚手架的基本原理。">
+    <meta name="description" content="复习了数据库完整性概念。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="打卡49">
-<meta property="og:url" content="http://haozhuqian.github.io/2023/04/20/%E6%89%93%E5%8D%A1day49/index.html">
+<meta property="og:title" content="数据库完整性">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/04/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E6%95%B4%E6%80%A7/index.html">
 <meta property="og:site_name" content="GoodMoney的小窝">
-<meta property="og:description" content="学习了webpack的打包基本流程，大致了解了脚手架的基本原理。">
+<meta property="og:description" content="复习了数据库完整性概念。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-20T14:33:12.000Z">
-<meta property="article:modified_time" content="2023-04-20T14:43:53.691Z">
+<meta property="article:published_time" content="2023-04-24T14:33:12.000Z">
+<meta property="article:modified_time" content="2023-04-29T08:14:29.559Z">
 <meta property="article:author" content="Mr.Good">
-<meta property="article:tag" content="第一个百日计划">
+<meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>打卡49 - GoodMoney的小窝</title>
+  <title>数据库完整性 - GoodMoney的小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -225,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="打卡49"></span>
+            <span id="subtitle" data-typed-text="数据库完整性"></span>
           
         </div>
 
@@ -236,8 +236,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-20 22:33" pubdate>
-          2023年4月20日 晚上
+        <time datetime="2023-04-24 22:33" pubdate>
+          2023年4月24日 晚上
         </time>
       </span>
     
@@ -248,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          70 字
+          1.9k 字
         
       </span>
     
@@ -259,7 +259,7 @@
         
         
         
-          1 分钟
+          16 分钟
         
       </span>
     
@@ -307,13 +307,125 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">打卡49</h1>
+            <h1 style="display: none">数据库完整性</h1>
             
             
               <div class="markdown-body">
                 
-                <p>学习了webpack的打包基本流程，各类配置文件与选项的作用与写法，尝试使用了部分loader与插件，大致了解了脚手架的基本原理。</p>
-<p>就是这样 ~</p>
+                <h1 id="数据库完整性"><a href="#数据库完整性" class="headerlink" title="数据库完整性"></a>数据库完整性</h1><p>完整性是指数据的正确性和相容性</p>
+<ul>
+<li>正确性是指数据符合现实世界的语义，反应当前实际状况</li>
+<li>相容性是指数据库中同一对象在不同关系表中的数据是符合逻辑的</li>
+</ul>
+<p>数据的完整性是为了防止数据库中的数据存在不符合语义的数据，也就是防止数据库中存在不正确的数据。</p>
+<p>数据完整性可分为三类</p>
+<ul>
+<li>实体完整性<br>实体完整性将表中的每行看作一个实体，要求表中的所有行具有惟一标识。</li>
+<li>参照完整性<br>参照完整性又称引用完整性。参照完整性保证参照表与被参照表之间的数据一致性。</li>
+<li>用户定义完整性<br>应用领域需要遵循的约束条件，体现了具体领域中的语义约束</li>
+</ul>
+<p>实现数据完整性的方法包括:</p>
+<ul>
+<li>数据类型与约束：作为表定义中的部分，定义数据完整性。</li>
+<li>触发器</li>
+<li>存储过程</li>
+<li>客户应用程序</li>
+</ul>
+<p>实施数据完整性：</p>
+<ul>
+<li>服务器端</li>
+<li>客户端</li>
+</ul>
+<p>约束是实施数据库完整性的一种机制，可分为：</p>
+<ul>
+<li>主键约束（PRIMARY KEY）</li>
+<li>唯一约束（UNIQUE）</li>
+<li>参照完整性约束（FORREGN KEY）（又称外键约束）</li>
+<li>检查约束（CHECK）</li>
+<li>非空约束（NOT NULL）</li>
+<li>默认值约束（DEFAULT）</li>
+</ul>
+<p>为维护数据库的完整性，DBMS必须：</p>
+<ol>
+<li>提供定义完整性约束条件的机制<ul>
+<li>SQL的DDL语句在定义关系模式时指定关系须满足的语义约束</li>
+</ul>
+</li>
+<li>提供完整性检查的方法<ul>
+<li>当更新数据时，DBMS检查数据是否违背了完整性约束条件</li>
+</ul>
+</li>
+<li>违约处理<ul>
+<li>当违背了约束时，应进行违约处理。</li>
+</ul>
+</li>
+</ol>
+<h2 id="实体完整性"><a href="#实体完整性" class="headerlink" title="实体完整性"></a>实体完整性</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>就是定义主码</p>
+<h3 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h3><p>插入或更新主码时RDBMS按照实体完整性规则自动进行检查</p>
+<ul>
+<li>检查主码是否唯一，不唯一拒绝插入或者修改主码</li>
+<li>检查是否有主码为空，任意一个为空则拒绝插入或修改</li>
+</ul>
+<h2 id="参照完整性"><a href="#参照完整性" class="headerlink" title="参照完整性"></a>参照完整性</h2><p>就是定义外码</p>
+<p>它建立了两个表之间的制约关系</p>
+<p>外码必须为空或者存在于被参照列</p>
+<p>被参照列的修改与删除会被制约</p>
+<ul>
+<li>参照表的违约处理<ul>
+<li>拒绝执行</li>
+</ul>
+</li>
+<li>被参照表的违约处理：可指定违约操作<ul>
+<li>拒绝(NO ACTION)执行<br>不允许该操作执行。默认策略</li>
+<li>级联(CASCADE)操作<br>当删除被参照表中的元组时，删除参照表中的相应元组<br>当修改被参照列的值时，同时修改参照列的值，使之保持一致</li>
+<li>设置为空值（SET-NULL）<br>当修改或删除被参照列中的数据时，将对应的参照列的值设置为空值</li>
+</ul>
+</li>
+</ul>
+<p>显式说明参照完整性的违约处理</p>
+<p>在添加外键约束时说明</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">FOREIGN KEY</span>(&lt;外键&gt;) <span class="hljs-keyword">REFERENCES</span> &lt;被参照表&gt;(&lt;主键&gt;) <span class="hljs-keyword">ON</span> &lt;操作&gt; [<span class="hljs-keyword">NO ACTION</span>|<span class="hljs-keyword">CASCADE</span>|<span class="hljs-keyword">SET</span> <span class="hljs-keyword">NULL</span>]<br></code></pre></td></tr></table></figure>
+
+<h2 id="用户定义完整性"><a href="#用户定义完整性" class="headerlink" title="用户定义完整性"></a>用户定义完整性</h2><p>就是定义属性时加的约束，比如</p>
+<ul>
+<li>非空约束（NOT NULL）</li>
+<li>唯一约束（UNIQUE）</li>
+<li>检查约束（CHECK）</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">CHECK (<span class="hljs-tag">&lt;<span class="hljs-name">对当前列的约束条件</span>&gt;</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="约束完整格式"><a href="#约束完整格式" class="headerlink" title="约束完整格式"></a>约束完整格式</h2><figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sas">[CONSTRAINT &lt;完整性约束条件名&gt;] // 为约束命名<br> <span class="hljs-keyword">PRIMARY</span> <span class="hljs-keyword">KEY</span> 约束 | <span class="hljs-keyword">UNIQUE</span> 约束 | <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span><br> <span class="hljs-keyword">FOREIGN</span> <span class="hljs-keyword">KEY</span>约束 | <span class="hljs-keyword">CHECK</span>约束 |<br></code></pre></td></tr></table></figure>
+
+<h3 id="修改完整性约束"><a href="#修改完整性约束" class="headerlink" title="修改完整性约束"></a>修改完整性约束</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> &lt;表名&gt;<br>[ <span class="hljs-keyword">ADD</span>  完整性约束  ]<br>[ <span class="hljs-keyword">DROP</span>  &lt;完整性约束名&gt; ]<br></code></pre></td></tr></table></figure>
+
+<h2 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h2><p>触发器（Trigger）是用户定义在关系表上的一类由事件驱动的特殊存储过程</p>
+<ul>
+<li>由对表的插入、修改和删除事件自动激活</li>
+<li>可以进行更为复杂的检查和操作，具有更精细和更强大的数据控制能力，实现复杂的数据完整性</li>
+<li>或用于自动执行某个任务</li>
+</ul>
+<h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>触发器又称事件-条件-规则。</p>
+<p>当特定的事件发生时，对规则的条件进行检查。如果条件成立则执行规则中的动作，否则，不执行该动作。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TRIGGER</span> &lt;触发器名&gt;  <br>       &#123;<span class="hljs-keyword">BEFORE</span> | <span class="hljs-keyword">AFTER</span>&#125; &lt;触发事件&gt; <span class="hljs-keyword">ON</span> &lt;表名&gt;<br>       <span class="hljs-keyword">REFERENCING NEW</span> | <span class="hljs-built_in">OLD</span> <span class="hljs-keyword">ROW</span> <span class="hljs-keyword">AS</span> &lt;变量名&gt;<br>       <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">EACH</span>  &#123;<span class="hljs-keyword">ROW</span> | <span class="hljs-keyword">STATEMENT</span>&#125;<br>      ［<span class="hljs-keyword">WHEN</span> &lt;触发条件&gt;］<br>          &lt;触发动作体&gt;<br>触发动作体单独出现时使用BEGINk开头<span class="hljs-keyword">END</span>结尾<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>触发器名：给触发器的唯一名称</li>
+<li>表名：触发器的目标表（也称触发表）</li>
+<li>触发事件：INSERT、DELETE、UPDATE，或其组合</li>
+<li>触发时机：BEFORE 指触发器在触发事件之前执行，AFTER指触发器在触发事件之后执行</li>
+<li>触发器类型<ul>
+<li>行级触发器（FOR EACH ROW），对受影响的每行执行一次</li>
+<li>语句级触发器（FOR EACH STATEMENT），只执行一次</li>
+</ul>
+</li>
+<li>触发条件：触发条件为真才触发</li>
+<li>触发动作体：所要进行的操作语句</li>
+</ul>
+<h3 id="触发"><a href="#触发" class="headerlink" title="触发"></a>触发</h3><p>before在sql语句执行前执行</p>
+<p>after在sql语句执行后执行</p>
+<p>多个相同类型按创建顺序执行</p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TRIGGER</span> &lt;触发器名&gt; <span class="hljs-keyword">ON</span> &lt;表名&gt;;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -332,12 +444,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%89%93%E5%8D%A1/" class="category-chain-item">打卡</a>
+  <a href="/categories/%E5%A4%8D%E4%B9%A0/" class="category-chain-item">复习</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%89%93%E5%8D%A1/%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%99%BE%E6%97%A5%E8%AE%A1%E5%88%92/" class="category-chain-item">第一个百日计划</a>
+  <a href="/categories/%E5%A4%8D%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" class="category-chain-item">数据库系统原理</a>
   
   
 
@@ -354,7 +466,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%99%BE%E6%97%A5%E8%AE%A1%E5%88%92/">#第一个百日计划</a>
+        <a href="/tags/%E5%A4%8D%E4%B9%A0/">#复习</a>
       
     </div>
   
@@ -366,8 +478,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>打卡49</div>
-      <div>http://haozhuqian.github.io/2023/04/20/打卡day49/</div>
+      <div>数据库完整性</div>
+      <div>http://haozhuqian.github.io/2023/04/24/数据库复习 - 数据库完整性/</div>
     </div>
     <div class="license-meta">
       
@@ -379,7 +491,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月20日</div>
+          <div>2023年4月24日</div>
         </div>
       
       
@@ -409,9 +521,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20SQL/" title="SQL">
+                      <a href="/2023/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/" title="关系数据理论">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SQL</span>
+                        <span class="hidden-mobile">关系数据理论</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -419,8 +531,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/18/%E6%89%93%E5%8D%A1day48/" title="打卡48">
-                        <span class="hidden-mobile">打卡48</span>
+                      <a href="/2023/04/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" title="数据库设计">
+                        <span class="hidden-mobile">数据库设计</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

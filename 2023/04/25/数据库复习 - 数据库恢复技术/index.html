@@ -16,26 +16,34 @@
   <meta name="author" content="Mr.Good">
   <meta name="keywords" content="郝祝乾的博客">
   
-    <meta name="description" content="个人学习生活记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://haozhuqian.github.io/archives/2023/page/6/index.html">
+    <meta name="description" content="复习了什么是事务及其基本使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库恢复技术">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%A2%E5%A4%8D%E6%8A%80%E6%9C%AF/index.html">
 <meta property="og:site_name" content="GoodMoney的小窝">
-<meta property="og:description" content="个人学习生活记录">
+<meta property="og:description" content="复习了什么是事务及其基本使用。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-25T08:43:10.000Z">
+<meta property="article:modified_time" content="2023-04-29T08:13:20.843Z">
 <meta property="article:author" content="Mr.Good">
-<meta property="article:tag" content="郝祝乾的博客">
+<meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>归档 - GoodMoney的小窝</title>
+  <title>数据库恢复技术 - GoodMoney的小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
 
@@ -100,7 +108,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 100vh;">
+<div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -217,17 +225,53 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="归档"></span>
+            <span id="subtitle" data-typed-text="数据库恢复技术"></span>
           
         </div>
 
         
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-25 16:43" pubdate>
+          2023年4月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          757 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          7 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
 
-      
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
       
     </div>
   </div>
@@ -239,100 +283,230 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div id="board"
-          style="margin-top: 0">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 76 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2023</p>
-    
-    <a href="/2023/02/22/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E7%AC%AC4%E7%AB%A0%20-%20%E6%8F%90%E5%8D%87/" class="list-group-item list-group-item-action">
-      <time>02-22</time>
-      <div class="list-group-item-title">不知JS - 上卷 - 第1部分 - 第4章 - 提升</div>
-    </a>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数据库恢复技术</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="数据库恢复技术"><a href="#数据库恢复技术" class="headerlink" title="数据库恢复技术"></a>数据库恢复技术</h1><h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务(Transaction)是用户定义的一个数据库操作序列</p>
+<ul>
+<li>这些操作要么全做，要么全不做。</li>
+<li>它是一个不可分割的逻辑工作单元，</li>
+<li>事务提交后，数据库处于一致性状态。</li>
+<li>如果执行中出现错误，应将数据库恢复到执行前的状态，称回滚（Rollback）。</li>
+</ul>
+<p>关系数据库中的一个事务组成：</p>
+<ul>
+<li>一个事务可以是一条SQL语句<br>如：INSERT INTO Student VALUES(’01’,’王刚’,30)</li>
+<li>或多条SQL语句<br>如：INSERT  INTO SC VALUES(’01’,’1’,95,2)<br>    UPDATE SET 总学分 &#x3D;总学分 + 2</li>
+<li>也可以包含一个或多个程序<br>如：分布式事务</li>
+</ul>
+<h3 id="定义事务"><a href="#定义事务" class="headerlink" title="定义事务"></a>定义事务</h3><p>在程序中显式指明事务的开始、结束和回滚位置。</p>
+<ul>
+<li>BEGIN TRANSACTION：标识一个事务的开始。</li>
+<li>COMMIT ：提交事务，即保存数据到数据库，结束事务。</li>
+<li>ROLLBACK ：回滚事务，即撤消所进行的操作，回滚到事务开始时的状态。</li>
+</ul>
+<p>当用户没有显式地定义事务时，DBMS按缺省规定自动划分事务</p>
+<p>大多一个SQL语句为一个事务</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ol>
+<li>原子性（Atomicity）<ul>
+<li>事务是数据库的最小逻辑工作单位</li>
+<li>事务中包括的诸操作要么都做，要么都不做</li>
+</ul>
+</li>
+<li>一致性（Consistency）<ul>
+<li>执行事务会使数据库从一个一致性状态变到另一个状态</li>
+<li>事务成功完成后，称数据库处于一致性状态：数据库中只包含成功事务提交的结果</li>
+<li>即所有数据应满足数据库的约束和规则。</li>
+<li>如果事务未完成就被迫中断，可能对有一部分对数据库的修改已经保存到数据库中，这时数据库就处于不一致状态</li>
+</ul>
+</li>
+<li>隔离性（Isolation）<ul>
+<li>一个事务内部的操作及使用的数据对其它事务是隔离的，事务之间不能互相干扰。</li>
+<li>即一个事务所使用的数据是另一个事务开始前或结束后的数据，中间状态的数据是不可见的。</li>
+</ul>
+</li>
+<li>持续性（Durability ）<ul>
+<li>事务一经提交，对数据库的修改将永久保存。</li>
+</ul>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
   
     
-    <a href="/2023/02/21/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E7%AC%AC3%E7%AB%A0%20-%20%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%9D%97%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="list-group-item list-group-item-action">
-      <time>02-21</time>
-      <div class="list-group-item-title">不知JS - 上卷 - 第1部分 - 第3章 - 函数作用域和块作用域</div>
-    </a>
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%8D%E4%B9%A0/" class="category-chain-item">复习</a>
   
-    
-    <a href="/2023/02/21/%E6%89%93%E5%8D%A1day16/" class="list-group-item list-group-item-action">
-      <time>02-21</time>
-      <div class="list-group-item-title">打卡day16</div>
-    </a>
   
+    <span>></span>
     
-    <a href="/2023/02/21/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E7%AC%AC2%E7%AB%A0%20-%20%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="list-group-item list-group-item-action">
-      <time>02-21</time>
-      <div class="list-group-item-title">不知JS - 上卷 - 第1部分 - 第2章 - 词法作用域</div>
-    </a>
+  <a href="/categories/%E5%A4%8D%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" class="category-chain-item">数据库系统原理</a>
   
-    
-    <a href="/2023/02/21/%E4%B8%8D%E7%9F%A5JS%20-%20%E4%B8%8A%E5%8D%B7%20-%20%E7%AC%AC1%E9%83%A8%E5%88%86%20-%20%E7%AC%AC1%E7%AB%A0%20-%20%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%98%AF%E4%BB%80%E4%B9%88/" class="list-group-item list-group-item-action">
-      <time>02-21</time>
-      <div class="list-group-item-title">不知JS - 上卷 - 第1部分 - 第1章 - 作用域是什么</div>
-    </a>
   
-    
-    <a href="/2023/02/20/%E6%89%93%E5%8D%A1day15/" class="list-group-item list-group-item-action">
-      <time>02-20</time>
-      <div class="list-group-item-title">打卡day15</div>
-    </a>
+
   
+
+      </span>
     
-    <a href="/2023/02/03/%E6%89%93%E5%8D%A1day14/" class="list-group-item list-group-item-action">
-      <time>02-03</time>
-      <div class="list-group-item-title">打卡day14</div>
-    </a>
   
-    
-    <a href="/2023/02/02/%E6%89%93%E5%8D%A1day13/" class="list-group-item list-group-item-action">
-      <time>02-02</time>
-      <div class="list-group-item-title">打卡day13</div>
-    </a>
+</span>
+
+    </div>
   
-    
-    <a href="/2023/02/02/%E9%9D%92%E8%AE%AD%E8%90%A5-Next-js%E7%9B%B4%E6%92%AD%E8%AF%BE%E7%AC%94%E8%AE%B0/" class="list-group-item list-group-item-action">
-      <time>02-02</time>
-      <div class="list-group-item-title">Next.js直播课笔记</div>
-    </a>
   
-    
-    <a href="/2023/02/01/%E6%89%93%E5%8D%A1day12/" class="list-group-item list-group-item-action">
-      <time>02-01</time>
-      <div class="list-group-item-title">打卡day12</div>
-    </a>
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%8D%E4%B9%A0/">#复习</a>
+      
+    </div>
   
 </div>
 
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2023/page/5/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2023/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2023/page/4/#board">4</a><a class="page-number" href="/archives/2023/page/5/#board">5</a><span class="page-number current">6</span><a class="page-number" href="/archives/2023/page/7/#board">7</a><a class="page-number" href="/archives/2023/page/8/#board">8</a><a class="extend next" rel="next" href="/archives/2023/page/7/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
+              
+  
 
-
-
-
-              </div>
-            </div>
-          </div>
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据库恢复技术</div>
+      <div>http://haozhuqian.github.io/2023/04/25/数据库复习 - 数据库恢复技术/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Mr.Good</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月25日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
         </div>
       </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/" title="关系数据理论">
+                        <span class="hidden-mobile">关系数据理论</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
     
 
     
@@ -450,6 +624,72 @@
 
 
 
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
 
   <script  src="/js/local-search.js" ></script>
 

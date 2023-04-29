@@ -16,24 +16,24 @@
   <meta name="author" content="Mr.Good">
   <meta name="keywords" content="郝祝乾的博客">
   
-    <meta name="description" content="学习了webpack的打包基本流程，大致了解了脚手架的基本原理。">
+    <meta name="description" content="复习了关系模式，函数依赖以及第一到第四范式与BC范式相关概念。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="打卡49">
-<meta property="og:url" content="http://haozhuqian.github.io/2023/04/20/%E6%89%93%E5%8D%A1day49/index.html">
+<meta property="og:title" content="关系数据理论">
+<meta property="og:url" content="http://haozhuqian.github.io/2023/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E7%90%86%E8%AE%BA/index.html">
 <meta property="og:site_name" content="GoodMoney的小窝">
-<meta property="og:description" content="学习了webpack的打包基本流程，大致了解了脚手架的基本原理。">
+<meta property="og:description" content="复习了关系模式，函数依赖以及第一到第四范式与BC范式相关概念。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-20T14:33:12.000Z">
-<meta property="article:modified_time" content="2023-04-20T14:43:53.691Z">
+<meta property="article:published_time" content="2023-04-25T02:13:55.000Z">
+<meta property="article:modified_time" content="2023-04-29T08:14:05.380Z">
 <meta property="article:author" content="Mr.Good">
-<meta property="article:tag" content="第一个百日计划">
+<meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>打卡49 - GoodMoney的小窝</title>
+  <title>关系数据理论 - GoodMoney的小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -225,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="打卡49"></span>
+            <span id="subtitle" data-typed-text="关系数据理论"></span>
           
         </div>
 
@@ -236,8 +236,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-20 22:33" pubdate>
-          2023年4月20日 晚上
+        <time datetime="2023-04-25 10:13" pubdate>
+          2023年4月25日 上午
         </time>
       </span>
     
@@ -248,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          70 字
+          1.9k 字
         
       </span>
     
@@ -259,7 +259,7 @@
         
         
         
-          1 分钟
+          16 分钟
         
       </span>
     
@@ -307,13 +307,91 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">打卡49</h1>
+            <h1 style="display: none">关系数据理论</h1>
             
             
               <div class="markdown-body">
                 
-                <p>学习了webpack的打包基本流程，各类配置文件与选项的作用与写法，尝试使用了部分loader与插件，大致了解了脚手架的基本原理。</p>
-<p>就是这样 ~</p>
+                <h1 id="关系数据理论"><a href="#关系数据理论" class="headerlink" title="关系数据理论"></a>关系数据理论</h1><h2 id="关系模式"><a href="#关系模式" class="headerlink" title="关系模式"></a>关系模式</h2><p>关系模式由五部分组成，即它是一个五元组：<br>       R(U, D, DOM, F)</p>
+<ul>
+<li>R：        关系模式名</li>
+<li>U：        组成该关系模式的属性名集合</li>
+<li>D：        属性组U中属性所来自的域</li>
+<li>DOM： 属性向域的映象集合</li>
+<li>F：        属性间的数据依赖关系的集合</li>
+</ul>
+<p>数据依赖</p>
+<ul>
+<li>是一个关系内部属性与属性之间的一种约束关系</li>
+<li>是通过数据间值的相等与否体现出来的数据间相互联系</li>
+<li>是现实世界属性间相互联系的抽象</li>
+<li>是数据内在的性质，是语义的体现</li>
+<li>是完整性约束的一种表现形式。</li>
+</ul>
+<p>数据依赖的类型</p>
+<ul>
+<li>函数依赖（Functional Dependency，简记为FD）</li>
+<li>多值依赖（Multivalued Dependency，简记为MVD）</li>
+<li>其他</li>
+</ul>
+<p>函数依赖</p>
+<ul>
+<li>是指关系模式中不同属性间的一种制约关系（语义）</li>
+<li>即一个属性(或一组属性)的值可以确定该关系中其它属性的值<br>例：Student中，给定Sno，可确定Sname、Sdept的值</li>
+<li>类似数学中的函数关系：y&#x3D;f(x)<br>   有Sname&#x3D;f(Sno)、Sdept&#x3D;g(Sno)</li>
+<li>记为：Sno → Sname , Sno → Sdept</li>
+</ul>
+<h2 id="规范化"><a href="#规范化" class="headerlink" title="规范化"></a>规范化</h2><p>关系数据库的规范化理论是用来改造关系模式，通过分解关系模式来消除其中不合适的数据依赖，以解决插入异常、删除异常、更新异常和数据冗余问题。</p>
+<p>关系模式的来源</p>
+<ul>
+<li>可以是由E-R图向关系模式转换时生成的</li>
+<li>可以是包含所有有意义的属性的单个关系</li>
+<li>可能是即席的关系设计的结果</li>
+</ul>
+<h3 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h3><p>设R(U)是属性集U上的关系模式，X和Y是U的子集。</p>
+<p>若对于R(U)的任意一个可能的关系r，r中不可能存在两个元组在X上的属性值相等， 而在Y上的属性值不等， 则称 “X函数确定Y” 或  “Y函数依赖于X”，记作X→Y。</p>
+<p>函数依赖是指R的所有关系实例均要满足的约束条件。</p>
+<h4 id="平凡函数依赖与非平凡函数依赖"><a href="#平凡函数依赖与非平凡函数依赖" class="headerlink" title="平凡函数依赖与非平凡函数依赖"></a>平凡函数依赖与非平凡函数依赖</h4><p>在关系模式R(U)中，对于U的子集X和Y，</p>
+<ul>
+<li>若X→Y，但Y 不含于 X，则称X→Y是非平凡的函数依赖</li>
+<li>若X→Y，但Y 含于 X,   则称X→Y是平凡的函数依赖</li>
+</ul>
+<p>若X→Y，则 X 称为这个函数依赖的决定属性组，也称为决定因素（Determinant）。</p>
+<h4 id="完全函数依赖与部分函数依赖"><a href="#完全函数依赖与部分函数依赖" class="headerlink" title="完全函数依赖与部分函数依赖"></a>完全函数依赖与部分函数依赖</h4><p>在R(U)中，如果X→Y，并且对于X的任何一个真子集X’，都有Y不函数依赖于X’, </p>
+<p>则称Y对X完全函数依赖。</p>
+<p>若X→Y，但Y不完全函数依赖于X，则称Y对X部分函数依赖。</p>
+<h4 id="传递函数依赖"><a href="#传递函数依赖" class="headerlink" title="传递函数依赖"></a>传递函数依赖</h4><p>在R(U)中，如果X→Y，(Y不含于X) ，Y不函数依赖X， Y→Z， 则称Z对X传递函数依赖。</p>
+<p>如果Y→X， 即X←→Y，则称 Z直接依赖于X。</p>
+<h3 id="码"><a href="#码" class="headerlink" title="码"></a>码</h3><p>设K为R&lt;U,F&gt;中的属性或属性组合。若K完全函数依赖U，则K称为R的侯选码（Candidate Key）。若候选码多于一个，则选定其中的一个做为主码（Primary Key）。</p>
+<p>主属性（Prime attribute）与非主属性<br>    包含在任何一个候选码中的属性 ，称为主属性。不包含在任何码中的属性称为非主属性</p>
+<p>全码<br>    整个属性组是码，称为全码（All-key）</p>
+<h4 id="外部码"><a href="#外部码" class="headerlink" title="外部码"></a>外部码</h4><p>关系模式 R 中属性或属性组X 并非R 的码，但 X 是另一个关系模式的码，则称 X 是R 的外部码（Foreign key）也称外码。</p>
+<h3 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h3><p>范式（Normal Form，NF）是关系模式的衡量标准</p>
+<ul>
+<li>关系数据库中的关系必须满足一定的约束条件。</li>
+<li>这些条件分为几个等级，一级比一级严格，每一级称为一个范式</li>
+<li>满足不同程度要求的关系属于不同的范式</li>
+</ul>
+<p>范式可理解为符合某一种级别的关系模式的集合</p>
+<h4 id="种类"><a href="#种类" class="headerlink" title="种类"></a>种类</h4><p>第一到第五范式（1NF…5NF）</p>
+<p>BC范式（在3NF到4NF之间）</p>
+<p>高级的范式含于低级范式</p>
+<p>低级范式可以通过模式分解转换为若干高一级范式，这就是规范化</p>
+<h4 id="1NF"><a href="#1NF" class="headerlink" title="1NF"></a>1NF</h4><p>​	如果一个关系模式R的所有属性都是不可分的基本数据项，则R∈1NF</p>
+<ul>
+<li>第一范式是对关系模式的最起码的要求。</li>
+<li>但是满足第一范式的关系模式并不一定是一个好的关系模式</li>
+<li>存在有部分函数依赖和传递函数依赖</li>
+</ul>
+<h4 id="2NF"><a href="#2NF" class="headerlink" title="2NF"></a>2NF</h4><p>若R∈1NF，且每一个非主属性完全函数依赖于码，则R∈2NF。即不存在部分函数依赖</p>
+<p>消除了非主属性对码的部分函数依赖</p>
+<p>采用投影分解法将一个1NF的关系分解为多个2NF的关系，可以在一定程度上减轻原1NF关系中存在的插入异常、删除异常、数据冗余度大、修改复杂等问题。</p>
+<p>并不能完全消除关系模式中的各种异常情况和数据冗余。</p>
+<h4 id="3NF"><a href="#3NF" class="headerlink" title="3NF"></a>3NF</h4><p>每一个非主属性既不部分依赖于码也不传递依赖于码。</p>
+<p>采用投影分解法将一个2NF的关系分解为多个3NF的关系，基本可以消除原2NF关系中存在的插入异常、删除异常、数据冗余度大、修改复杂等问题。</p>
+<p>仍然不能完全消除关系模式中的各种异常情况和数据冗余。（主属性之间的部分与传递函数依赖）</p>
+<h4 id="BCNF"><a href="#BCNF" class="headerlink" title="BCNF"></a>BCNF</h4><p>如果R∈3NF，并且不存在主属性与码之间的部分或传递函数依赖，则称R属于BC范式 </p>
+<p>一个关系模式如果属于BCNF，那么在函数依赖的范畴内，它已实现了彻底的分离，已消除了插入和删除的异常。</p>
 
                 
               </div>
@@ -332,12 +410,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%89%93%E5%8D%A1/" class="category-chain-item">打卡</a>
+  <a href="/categories/%E5%A4%8D%E4%B9%A0/" class="category-chain-item">复习</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%89%93%E5%8D%A1/%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%99%BE%E6%97%A5%E8%AE%A1%E5%88%92/" class="category-chain-item">第一个百日计划</a>
+  <a href="/categories/%E5%A4%8D%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" class="category-chain-item">数据库系统原理</a>
   
   
 
@@ -354,7 +432,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%99%BE%E6%97%A5%E8%AE%A1%E5%88%92/">#第一个百日计划</a>
+        <a href="/tags/%E5%A4%8D%E4%B9%A0/">#复习</a>
       
     </div>
   
@@ -366,8 +444,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>打卡49</div>
-      <div>http://haozhuqian.github.io/2023/04/20/打卡day49/</div>
+      <div>关系数据理论</div>
+      <div>http://haozhuqian.github.io/2023/04/25/数据库复习 - 关系数据理论/</div>
     </div>
     <div class="license-meta">
       
@@ -379,7 +457,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月20日</div>
+          <div>2023年4月25日</div>
         </div>
       
       
@@ -409,9 +487,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20SQL/" title="SQL">
+                      <a href="/2023/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%A2%E5%A4%8D%E6%8A%80%E6%9C%AF/" title="数据库恢复技术">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SQL</span>
+                        <span class="hidden-mobile">数据库恢复技术</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -419,8 +497,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/18/%E6%89%93%E5%8D%A1day48/" title="打卡48">
-                        <span class="hidden-mobile">打卡48</span>
+                      <a href="/2023/04/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%20-%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%8C%E6%95%B4%E6%80%A7/" title="数据库完整性">
+                        <span class="hidden-mobile">数据库完整性</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
