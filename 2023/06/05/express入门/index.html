@@ -24,7 +24,7 @@
 <meta property="og:description" content="express入门">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-05T11:45:30.000Z">
-<meta property="article:modified_time" content="2023-06-06T14:06:05.450Z">
+<meta property="article:modified_time" content="2023-06-07T11:39:43.809Z">
 <meta property="article:author" content="Mr.Good">
 <meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary_large_image">
@@ -99,7 +99,7 @@
 
 
   
-<meta name="generator" content="Hexo 6.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -248,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.6k 字
+          4.6k 字
         
       </span>
     
@@ -259,7 +259,7 @@
         
         
         
-          31 分钟
+          38 分钟
         
       </span>
     
@@ -312,7 +312,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install express<br></code></pre></td></tr></table></figure>
+                <h1 id="express入门"><a href="#express入门" class="headerlink" title="express入门"></a>express入门</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install express<br></code></pre></td></tr></table></figure>
 
 <h2 id="构建服务器"><a href="#构建服务器" class="headerlink" title="构建服务器"></a>构建服务器</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);<br><br><span class="hljs-comment">//创建express服务器</span><br><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();<br><br><span class="hljs-comment">//post请求监听</span><br>app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/login&#x27;</span>,<span class="hljs-function">(<span class="hljs-params">req,res</span>)=&gt;</span>&#123;<br>  res.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;登录成功&#x27;</span>)<br>&#125;)<br><br><span class="hljs-comment">//get请求监听</span><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/home&#x27;</span>,<span class="hljs-function">(<span class="hljs-params">req,res</span>)=&gt;</span>&#123;<br>  res.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;首页&#x27;</span>)<br>&#125;)<br><br><span class="hljs-comment">//启动服务器，监听端口</span><br>app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">9000</span>,<span class="hljs-function">()=&gt;</span>&#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;服务器启动&#x27;</span>);<br>&#125;)<br></code></pre></td></tr></table></figure>
 
@@ -347,35 +347,18 @@
 <p>返回数据</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/login&#x27;</span>,<span class="hljs-function">(<span class="hljs-params">req,res,next</span>)=&gt;</span>&#123;<br>	<span class="hljs-comment">//返回json数据</span><br>	res.<span class="hljs-title function_">json</span>(&#123;<br>		<span class="hljs-attr">code</span>:<span class="hljs-string">&#x27;0&#x27;</span>,<br>		<span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;登录成功&#x27;</span><br>	&#125;)<br>    <span class="hljs-comment">//设置状态码</span><br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">201</span>)<br>&#125;)<br></code></pre></td></tr></table></figure>
 
+<h3 id="创建路由"><a href="#创建路由" class="headerlink" title="创建路由"></a>创建路由</h3><p>我们可以使用express.Router来创建一个路由处理程序：</p>
+<ul>
+<li>一个router实例拥有完整的中间件和路由系统</li>
+<li>因此他也被称之为迷你应用程序</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">const userRouter = express.Router();<br><span class="hljs-regexp">//</span>这里匹配<span class="hljs-regexp">/user/</span>路径下的get请求<br>userRouter.get(<span class="hljs-string">&#x27;/&#x27;</span>,(req,res,<span class="hljs-keyword">next</span>)=&gt;&#123;<br>  res.json(<span class="hljs-string">&#x27;用户默认数据&#x27;</span>)<br>&#125;)<br><br>app.use(<span class="hljs-string">&#x27;/users&#x27;</span>,userRouter)<br></code></pre></td></tr></table></figure>
 
+<p>就是这样 ~</p>
+<h3 id="部署静态资源服务器"><a href="#部署静态资源服务器" class="headerlink" title="部署静态资源服务器"></a>部署静态资源服务器</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">static</span>(<span class="hljs-string">&quot;静态资源文件夹&quot;</span>))<br></code></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>next函数可以传入一个错误以传递给下一个调用的中间件，可以借此实现错误处理的解耦</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;login&#x27;</span>,<span class="hljs-function">(<span class="hljs-params">req,res,next</span>)=&gt;</span>&#123;<br>	<span class="hljs-keyword">const</span> &#123; username, password &#125; = req.<span class="hljs-property">body</span>;<br>	<br>	<span class="hljs-keyword">if</span>(!username || !password)&#123;<br>		<span class="hljs-title function_">next</span>( -<span class="hljs-number">1001</span> );<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (其他判断条件)&#123;<br>		<span class="hljs-title function_">next</span>( -<span class="hljs-number">1002</span> );<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		res.<span class="hljs-title function_">json</span>(&#123;<br>			<span class="hljs-attr">code</span>: <span class="hljs-number">0</span>,<br>			<span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;登录成功&#x27;</span>,<br>			<span class="hljs-attr">token</span>: <span class="hljs-string">&#x27;hsajnwunuixnuu&#x27;</span><br>		&#125;)<br>	&#125;<br>&#125;)<br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-function">(<span class="hljs-params">code, req, res, next</span>)=&gt;</span>&#123;<br>	<span class="hljs-keyword">let</span> message = <span class="hljs-string">&#x27;未知错误&#x27;</span><br>	<br>	<span class="hljs-keyword">switch</span>(code) &#123;<br>		<span class="hljs-keyword">case</span> -<span class="hljs-number">1001</span>:<br>			message = <span class="hljs-string">&#x27;没有输入用户名与密码&#x27;</span>;<br>			<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> -<span class="hljs-number">1002</span>:<br>			message = <span class="hljs-string">&#x27; 其他错误&#x27;</span><br>			<span class="hljs-keyword">break</span>;<br>	&#125;<br>	<br>	res.<span class="hljs-title function_">json</span>(&#123;<br>		code,<br>		message,<br>	&#125;)<br>&#125;)<br></code></pre></td></tr></table></figure>
 
 <p>就是这样 ~</p>
 
@@ -472,6 +455,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/06/05/JavaWeb%E5%A4%8D%E4%B9%A0/" title="复习-JavaWeb">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">复习-JavaWeb</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
